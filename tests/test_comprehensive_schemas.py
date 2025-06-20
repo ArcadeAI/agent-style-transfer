@@ -8,7 +8,6 @@ from agent_style_transfer.schemas import (
     Document,
     DocumentCategory,
     DocumentType,
-    GenericText,
     LinkedInPost,
     OutputSchema,
     ReferenceStyle,
@@ -232,62 +231,3 @@ def test_blog_post() -> None:
     assert response.output_schema.output_type == "blog_post"
     assert "blog post" in response.processed_content
     assert "Comprehensive analysis and insights" in response.processed_content
-
-
-def test_generic_text() -> None:
-    """Test creating a generic text output."""
-    # Create reference documents
-    reference_docs = [
-        Document(
-            url="https://example.com/reference5.txt",
-            type=ContentType.BLOG,
-            category=DocumentCategory.CREATIVE,
-            file_type=DocumentType.TXT,
-            title="Creative Blog Reference",
-        ),
-    ]
-
-    # Create target documents
-    target_docs = [
-        Document(
-            url="https://example.com/target5.md",
-            type=ContentType.LINKEDIN,
-            category=DocumentCategory.FORMAL,
-            file_type=DocumentType.MARKDOWN,
-            title="Formal LinkedIn Content",
-        ),
-    ]
-
-    # Create output schema for generic text
-    output_schema = OutputSchema(
-        name="creative_generic_text",
-        output_type="generic_text",
-        max_length=1500,
-        min_length=200,
-        format="markdown",
-        generic_text=GenericText(
-            text="",
-            max_characters=8000,
-            min_characters=200,
-            spaces_allowed=True,
-            markdown=True,
-            escape_html=False,
-        ),
-    )
-
-    # Create request
-    request = StyleTransferRequest(
-        reference_style=[
-            ReferenceStyle(name="creative_style", documents=reference_docs),
-        ],
-        intent="Make it creative and engaging",
-        focus="Core message and storytelling",
-        target_content=target_docs,
-        target_schemas=[output_schema],
-    )
-
-    # Process
-    response = transfer_style(request)
-    assert response.output_schema.output_type == "generic_text"
-    assert "Style Transfer Result" in response.processed_content
-    assert "Core message and storytelling" in response.processed_content

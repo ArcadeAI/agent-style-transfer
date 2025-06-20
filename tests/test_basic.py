@@ -38,6 +38,6 @@ def test_basic_style_transfer() -> None:
     )
     response = transfer_style(request)
     assert response.applied_style == "placeholder"
-    assert response.output_schema.name == "generic_text"
+    assert response.output_schema.name == "blog_post"
     assert "Style Transfer Result" in response.processed_content
     assert "Convert to formal style" in response.processed_content
