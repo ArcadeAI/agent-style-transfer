@@ -93,5 +93,5 @@ def test_default_blog_mode() -> None:
     response = transfer_style(request)
     # Assert expected results
     assert response.applied_style == "placeholder"
-    assert response.output_schema.output_type == "generic_text"
+    assert response.output_schema.output_type == "blog_post"
     assert "Summarize the main points" in response.processed_content

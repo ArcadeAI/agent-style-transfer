@@ -64,15 +64,18 @@ class Document(BaseModel):
         description="Category (e.g., Casual, Formal, Very Formal, Funny, etc.)",
     )
     file_type: DocumentType | None = Field(
-        default=None, description="File type if applicable",
+        default=None,
+        description="File type if applicable",
     )
     title: str | None = Field(default=None, description="Document title if available")
     author: str | None = Field(default=None, description="Document author if available")
     date_published: datetime | None = Field(
-        default=None, description="Publication date if available",
+        default=None,
+        description="Publication date if available",
     )
     metadata: dict[str, Any] = Field(
-        default_factory=dict, description="Additional metadata",
+        default_factory=dict,
+        description="Additional metadata",
     )
 
 
@@ -98,7 +101,8 @@ class WritingStyle(BaseModel):
         description="Personality traits: confident, humble, authoritative, etc.",
     )
     writing_patterns: dict[str, Any] = Field(
-        default_factory=dict, description="Specific writing patterns and preferences",
+        default_factory=dict,
+        description="Specific writing patterns and preferences",
     )
 
 
@@ -107,23 +111,30 @@ class ReferenceStyle(BaseModel):
 
     name: str = Field(description="Name/identifier for this reference style")
     description: str | None = Field(
-        default=None, description="Description of the style",
+        default=None,
+        description="Description of the style",
     )
 
     # Can be either documents OR a defined style
     documents: list[Document] | None = Field(
-        default=None, description="Reference documents from persona",
+        default=None,
+        description="Reference documents from persona",
     )
     style_definition: WritingStyle | None = Field(
-        default=None, description="Explicit style definition",
+        default=None,
+        description="Explicit style definition",
     )
 
     # Metadata
     categories: set[str] = Field(
-        default_factory=set, description="Categories this style applies to",
+        default_factory=set,
+        description="Categories this style applies to",
     )
     confidence: float = Field(
-        ge=0.0, le=1.0, default=1.0, description="Confidence in this style definition",
+        ge=0.0,
+        le=1.0,
+        default=1.0,
+        description="Confidence in this style definition",
     )
 
     def __init__(self, **data: Any) -> None:
@@ -149,7 +160,8 @@ class TweetSingle(BaseModel):
 
     text: str = Field(description="Tweet text content")
     url_allowed: bool = Field(
-        default=True, description="Whether URLs are allowed in this tweet",
+        default=True,
+        description="Whether URLs are allowed in this tweet",
     )
 
 
@@ -158,7 +170,8 @@ class TweetThread(BaseModel):
 
     tweets: list[TweetSingle] = Field(description="List of tweets in the thread")
     max_tweets: int = Field(
-        default=25, description="Maximum number of tweets in thread",
+        default=25,
+        description="Maximum number of tweets in thread",
     )
 
 
@@ -167,7 +180,8 @@ class LinkedInPost(BaseModel):
 
     text: str = Field(description="Post text content")
     multimedia_url: HttpUrl | None = Field(
-        default=None, description="URL to multimedia content (image/video)",
+        default=None,
+        description="URL to multimedia content (image/video)",
     )
 
 
@@ -186,26 +200,10 @@ class BlogPost(BaseModel):
     markdown: str = Field(description="Blog post content in markdown format")
     tags: list[str] = Field(default_factory=list, description="Tags for the blog post")
     categories: list[str] = Field(
-        default_factory=list, description="Categories for the blog post",
+        default_factory=list,
+        description="Categories for the blog post",
     )
     date: datetime | None = Field(default=None, description="Publication date")
-
-
-class GenericText(BaseModel):
-    """Generic text output schema."""
-
-    text: str = Field(description="Text content")
-    max_characters: int | None = Field(
-        default=None, description="Maximum character limit",
-    )
-    min_characters: int = Field(default=0, description="Minimum character requirement")
-    spaces_allowed: bool = Field(default=True, description="Whether spaces are allowed")
-    markdown: bool = Field(
-        default=False, description="Whether markdown formatting is allowed",
-    )
-    escape_html: bool = Field(
-        default=False, description="Whether HTML should be escaped",
-    )
 
 
 class OutputSchema(BaseModel):
@@ -217,7 +215,7 @@ class OutputSchema(BaseModel):
     output_type: str = Field(
         description=(
             "Type of output: tweet_single, tweet_thread, linkedin_post, "
-            "linkedin_comment, blog_post, generic_text"
+            "linkedin_comment, blog_post"
         ),
     )
 
@@ -228,30 +226,34 @@ class OutputSchema(BaseModel):
 
     # Specific output schemas
     tweet_single: TweetSingle | None = Field(
-        default=None, description="Single tweet configuration",
+        default=None,
+        description="Single tweet configuration",
     )
     tweet_thread: TweetThread | None = Field(
-        default=None, description="Twitter thread configuration",
+        default=None,
+        description="Twitter thread configuration",
     )
     linkedin_post: LinkedInPost | None = Field(
-        default=None, description="LinkedIn post configuration",
+        default=None,
+        description="LinkedIn post configuration",
     )
     linkedin_comment: LinkedInComment | None = Field(
-        default=None, description="LinkedIn comment configuration",
+        default=None,
+        description="LinkedIn comment configuration",
     )
     blog_post: BlogPost | None = Field(
-        default=None, description="Blog post configuration",
-    )
-    generic_text: GenericText | None = Field(
-        default=None, description="Generic text configuration",
+        default=None,
+        description="Blog post configuration",
     )
 
     # Metadata
     description: str | None = Field(
-        default=None, description="Description of this output schema",
+        default=None,
+        description="Description of this output schema",
     )
     platform: str | None = Field(
-        default=None, description="Target platform for this schema",
+        default=None,
+        description="Target platform for this schema",
     )
 
 
@@ -262,12 +264,14 @@ class StyleTransferRequest(BaseModel):
         description="Reference styles (documents or defined styles)",
     )
     intent: str | None = Field(
-        default=None, description="Soft override for voice expectations",
+        default=None,
+        description="Soft override for voice expectations",
     )
     focus: str = Field(description="How to process target content")
     target_content: list[Document] = Field(description="Documents to be processed")
     target_schemas: list[OutputSchema] | None = Field(
-        default=None, description="Output format schemas",
+        default=None,
+        description="Output format schemas",
     )
 
 
@@ -277,8 +281,10 @@ class StyleTransferResponse(BaseModel):
     processed_content: str = Field(description="The processed content")
     applied_style: str = Field(description="Name of the applied style")
     output_schema: OutputSchema | None = Field(
-        default=None, description="Output schema used",
+        default=None,
+        description="Output schema used",
     )
     metadata: dict[str, Any] = Field(
-        default_factory=dict, description="Additional response metadata",
+        default_factory=dict,
+        description="Additional response metadata",
     )
