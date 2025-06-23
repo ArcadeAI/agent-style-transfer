@@ -1,0 +1,162 @@
+"""Prompt building utilities for style transfer."""
+
+from agent_style_transfer.schemas import Document, OutputSchema, ReferenceStyle
+
+
+def build_generation_prompt(
+    output_schema: OutputSchema,
+    reference_docs: list[ReferenceStyle],
+    intent: str | None,
+    focus: str,
+    target_docs: list[Document],
+) -> str:
+    """Build a comprehensive prompt for content generation."""
+
+    # Extract style information from reference documents
+    style_info = extract_style_information(reference_docs)
+
+    # Extract target content information
+    target_info = extract_target_information(target_docs)
+
+    # Get writing style guidance
+    writing_guidance = get_writing_guidance(output_schema.output_type)
+
+    prompt = f"""
+You are tasked with creating content that transfers the style from reference
+materials to target content.
+
+## Reference Style Information:
+{style_info}
+
+## Target Content Information:
+{target_info}
+
+## Intent and Focus:
+- Intent: {intent or "Not specified"}
+- Focus: {focus}
+
+## Writing Style Guidance:
+{writing_guidance}
+
+## Instructions:
+1. Analyze the reference style characteristics carefully
+2. Extract key information from the target content
+3. Create content that matches the reference style while conveying the target
+   content's message
+4. Follow the writing style guidance above
+5. Return the content in the exact format specified by the output schema
+6. Maintain the original intent and focus while adapting to the new style
+
+Please generate the content now:
+"""
+
+    return prompt
+
+
+def get_writing_guidance(output_type: str) -> str:
+    """Get writing style guidance for different output types."""
+    guidance = {
+        "tweet_single": (
+            "Create engaging, concise content suitable for Twitter. "
+            "Use hashtags appropriately and make it shareable."
+        ),
+        "tweet_thread": (
+            "Create a connected series of tweets that tell a story. "
+            "Number them and make each tweet engaging."
+        ),
+        "linkedin_post": (
+            "Write professional but engaging content. Use bullet points "
+            "for readability and end with a call-to-action."
+        ),
+        "linkedin_comment": (
+            "Be professional and constructive. Add value to the "
+            "conversation and keep it concise."
+        ),
+        "blog_post": (
+            "Create comprehensive content with proper structure. "
+            "Use markdown formatting and include relevant details."
+        ),
+    }
+
+    return guidance.get(
+        output_type,
+        "Create well-structured, engaging content appropriate for the platform."
+    )
+
+
+def extract_style_information(reference_docs: list[ReferenceStyle]) -> str:
+    """Extract and format style information from reference documents."""
+    style_info = []
+
+    for i, ref_style in enumerate(reference_docs, 1):
+        style_info.append(f"### Reference Style {i}: {ref_style.name}")
+
+        if ref_style.description:
+            style_info.append(f"Description: {ref_style.description}")
+
+        if ref_style.style_definition:
+            style_def = ref_style.style_definition
+            style_info.append(f"Tone: {style_def.tone}")
+            style_info.append(f"Formality Level: {style_def.formality_level}/10")
+            style_info.append(f"Sentence Structure: {style_def.sentence_structure}")
+            style_info.append(f"Vocabulary Level: {style_def.vocabulary_level}")
+
+            if style_def.personality_traits:
+                style_info.append(
+                    f"Personality Traits: {', '.join(style_def.personality_traits)}"
+                )
+
+            if style_def.writing_patterns:
+                style_info.append("Writing Patterns:")
+                for pattern, value in style_def.writing_patterns.items():
+                    style_info.append(f"  - {pattern}: {value}")
+
+        if ref_style.documents:
+            style_info.append(
+                f"Reference Documents: {len(ref_style.documents)} documents"
+            )
+            for doc in ref_style.documents:
+                style_info.append(f"  - {doc.title or 'Untitled'} ({doc.type.value})")
+
+        style_info.append("")  # Empty line for separation
+
+    return "\n".join(style_info)
+
+
+def extract_target_information(target_docs: list[Document]) -> str:
+    """Extract and format target content information."""
+    target_info = []
+
+    for i, doc in enumerate(target_docs, 1):
+        target_info.append(f"### Target Document {i}")
+        target_info.append(f"Title: {doc.title or 'Untitled'}")
+        target_info.append(f"Type: {doc.type.value}")
+        target_info.append(f"Category: {doc.category.value}")
+        target_info.append(f"Author: {doc.author or 'Unknown'}")
+
+        if doc.date_published:
+            target_info.append(f"Date: {doc.date_published}")
+
+        if doc.metadata:
+            target_info.append("Metadata:")
+            for key, value in doc.metadata.items():
+                target_info.append(f"  - {key}: {value}")
+
+        target_info.append("")  # Empty line for separation
+
+    return "\n".join(target_info)
+
+
+def get_max_tokens(output_schema: OutputSchema) -> int:
+    """Determine appropriate max_tokens based on output schema."""
+    output_type = output_schema.output_type
+
+    token_limits = {
+        "tweet_single": 100,
+        "tweet_thread": 500,
+        "linkedin_post": 300,
+        "linkedin_comment": 150,
+        "blog_post": 2000,
+    }
+
+    return token_limits.get(output_type, 2000)
