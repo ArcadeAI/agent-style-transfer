@@ -62,5 +62,5 @@
       "platform": "LinkedIn"
     }
   ],
-  "llm_provider": "google"
+  "llm_provider": "openai"
 } 

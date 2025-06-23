@@ -37,7 +37,7 @@ def get_llm(provider: str):
     if provider == "openai":
         return ChatOpenAI(
             api_key=api_key,
-            model="gpt-3.5-turbo",
+            model="gpt-4o-mini",
             temperature=0.7,
         )
 
@@ -51,7 +51,7 @@ def get_llm(provider: str):
     elif provider == "google":
         return ChatGoogleGenerativeAI(
             google_api_key=api_key,
-            model="gemini-pro",
+            model="gemini-1.5-pro",
             temperature=0.7,
         )
 
