@@ -7,13 +7,11 @@ such as Twitter, LinkedIn, and blog posts.
 
 from __future__ import annotations
 
+from datetime import datetime
 from enum import Enum
-from typing import TYPE_CHECKING, Any
+from typing import Any
 
-from pydantic import BaseModel, Field, HttpUrl
-
-if TYPE_CHECKING:
-    from datetime import datetime
+from pydantic import BaseModel, Field, HttpUrl, field_validator
 
 
 class ContentType(str, Enum):
@@ -206,17 +204,60 @@ class BlogPost(BaseModel):
     date: datetime | None = Field(default=None, description="Publication date")
 
 
+# LLM Provider Configuration
+class StyleTransferRequest(BaseModel):
+    """Complete request for style transfer."""
+
+    reference_style: list[ReferenceStyle] = Field(
+        description="Reference styles (documents or defined styles)",
+    )
+    intent: str | None = Field(
+        default=None,
+        description="Soft override for voice expectations",
+    )
+    focus: str = Field(description="How to process target content")
+    target_content: list[Document] = Field(description="Documents to be processed")
+    target_schemas: list[OutputSchema] = Field(
+        description="Output format schemas",
+    )
+    llm_provider: str | None = Field(
+        default="huggingface",
+        description=(
+            "LLM provider to use (e.g., 'huggingface', 'openai', "
+            "'anthropic', 'google')"
+        ),
+    )
+
+    @field_validator("reference_style")
+    @classmethod
+    def validate_reference_style(cls, v):
+        if not v:
+            raise ValueError("At least one reference style must be provided")
+        return v
+
+    @field_validator("target_content")
+    @classmethod
+    def validate_target_content(cls, v):
+        if not v:
+            raise ValueError("At least one target content document must be provided")
+        return v
+
+    @field_validator("target_schemas")
+    @classmethod
+    def validate_target_schemas(cls, v):
+        if not v:
+            raise ValueError("At least one target schema must be provided")
+        return v
+
+
 class OutputSchema(BaseModel):
     """Comprehensive schema for structured output formats."""
 
     name: str = Field(description="Schema name/identifier")
 
     # Output type and specific schema
-    output_type: str = Field(
-        description=(
-            "Type of output: tweet_single, tweet_thread, linkedin_post, "
-            "linkedin_comment, blog_post"
-        ),
+    output_type: OutputType = Field(
+        description="Type of output",
     )
 
     # Generic constraints
@@ -257,24 +298,6 @@ class OutputSchema(BaseModel):
     )
 
 
-class StyleTransferRequest(BaseModel):
-    """Complete request for style transfer."""
-
-    reference_style: list[ReferenceStyle] = Field(
-        description="Reference styles (documents or defined styles)",
-    )
-    intent: str | None = Field(
-        default=None,
-        description="Soft override for voice expectations",
-    )
-    focus: str = Field(description="How to process target content")
-    target_content: list[Document] = Field(description="Documents to be processed")
-    target_schemas: list[OutputSchema] | None = Field(
-        default=None,
-        description="Output format schemas",
-    )
-
-
 class StyleTransferResponse(BaseModel):
     """Response from style transfer."""
 
@@ -288,3 +311,33 @@ class StyleTransferResponse(BaseModel):
         default_factory=dict,
         description="Additional response metadata",
     )
+
+
+class OutputType(str, Enum):
+    """Enum for output types with their corresponding schema classes."""
+
+    TWEET_SINGLE = "tweet_single"
+    TWEET_THREAD = "tweet_thread"
+    LINKEDIN_POST = "linkedin_post"
+    LINKEDIN_COMMENT = "linkedin_comment"
+    BLOG_POST = "blog_post"
+
+    def get_schema(self) -> type[BaseModel]:
+        """Get the corresponding Pydantic schema class."""
+        from agent_style_transfer.schemas import (
+            BlogPost,
+            LinkedInComment,
+            LinkedInPost,
+            TweetSingle,
+            TweetThread,
+        )
+
+        schema_map = {
+            OutputType.TWEET_SINGLE: TweetSingle,
+            OutputType.TWEET_THREAD: TweetThread,
+            OutputType.LINKEDIN_POST: LinkedInPost,
+            OutputType.LINKEDIN_COMMENT: LinkedInComment,
+            OutputType.BLOG_POST: BlogPost,
+        }
+
+        return schema_map[self]
