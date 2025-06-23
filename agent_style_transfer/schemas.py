@@ -221,9 +221,9 @@ class StyleTransferRequest(BaseModel):
         description="Output format schemas",
     )
     llm_provider: str | None = Field(
-        default="huggingface",
+        default="openai",
         description=(
-            "LLM provider to use (e.g., 'huggingface', 'openai', "
+            "LLM provider to use (e.g., 'openai', "
             "'anthropic', 'google')"
         ),
     )

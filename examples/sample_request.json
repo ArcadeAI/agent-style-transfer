@@ -1,0 +1,66 @@
+{
+  "reference_style": [
+    {
+      "name": "Casual Tech Style",
+      "description": "Casual, engaging tech content with emojis and hashtags",
+      "style_definition": {
+        "tone": "casual and engaging",
+        "formality_level": 3,
+        "sentence_structure": "short and punchy",
+        "vocabulary_level": "simple",
+        "personality_traits": ["enthusiastic", "knowledgeable", "approachable"],
+        "writing_patterns": {
+          "use_emojis": true,
+          "hashtag_frequency": "moderate",
+          "question_style": "rhetorical"
+        }
+      },
+      "categories": ["tech", "social media", "casual"],
+      "confidence": 0.9
+    }
+  ],
+  "intent": "Make technical content accessible across different platforms",
+  "focus": "Extract key technical concepts and benefits from the documentation, then adapt them for different audience types while maintaining technical accuracy",
+  "target_content": [
+    {
+      "url": "https://example.com/tech-blog-post",
+      "type": "Blog",
+      "category": "Technical",
+      "file_type": "markdown",
+      "title": "Understanding Machine Learning Basics",
+      "author": "Dr. Jane Smith",
+      "date_published": "2024-01-15T10:00:00Z",
+      "metadata": {
+        "word_count": 2500,
+        "target_audience": "developers"
+      }
+    }
+  ],
+  "target_schemas": [
+    {
+      "name": "Twitter Single Post",
+      "output_type": "tweet_single",
+      "max_length": 280,
+      "format": "text",
+      "tweet_single": {
+        "text": "",
+        "url_allowed": true
+      },
+      "description": "Single tweet for tech content",
+      "platform": "Twitter"
+    },
+    {
+      "name": "LinkedIn Professional Post",
+      "output_type": "linkedin_post",
+      "max_length": 1300,
+      "format": "text",
+      "linkedin_post": {
+        "text": "",
+        "multimedia_url": null
+      },
+      "description": "Professional LinkedIn post",
+      "platform": "LinkedIn"
+    }
+  ],
+  "llm_provider": "google"
+} 
