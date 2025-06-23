@@ -19,8 +19,8 @@
       "confidence": 0.9
     }
   ],
-  "intent": "Make technical content accessible across different platforms",
-  "focus": "Extract key technical concepts and benefits from the documentation, then adapt them for different audience types while maintaining technical accuracy",
+  "intent": "Make technical content accessible",
+  "focus": "Extract key technical concepts and adapt them for social media",
   "target_content": [
     {
       "url": "https://example.com/tech-blog-post",
@@ -48,19 +48,7 @@
       },
       "description": "Single tweet for tech content",
       "platform": "Twitter"
-    },
-    {
-      "name": "LinkedIn Professional Post",
-      "output_type": "linkedin_post",
-      "max_length": 1300,
-      "format": "text",
-      "linkedin_post": {
-        "text": "",
-        "multimedia_url": null
-      },
-      "description": "Professional LinkedIn post",
-      "platform": "LinkedIn"
     }
   ],
-  "llm_provider": "openai"
+  "llm_provider": "nvidia"
 } 
