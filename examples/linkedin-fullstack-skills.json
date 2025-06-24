@@ -5,7 +5,7 @@
       "description": "Professional insights with industry perspective and data-driven analysis",
       "style_definition": {
         "tone": "professional and insightful",
-        "formality_level": 7,
+        "formality_level": 0.7,
         "sentence_structure": "varied and engaging",
         "vocabulary_level": "moderate to advanced",
         "personality_traits": ["confident", "thoughtful", "industry-expert"],

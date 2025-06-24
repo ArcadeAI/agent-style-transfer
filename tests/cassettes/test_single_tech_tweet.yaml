@@ -4,7 +4,7 @@ interactions:
       with creating content that transfers the style from reference\nmaterials to
       target content.\n\n## Reference Style Information:\n### Reference Style 1: Tech
       Influencer Style\nDescription: Casual, engaging tech content with emojis and
-      hashtags for social media\nTone: casual and engaging\nFormality Level: 3/10\nSentence
+      hashtags for social media\nTone: casual and engaging\nFormality Level: 0.3 (0.0-1.0 scale)\nSentence
       Structure: short and punchy\nVocabulary Level: simple\nPersonality Traits: enthusiastic,
       knowledgeable, approachable\nWriting Patterns:\n  - use_emojis: True\n  - hashtag_frequency:
       moderate\n  - question_style: rhetorical\n  - bullet_points: True\n  - call_to_action:

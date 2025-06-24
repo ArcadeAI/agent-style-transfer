@@ -4,13 +4,13 @@ interactions:
       with creating content that transfers the style from reference\nmaterials to
       target content.\n\n## Reference Style Information:\n### Reference Style 1: Tech
       Educator Style\nDescription: Educational content that makes complex topics accessible
-      and engaging\nTone: educational and approachable\nFormality Level: 5/10\nSentence
+      and engaging\nTone: educational and approachable\nFormality Level: 0.5 (0.0-1.0 scale)\nSentence
       Structure: clear and structured\nVocabulary Level: moderate\nPersonality Traits:
       helpful, knowledgeable, encouraging\nWriting Patterns:\n  - use_examples: True\n  -
       step_by_step: True\n  - include_code_snippets: True\n  - use_analogies: True\n  -
       encourage_questions: True\n\n### Reference Style 2: Social Media Tech Influencer\nDescription:
       Engaging social media content with hooks and viral potential\nTone: casual and
-      engaging\nFormality Level: 3/10\nSentence Structure: short and punchy\nVocabulary
+      engaging\nFormality Level: 0.3 (0.0-1.0 scale)\nSentence Structure: short and punchy\nVocabulary
       Level: simple\nPersonality Traits: enthusiastic, relatable, trendy\nWriting
       Patterns:\n  - use_emojis: True\n  - hashtag_frequency: high\n  - question_style:
       engaging\n  - use_hooks: True\n  - call_to_action: True\n\n\n## Target Content
@@ -141,13 +141,13 @@ interactions:
       with creating content that transfers the style from reference\nmaterials to
       target content.\n\n## Reference Style Information:\n### Reference Style 1: Tech
       Educator Style\nDescription: Educational content that makes complex topics accessible
-      and engaging\nTone: educational and approachable\nFormality Level: 5/10\nSentence
+      and engaging\nTone: educational and approachable\nFormality Level: 0.5 (0.0-1.0 scale)\nSentence
       Structure: clear and structured\nVocabulary Level: moderate\nPersonality Traits:
       helpful, knowledgeable, encouraging\nWriting Patterns:\n  - use_examples: True\n  -
       step_by_step: True\n  - include_code_snippets: True\n  - use_analogies: True\n  -
       encourage_questions: True\n\n### Reference Style 2: Social Media Tech Influencer\nDescription:
       Engaging social media content with hooks and viral potential\nTone: casual and
-      engaging\nFormality Level: 3/10\nSentence Structure: short and punchy\nVocabulary
+      engaging\nFormality Level: 0.3 (0.0-1.0 scale)\nSentence Structure: short and punchy\nVocabulary
       Level: simple\nPersonality Traits: enthusiastic, relatable, trendy\nWriting
       Patterns:\n  - use_emojis: True\n  - hashtag_frequency: high\n  - question_style:
       engaging\n  - use_hooks: True\n  - call_to_action: True\n\n\n## Target Content

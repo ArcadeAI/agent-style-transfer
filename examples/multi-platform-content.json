@@ -5,7 +5,7 @@
       "description": "Educational content that makes complex topics accessible and engaging",
       "style_definition": {
         "tone": "educational and approachable",
-        "formality_level": 5,
+        "formality_level": 0.5,
         "sentence_structure": "clear and structured",
         "vocabulary_level": "moderate",
         "personality_traits": ["helpful", "knowledgeable", "encouraging"],
@@ -25,7 +25,7 @@
       "description": "Engaging social media content with hooks and viral potential",
       "style_definition": {
         "tone": "casual and engaging",
-        "formality_level": 3,
+        "formality_level": 0.3,
         "sentence_structure": "short and punchy",
         "vocabulary_level": "simple",
         "personality_traits": ["enthusiastic", "relatable", "trendy"],
