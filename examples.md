@@ -14,7 +14,7 @@ This document provides examples of inputs and their corresponding outputs for th
       "description": "Casual, engaging tech content with emojis and hashtags",
       "style_definition": {
         "tone": "casual and engaging",
-        "formality_level": 3,
+        "formality_level": 0.3,
         "sentence_structure": "short and punchy",
         "vocabulary_level": "simple",
         "personality_traits": ["enthusiastic", "knowledgeable", "approachable"],
@@ -58,7 +58,7 @@ This document provides examples of inputs and their corresponding outputs for th
       "description": "Detailed, educational content with code examples",
       "style_definition": {
         "tone": "educational and professional",
-        "formality_level": 6,
+        "formality_level": 0.6,
         "sentence_structure": "structured and clear",
         "vocabulary_level": "technical but accessible",
         "personality_traits": ["helpful", "knowledgeable", "thorough"],
@@ -98,7 +98,7 @@ This document provides examples of inputs and their corresponding outputs for th
       "description": "Professional insights with industry perspective",
       "style_definition": {
         "tone": "professional and insightful",
-        "formality_level": 7,
+        "formality_level": 0.7,
         "sentence_structure": "varied and engaging",
         "vocabulary_level": "moderate to advanced",
         "personality_traits": ["confident", "thoughtful", "industry-expert"],
@@ -279,7 +279,7 @@ This document provides examples of inputs and their corresponding outputs for th
       "description": "Professional, authoritative content with industry insights",
       "style_definition": {
         "tone": "professional and authoritative",
-        "formality_level": 8,
+        "formality_level": 0.8,
         "sentence_structure": "varied",
         "vocabulary_level": "moderate",
         "personality_traits": ["confident", "thoughtful", "industry-expert"],
@@ -297,7 +297,7 @@ This document provides examples of inputs and their corresponding outputs for th
       "description": "Friendly, conversational social media style",
       "style_definition": {
         "tone": "friendly and conversational",
-        "formality_level": 2,
+        "formality_level": 0.2,
         "sentence_structure": "simple and direct",
         "vocabulary_level": "everyday",
         "personality_traits": ["friendly", "relatable", "authentic"],
@@ -315,7 +315,7 @@ This document provides examples of inputs and their corresponding outputs for th
       "description": "Well-structured, informative blog content",
       "style_definition": {
         "tone": "professional and informative",
-        "formality_level": 6,
+        "formality_level": 0.6,
         "sentence_structure": "clear and flowing",
         "vocabulary_level": "moderate",
         "personality_traits": ["authoritative", "helpful", "professional"],
@@ -464,7 +464,7 @@ This document provides examples of inputs and their corresponding outputs for th
       "description": "Rigorous, evidence-based content with citations",
       "style_definition": {
         "tone": "scholarly and analytical",
-        "formality_level": 9,
+        "formality_level": 0.9,
         "sentence_structure": "complex and detailed",
         "vocabulary_level": "advanced",
         "personality_traits": ["analytical", "thorough", "objective"],
@@ -482,7 +482,7 @@ This document provides examples of inputs and their corresponding outputs for th
       "description": "Practical insights with real-world applications",
       "style_definition": {
         "tone": "practical and authoritative",
-        "formality_level": 7,
+        "formality_level": 0.7,
         "sentence_structure": "clear and direct",
         "vocabulary_level": "moderate to advanced",
         "personality_traits": ["experienced", "practical", "insightful"],
@@ -500,7 +500,7 @@ This document provides examples of inputs and their corresponding outputs for th
       "description": "Clear, engaging educational content",
       "style_definition": {
         "tone": "educational and engaging",
-        "formality_level": 5,
+        "formality_level": 0.5,
         "sentence_structure": "clear and accessible",
         "vocabulary_level": "moderate",
         "personality_traits": ["helpful", "knowledgeable", "engaging"],

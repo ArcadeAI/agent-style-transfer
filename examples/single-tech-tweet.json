@@ -5,7 +5,7 @@
       "description": "Casual, engaging tech content with emojis and hashtags for social media",
       "style_definition": {
         "tone": "casual and engaging",
-        "formality_level": 3,
+        "formality_level": 0.3,
         "sentence_structure": "short and punchy",
         "vocabulary_level": "simple",
         "personality_traits": ["enthusiastic", "knowledgeable", "approachable"],

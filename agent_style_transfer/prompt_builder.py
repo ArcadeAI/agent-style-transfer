@@ -94,7 +94,7 @@ def extract_style_information(reference_docs: list[ReferenceStyle]) -> str:
         if ref_style.style_definition:
             style_def = ref_style.style_definition
             style_info.append(f"Tone: {style_def.tone}")
-            style_info.append(f"Formality Level: {style_def.formality_level}/10")
+            style_info.append(f"Formality Level: {style_def.formality_level:.1f} (0.0-1.0 scale)")
             style_info.append(f"Sentence Structure: {style_def.sentence_structure}")
             style_info.append(f"Vocabulary Level: {style_def.vocabulary_level}")
 

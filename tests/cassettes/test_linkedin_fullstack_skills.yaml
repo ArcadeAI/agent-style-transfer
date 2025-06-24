@@ -3,33 +3,32 @@ interactions:
     body: '{"max_tokens":1024,"messages":[{"role":"user","content":"\nYou are tasked
       with creating content that transfers the style from reference\nmaterials to
       target content.\n\n## Reference Style Information:\n### Reference Style 1: LinkedIn
-      Tech Thought Leader\nDescription: Professional insights with industry perspective
-      and data-driven analysis\nTone: professional and insightful\nFormality Level:
-      7/10\nSentence Structure: varied and engaging\nVocabulary Level: moderate to
-      advanced\nPersonality Traits: confident, thoughtful, industry-expert\nWriting
-      Patterns:\n  - use_statistics: True\n  - include_call_to_action: True\n  - personal_insights:
-      True\n  - bullet_points: True\n  - industry_references: True\n\n\n## Target
-      Content Information:\n### Target Document 1\nTitle: 2024 Full-Stack Developer
-      Skills Report: What Employers Are Actually Looking For\nType: Blog\nCategory:
-      Technical\nAuthor: Tech Hiring Analytics Team\nDate: 2024-01-20 14:30:00+00:00\nMetadata:\n  -
-      word_count: 3200\n  - target_audience: developers\n  - difficulty: intermediate\n  -
-      topics: [''full-stack development'', ''career'', ''skills'', ''hiring'']\n  -
-      data_sources: [''LinkedIn Jobs'', ''Indeed'', ''Stack Overflow'']\n  - sample_size:
-      50,000+ job postings\n\n\n## Intent and Focus:\n- Intent: Share valuable insights
-      about in-demand full-stack development skills\n- Focus: Extract key data points
-      and insights about full-stack skills demand, then present them in an engaging
-      professional format with actionable takeaways\n\n## Writing Style Guidance:\nWrite
-      professional but engaging content. Use bullet points for readability and end
-      with a call-to-action.\n\n## Instructions:\n1. Analyze the reference style characteristics
-      carefully\n2. Extract key information from the target content\n3. Create content
-      that matches the reference style while conveying the target\n   content''s message\n4.
-      Follow the writing style guidance above\n5. Return the content in the exact
-      format specified by the output schema\n6. Maintain the original intent and focus
-      while adapting to the new style\n\nPlease generate the content now:\n"}],"model":"claude-3-haiku-20240307","system":"You
+      Thought Leader\nDescription: Professional, authoritative content with industry
+      insights\nTone: professional and authoritative\nFormality Level: 0.7 (0.0-1.0 scale)\nSentence
+      Structure: varied\nVocabulary Level: moderate\nPersonality Traits: confident,
+      thoughtful, industry-expert\nWriting Patterns:\n  - use_statistics: True\n  -
+      include_call_to_action: True\n  - personal_insights: True\n\n\n## Target Content
+      Information:\n### Target Document 1\nTitle: Full-Stack Development Skills for
+      2024: A Comprehensive Guide\nType: Blog\nCategory: Technical\nAuthor: Tech Skills
+      Institute\nDate: 2024-01-20 14:00:00+00:00\nMetadata:\n  - word_count: 3200\n  -
+      target_audience: developers\n  - difficulty: intermediate\n  - topics: [''full-stack'',
+      ''web development'', ''skills'', ''career'']\n  - sections: [''frontend'', ''backend'',
+      ''databases'', ''devops'', ''soft skills'']\n\n\n## Intent and Focus:\n- Intent:
+      Share insights about full-stack development skills and career opportunities\n-
+      Focus: Extract key information about full-stack development skills and present
+      it in a professional, thought-leadership style suitable for LinkedIn\n\n## Writing
+      Style Guidance:\nWrite professional but engaging content. Use bullet points
+      for readability and end with a call-to-action.\n\n## Instructions:\n1. Analyze
+      the reference style characteristics carefully\n2. Extract key information from
+      the target content\n3. Create content that matches the reference style while
+      conveying the target\n   content''s message\n4. Follow the writing style guidance
+      above\n5. Return the content in the exact format specified by the output schema\n6.
+      Maintain the original intent and focus while adapting to the new style\n\nPlease
+      generate the content now:\n"}],"model":"claude-3-haiku-20240307","system":"You
       are an expert content creator specializing in style transfer. Return the content
       in the exact format specified by the output schema.","temperature":0.7,"tool_choice":{"type":"tool","name":"LinkedInPost"},"tools":[{"name":"LinkedInPost","input_schema":{"properties":{"text":{"description":"Post
-      text content","type":"string"},"multimedia_url":{"anyOf":[{"format":"uri","maxLength":2083,"minLength":1,"type":"string"},{"type":"null"}],"default":null,"description":"URL
-      to multimedia content (image/video)"}},"required":["text"],"type":"object"},"description":"LinkedIn
+      text content","type":"string"},"multimedia_url":{"description":"URL to multimedia
+      content (image/video)","type":"string"}},"required":["text"],"type":"object"},"description":"LinkedIn
       post schema."}]}'
     headers:
       accept:
