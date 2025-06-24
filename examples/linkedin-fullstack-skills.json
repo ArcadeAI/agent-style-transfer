@@ -1,0 +1,59 @@
+{
+  "reference_style": [
+    {
+      "name": "LinkedIn Tech Thought Leader",
+      "description": "Professional insights with industry perspective and data-driven analysis",
+      "style_definition": {
+        "tone": "professional and insightful",
+        "formality_level": 7,
+        "sentence_structure": "varied and engaging",
+        "vocabulary_level": "moderate to advanced",
+        "personality_traits": ["confident", "thoughtful", "industry-expert"],
+        "writing_patterns": {
+          "use_statistics": true,
+          "include_call_to_action": true,
+          "personal_insights": true,
+          "bullet_points": true,
+          "industry_references": true
+        }
+      },
+      "categories": ["professional", "tech", "thought-leadership"],
+      "confidence": 0.9
+    }
+  ],
+  "intent": "Share valuable insights about in-demand full-stack development skills",
+  "focus": "Extract key data points and insights about full-stack skills demand, then present them in an engaging professional format with actionable takeaways",
+  "target_content": [
+    {
+      "url": "https://tech-jobs-report.example.com/2024-fullstack-skills-analysis",
+      "type": "Blog",
+      "category": "Technical",
+      "file_type": "markdown",
+      "title": "2024 Full-Stack Developer Skills Report: What Employers Are Actually Looking For",
+      "author": "Tech Hiring Analytics Team",
+      "date_published": "2024-01-20T14:30:00Z",
+      "metadata": {
+        "word_count": 3200,
+        "target_audience": "developers",
+        "difficulty": "intermediate",
+        "topics": ["full-stack development", "career", "skills", "hiring"],
+        "data_sources": ["LinkedIn Jobs", "Indeed", "Stack Overflow"],
+        "sample_size": "50,000+ job postings"
+      }
+    }
+  ],
+  "target_schemas": [
+    {
+      "name": "LinkedIn Professional Post",
+      "output_type": "linkedin_post",
+      "max_length": 1300,
+      "format": "text",
+      "linkedin_post": {
+        "text": "",
+        "multimedia_url": null
+      },
+      "description": "Professional LinkedIn post with industry insights and data",
+      "platform": "LinkedIn"
+    }
+  ]
+} 

@@ -71,6 +71,10 @@ class Document(BaseModel):
         default=None,
         description="Publication date if available",
     )
+    content: str | None = Field(
+        default=None,
+        description="The actual text content of the document",
+    )
     metadata: dict[str, Any] = Field(
         default_factory=dict,
         description="Additional metadata",
@@ -219,13 +223,6 @@ class StyleTransferRequest(BaseModel):
     target_content: list[Document] = Field(description="Documents to be processed")
     target_schemas: list[OutputSchema] = Field(
         description="Output format schemas",
-    )
-    llm_provider: str | None = Field(
-        default="openai",
-        description=(
-            "LLM provider to use (e.g., 'openai', "
-            "'anthropic', 'google')"
-        ),
     )
 
     @field_validator("reference_style")
