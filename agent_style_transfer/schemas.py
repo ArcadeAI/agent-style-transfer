@@ -117,7 +117,6 @@ class ReferenceStyle(BaseModel):
         description="Description of the style",
     )
 
-    # Can be either documents OR a defined style
     documents: list[Document] | None = Field(
         default=None,
         description="Reference documents from persona",
@@ -127,7 +126,6 @@ class ReferenceStyle(BaseModel):
         description="Explicit style definition",
     )
 
-    # Metadata
     categories: set[str] = Field(
         default_factory=set,
         description="Categories this style applies to",
@@ -150,13 +148,11 @@ class ReferenceStyle(BaseModel):
 
         """
         super().__init__(**data)
-        # Ensure at least one of documents or style_definition is provided
         if not self.documents and not self.style_definition:
             error_msg = "Either documents or style_definition must be provided"
             raise ValueError(error_msg)
 
 
-# Output Schema Components
 class TweetSingle(BaseModel):
     """Single tweet schema."""
 
@@ -198,7 +194,6 @@ class BlogPost(BaseModel):
 
     title: str = Field(description="Blog post title")
     subtitle: str | None = Field(default=None, description="Blog post subtitle")
-    author: str | None = Field(default=None, description="Author name")
     markdown: str = Field(description="Blog post content in markdown format")
     tags: list[str] = Field(default_factory=list, description="Tags for the blog post")
     categories: list[str] = Field(
@@ -208,7 +203,6 @@ class BlogPost(BaseModel):
     date: datetime | None = Field(default=None, description="Publication date")
 
 
-# LLM Provider Configuration
 class StyleTransferRequest(BaseModel):
     """Complete request for style transfer."""
 
@@ -222,7 +216,7 @@ class StyleTransferRequest(BaseModel):
     focus: str = Field(description="How to process target content")
     target_content: list[Document] = Field(description="Documents to be processed")
     target_schemas: list[OutputSchema] = Field(
-        description="Output format schemas",
+        description="Output schemas for different platforms",
     )
 
     @field_validator("reference_style")
@@ -236,7 +230,7 @@ class StyleTransferRequest(BaseModel):
     @classmethod
     def validate_target_content(cls, v):
         if not v:
-            raise ValueError("At least one target content document must be provided")
+            raise ValueError("At least one target content must be provided")
         return v
 
     @field_validator("target_schemas")
@@ -252,17 +246,14 @@ class OutputSchema(BaseModel):
 
     name: str = Field(description="Schema name/identifier")
 
-    # Output type and specific schema
     output_type: OutputType = Field(
         description="Type of output",
     )
 
-    # Generic constraints
     max_length: int | None = Field(default=None, description="Maximum length in words")
     min_length: int | None = Field(default=None, description="Minimum length in words")
     format: str = Field(default="markdown", description="Output format")
 
-    # Specific output schemas
     tweet_single: TweetSingle | None = Field(
         default=None,
         description="Single tweet configuration",
@@ -284,7 +275,6 @@ class OutputSchema(BaseModel):
         description="Blog post configuration",
     )
 
-    # Metadata
     description: str | None = Field(
         default=None,
         description="Description of this output schema",
@@ -306,7 +296,7 @@ class StyleTransferResponse(BaseModel):
     )
     metadata: dict[str, Any] = Field(
         default_factory=dict,
-        description="Additional response metadata",
+        description="Additional metadata about the processing",
     )
 
 

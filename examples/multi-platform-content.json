@@ -46,7 +46,7 @@
   "target_content": [
     {
       "url": "https://api-design-guide.example.com/rest-best-practices",
-      "type": "Documentation",
+      "type": "Blog",
       "category": "Technical",
       "file_type": "markdown",
       "title": "REST API Design Best Practices: A Comprehensive Guide",
@@ -62,7 +62,7 @@
     },
     {
       "url": "https://research.example.com/api-adoption-survey-2024",
-      "type": "Research",
+      "type": "Blog",
       "category": "Academic",
       "file_type": "pdf",
       "title": "2024 API Adoption Survey: Developer Preferences and Pain Points",
@@ -94,7 +94,7 @@
     {
       "name": "Educational Blog Post",
       "output_type": "blog_post",
-      "max_length": 2000,
+      "max_length": 500,
       "format": "markdown",
       "blog_post": {
         "title": "",
@@ -102,7 +102,7 @@
         "tags": [],
         "categories": []
       },
-      "description": "Comprehensive blog post about API design best practices",
+      "description": "Short blog post about API design best practices",
       "platform": "Company Blog"
     }
   ]
