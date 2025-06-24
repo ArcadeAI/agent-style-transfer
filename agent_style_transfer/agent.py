@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import asyncio
+
 from langchain.schema import HumanMessage, SystemMessage
 
 from agent_style_transfer.llm_provider_setup import get_llm
@@ -13,44 +14,39 @@ from agent_style_transfer.schemas import (
 )
 
 
-async def transfer_style(request: StyleTransferRequest, llm_provider: str = "google") -> list[StyleTransferResponse]:
+async def transfer_style(
+    request: StyleTransferRequest, llm_provider: str = "google"
+) -> list[StyleTransferResponse]:
     """Main interface for style transfer functionality with parallel processing."""
-    
-    # Get LLM provider once for all schemas
+
     llm = get_llm(llm_provider)
-    
-    # Create tasks for parallel processing
+
     tasks = []
     for output_schema in request.target_schemas:
         task = process_target_schema(
-            llm, output_schema, request.reference_style, 
-            request.intent, request.focus, request.target_content
+            llm,
+            output_schema,
+            request.reference_style,
+            request.intent,
+            request.focus,
+            request.target_content,
         )
         tasks.append(task)
-    
-    # Execute all tasks concurrently
+
     responses = await asyncio.gather(*tasks)
-    
+
     return responses
 
 
 async def process_target_schema(
-    llm, 
-    output_schema, 
-    reference_style, 
-    intent, 
-    focus, 
-    target_content
+    llm, output_schema, reference_style, intent, focus, target_content
 ) -> StyleTransferResponse:
     """Process a single schema asynchronously."""
-    
-    # Get the appropriate schema class
+
     schema_class = output_schema.output_type.get_schema()
 
-    # Wrap LLM for structured output with function_calling method for gpt-3.5-turbo compatibility
     structured_llm = llm.with_structured_output(schema_class, method="function_calling")
 
-    # Build prompt and generate
     prompt = build_generation_prompt(
         output_schema, reference_style, intent, focus, target_content
     )
@@ -60,24 +56,16 @@ async def process_target_schema(
         "Return the content in the exact format specified by the output schema."
     )
 
-    messages = [
-        SystemMessage(content=system_message),
-        HumanMessage(content=prompt)
-    ]
+    messages = [SystemMessage(content=system_message), HumanMessage(content=prompt)]
 
-    # Use async invoke if available, otherwise fall back to sync
     try:
         processed_content = await structured_llm.ainvoke(messages)
     except AttributeError:
-        # Fall back to synchronous invoke if async is not available
         processed_content = structured_llm.invoke(messages)
 
-    # Convert to JSON string
     processed_content = processed_content.model_dump_json(indent=2)
 
-    applied_style = (
-        reference_style[0].name if reference_style else "Unknown"
-    )
+    applied_style = reference_style[0].name if reference_style else "Unknown"
 
     return StyleTransferResponse(
         processed_content=processed_content,

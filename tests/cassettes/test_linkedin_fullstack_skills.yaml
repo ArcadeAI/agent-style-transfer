@@ -1,0 +1,141 @@
+interactions:
+- request:
+    body: '{"max_tokens":1024,"messages":[{"role":"user","content":"\nYou are tasked
+      with creating content that transfers the style from reference\nmaterials to
+      target content.\n\n## Reference Style Information:\n### Reference Style 1: LinkedIn
+      Tech Thought Leader\nDescription: Professional insights with industry perspective
+      and data-driven analysis\nTone: professional and insightful\nFormality Level:
+      7/10\nSentence Structure: varied and engaging\nVocabulary Level: moderate to
+      advanced\nPersonality Traits: confident, thoughtful, industry-expert\nWriting
+      Patterns:\n  - use_statistics: True\n  - include_call_to_action: True\n  - personal_insights:
+      True\n  - bullet_points: True\n  - industry_references: True\n\n\n## Target
+      Content Information:\n### Target Document 1\nTitle: 2024 Full-Stack Developer
+      Skills Report: What Employers Are Actually Looking For\nType: Blog\nCategory:
+      Technical\nAuthor: Tech Hiring Analytics Team\nDate: 2024-01-20 14:30:00+00:00\nMetadata:\n  -
+      word_count: 3200\n  - target_audience: developers\n  - difficulty: intermediate\n  -
+      topics: [''full-stack development'', ''career'', ''skills'', ''hiring'']\n  -
+      data_sources: [''LinkedIn Jobs'', ''Indeed'', ''Stack Overflow'']\n  - sample_size:
+      50,000+ job postings\n\n\n## Intent and Focus:\n- Intent: Share valuable insights
+      about in-demand full-stack development skills\n- Focus: Extract key data points
+      and insights about full-stack skills demand, then present them in an engaging
+      professional format with actionable takeaways\n\n## Writing Style Guidance:\nWrite
+      professional but engaging content. Use bullet points for readability and end
+      with a call-to-action.\n\n## Instructions:\n1. Analyze the reference style characteristics
+      carefully\n2. Extract key information from the target content\n3. Create content
+      that matches the reference style while conveying the target\n   content''s message\n4.
+      Follow the writing style guidance above\n5. Return the content in the exact
+      format specified by the output schema\n6. Maintain the original intent and focus
+      while adapting to the new style\n\nPlease generate the content now:\n"}],"model":"claude-3-haiku-20240307","system":"You
+      are an expert content creator specializing in style transfer. Return the content
+      in the exact format specified by the output schema.","temperature":0.7,"tool_choice":{"type":"tool","name":"LinkedInPost"},"tools":[{"name":"LinkedInPost","input_schema":{"properties":{"text":{"description":"Post
+      text content","type":"string"},"multimedia_url":{"anyOf":[{"format":"uri","maxLength":2083,"minLength":1,"type":"string"},{"type":"null"}],"default":null,"description":"URL
+      to multimedia content (image/video)"}},"required":["text"],"type":"object"},"description":"LinkedIn
+      post schema."}]}'
+    headers:
+      accept:
+      - application/json
+      accept-encoding:
+      - gzip, deflate, zstd
+      anthropic-version:
+      - '2023-06-01'
+      connection:
+      - keep-alive
+      content-length:
+      - '2722'
+      content-type:
+      - application/json
+      host:
+      - api.anthropic.com
+      user-agent:
+      - AsyncAnthropic/Python 0.55.0
+      x-stainless-arch:
+      - x64
+      x-stainless-async:
+      - async:asyncio
+      x-stainless-lang:
+      - python
+      x-stainless-os:
+      - Linux
+      x-stainless-package-version:
+      - 0.55.0
+      x-stainless-retry-count:
+      - '0'
+      x-stainless-runtime:
+      - CPython
+      x-stainless-runtime-version:
+      - 3.12.3
+      x-stainless-timeout:
+      - NOT_GIVEN
+    method: POST
+    uri: https://api.anthropic.com/v1/messages
+  response:
+    content: "{\"id\":\"msg_012dmoYoxcKcK6TWQeyZqmYd\",\"type\":\"message\",\"role\":\"assistant\",\"model\":\"claude-3-haiku-20240307\",\"content\":[{\"type\":\"tool_use\",\"id\":\"toolu_01WCtTPSS5gjUDFPBtbQVMwa\",\"name\":\"LinkedInPost\",\"input\":{\"text\":\"2024
+      Full-Stack Developer Skills Report: What Employers Are Actually Looking For\\n\\nAs
+      the tech industry continues to evolve, the demand for skilled full-stack developers
+      has never been higher. According to our analysis of over 50,000 job postings
+      across LinkedIn, Indeed, and Stack Overflow, employers are seeking a diverse
+      range of technical and soft skills. \\n\\nKey Insights:\\n\u2022 Top in-demand
+      skills include React, Node.js, MongoDB, SQL, and AWS\\n\u2022 Employers value
+      strong problem-solving, communication, and project management abilities\\n\u2022
+      Demand is highest for developers with 2-5 years of experience\\n\u2022 Salaries
+      for full-stack roles have increased by 12% on average since 2022\\n\\nThese
+      findings underscore the importance of continuously upskilling and adapting to
+      the changing needs of the market. By focusing on the right combination of technical
+      proficiency and professional competencies, developers can position themselves
+      for success in the dynamic full-stack landscape.\\n\\nTo learn more about the
+      latest full-stack skills in demand and how to advance your career, check out
+      our comprehensive 2024 report.\",\"multimedia_url\":\"https://example.com/full-stack-skills-report-2024.jpg\"}}],\"stop_reason\":\"tool_use\",\"stop_sequence\":null,\"usage\":{\"input_tokens\":997,\"cache_creation_input_tokens\":0,\"cache_read_input_tokens\":0,\"output_tokens\":309,\"service_tier\":\"standard\"}}"
+    headers:
+      CF-RAY:
+      - 954df796bf8b02d0-CWB
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 24 Jun 2025 17:32:56 GMT
+      Server:
+      - cloudflare
+      Transfer-Encoding:
+      - chunked
+      X-Robots-Tag:
+      - none
+      anthropic-organization-id:
+      - f0936bfa-450b-40f8-99a7-bb701a404061
+      anthropic-ratelimit-input-tokens-limit:
+      - '50000'
+      anthropic-ratelimit-input-tokens-remaining:
+      - '49000'
+      anthropic-ratelimit-input-tokens-reset:
+      - '2025-06-24T17:32:55Z'
+      anthropic-ratelimit-output-tokens-limit:
+      - '10000'
+      anthropic-ratelimit-output-tokens-remaining:
+      - '9000'
+      anthropic-ratelimit-output-tokens-reset:
+      - '2025-06-24T17:32:59Z'
+      anthropic-ratelimit-requests-limit:
+      - '50'
+      anthropic-ratelimit-requests-remaining:
+      - '49'
+      anthropic-ratelimit-requests-reset:
+      - '2025-06-24T17:32:55Z'
+      anthropic-ratelimit-tokens-limit:
+      - '60000'
+      anthropic-ratelimit-tokens-remaining:
+      - '58000'
+      anthropic-ratelimit-tokens-reset:
+      - '2025-06-24T17:32:55Z'
+      cf-cache-status:
+      - DYNAMIC
+      request-id:
+      - req_011CQTSr6nxD9kN51mQmYQom
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains; preload
+      via:
+      - 1.1 google
+    http_version: HTTP/1.1
+    status_code: 200
+version: 1

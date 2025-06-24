@@ -12,13 +12,10 @@ def build_generation_prompt(
 ) -> str:
     """Build a comprehensive prompt for content generation."""
 
-    # Extract style information from reference documents
     style_info = extract_style_information(reference_docs)
 
-    # Extract target content information
     target_info = extract_target_information(target_docs)
 
-    # Get writing style guidance
     writing_guidance = get_writing_guidance(output_schema.output_type)
 
     prompt = f"""
@@ -80,7 +77,7 @@ def get_writing_guidance(output_type: str) -> str:
 
     return guidance.get(
         output_type,
-        "Create well-structured, engaging content appropriate for the platform."
+        "Create well-structured, engaging content appropriate for the platform.",
     )
 
 
@@ -118,7 +115,7 @@ def extract_style_information(reference_docs: list[ReferenceStyle]) -> str:
             for doc in ref_style.documents:
                 style_info.append(f"  - {doc.title or 'Untitled'} ({doc.type.value})")
 
-        style_info.append("")  # Empty line for separation
+        style_info.append("")
 
     return "\n".join(style_info)
 
@@ -146,7 +143,7 @@ def extract_target_information(target_docs: list[Document]) -> str:
             target_info.append("Content:")
             target_info.append(doc.content)
 
-        target_info.append("")  # Empty line for separation
+        target_info.append("")
 
     return "\n".join(target_info)
 
