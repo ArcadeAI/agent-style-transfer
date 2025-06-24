@@ -16,21 +16,23 @@ from agent_style_transfer.schemas import (
 
 async def transfer_style(
     request: StyleTransferRequest,
-    llm_provider: str = "google",
+    llm_provider: str = "google_genai",
+    model: str | None = None,
     temperature: float = 0.7,
 ) -> list[StyleTransferResponse]:
     """Main interface for style transfer functionality with parallel processing.
 
     Args:
         request: Style transfer request with reference styles and target content
-        llm_provider: Model provider (openai, anthropic, google). Defaults to "google".
+        llm_provider: Model provider (openai, anthropic, google_genai). Defaults to "google_genai".
+        model: Model name. If None, will use provider defaults.
         temperature: Model temperature (0.0 to 1.0). Defaults to 0.7.
 
     Returns:
         List of style transfer responses
     """
 
-    llm = get_llm(llm_provider, temperature=temperature)
+    llm = get_llm(llm_provider, model=model, temperature=temperature)
 
     tasks = []
     for output_schema in request.target_schemas:

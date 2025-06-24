@@ -13,7 +13,7 @@ def get_llm(provider: str, model: Optional[str] = None, temperature: float = 0.7
     """Get the appropriate LLM instance using LangChain's model factory.
 
     Args:
-        provider: Model provider (openai, anthropic, google)
+        provider: Model provider (openai, anthropic, google_genai)
         model: Model name. If None, will use provider defaults.
         temperature: Model temperature (0.0 to 1.0). Defaults to 0.7.
 
@@ -26,7 +26,7 @@ def get_llm(provider: str, model: Optional[str] = None, temperature: float = 0.7
         default_models = {
             "openai": "gpt-3.5-turbo",
             "anthropic": "claude-3-haiku-20240307",
-            "google": "gemini-1.5-flash",
+            "google_genai": "gemini-1.5-flash",
         }
         model = default_models.get(provider)
 
