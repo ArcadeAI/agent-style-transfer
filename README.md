@@ -41,7 +41,71 @@ python generate-content.py
 
 The interface will prompt you for:
 - JSON file path containing your content request
-- AI provider choice (Google recommended)
+- AI provider choice (Google, OpenAI, Anthropic)
+- Model selection (provider-specific models with defaults)
+- Temperature setting (0.0-1.0, controls creativity)
+
+### Provider Options
+
+The interface supports three major AI providers:
+
+1. **Google** - Free tier available
+   - Default: `gemini-1.5-flash`
+   - Options: `gemini-1.5-flash`, `gemini-1.5-pro`, `gemini-pro`
+
+2. **OpenAI** - Requires billing
+   - Default: `gpt-3.5-turbo`
+   - Options: `gpt-3.5-turbo`, `gpt-4`, `gpt-4-turbo`
+
+3. **Anthropic** - Requires credits
+   - Default: `claude-3-haiku-20240307`
+   - Options: `claude-3-haiku-20240307`, `claude-3-sonnet-20240229`, `claude-3-opus-20240229`
+
+### Temperature Control
+
+Temperature controls the creativity and randomness of the output:
+- **0.0-0.3**: Very focused/conservative - closely follows the reference style with minimal variation
+- **0.4-0.7**: Balanced (default: 0.7) - good mix of creativity and consistency, maintains style while adding fresh perspectives
+- **0.8-1.0**: Very creative/random - high variation in outputs, may deviate significantly from reference style
+
+### Example Session
+
+```
+🎨 Style Transfer Agent
+==============================
+📁 Enter JSON file path: examples/single-tech-tweet.json
+✅ Loaded JSON from examples/single-tech-tweet.json
+✅ Parsed StyleTransferRequest with 1 target documents
+
+🤖 Choose AI provider:
+1. Google - Free tier available
+2. OpenAI - Requires billing
+3. Anthropic - Requires credits
+Provider (1-3, default=1): 2
+
+🧠 Available openai models:
+1. gpt-3.5-turbo (default)
+2. gpt-4
+3. gpt-4-turbo
+Model (1-3, default=1): 3
+
+🌡️  Temperature controls creativity:
+0.0 = Very focused/conservative
+0.7 = Balanced (recommended)
+1.0 = Very creative/random
+Temperature (0.0-1.0, default=0.7): 0.5
+
+📋 Request Summary:
+  - Reference styles: 1
+  - Target schemas: 1
+  - LLM Provider: openai
+  - Model: gpt-4-turbo
+  - Temperature: 0.5
+  - Intent: Convert technical content to engaging social media
+  - Focus: Extract key insights and make them accessible
+
+🚀 Processing with openai/gpt-4-turbo (temp: 0.5)...
+```
 
 ## Usage
 
@@ -318,7 +382,7 @@ The system can read content from various sources (Twitter, LinkedIn, Reddit, Fac
 
 ## AI Providers
 
-1. **Google** (recommended): Free tier available, good performance
+1. **Google**: Free tier available, good performance
 2. **OpenAI**: Requires billing setup, excellent quality
 3. **Anthropic**: Requires credits, strong reasoning capabilities
 
