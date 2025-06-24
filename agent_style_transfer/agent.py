@@ -15,11 +15,22 @@ from agent_style_transfer.schemas import (
 
 
 async def transfer_style(
-    request: StyleTransferRequest, llm_provider: str = "google"
+    request: StyleTransferRequest,
+    llm_provider: str = "google",
+    temperature: float = 0.7,
 ) -> list[StyleTransferResponse]:
-    """Main interface for style transfer functionality with parallel processing."""
+    """Main interface for style transfer functionality with parallel processing.
 
-    llm = get_llm(llm_provider)
+    Args:
+        request: Style transfer request with reference styles and target content
+        llm_provider: Model provider (openai, anthropic, google). Defaults to "google".
+        temperature: Model temperature (0.0 to 1.0). Defaults to 0.7.
+
+    Returns:
+        List of style transfer responses
+    """
+
+    llm = get_llm(llm_provider, temperature=temperature)
 
     tasks = []
     for output_schema in request.target_schemas:

@@ -1,7 +1,7 @@
 """Style Transfer Agent.
 
 A standalone Python agent that implements textual style transfer
-from pre-processed documents using LangChain and Hugging Face.
+from pre-processed documents using LangChain.
 """
 
 from agent_style_transfer.agent import transfer_style
