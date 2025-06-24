@@ -1,65 +1,37 @@
-"""LLM provider setup and configuration."""
+"""LLM provider setup and configuration using LangChain model factories."""
 
-import os
 from typing import Optional
 
 from dotenv import load_dotenv
-from langchain_anthropic import ChatAnthropic
-from langchain_google_genai import ChatGoogleGenerativeAI
-from langchain_openai import ChatOpenAI
+from langchain.chat_models import init_chat_model
 
 # Load environment variables from .env file
 load_dotenv()
 
 
-def get_api_key(provider: str) -> str:
-    """Get the appropriate API key for the given provider."""
-    api_keys = {
-        "openai": "OPENAI_API_KEY",
-        "anthropic": "ANTHROPIC_API_KEY",
-        "google": "GOOGLE_API_KEY",
-    }
+def get_llm(provider: str, model: Optional[str] = None, temperature: float = 0.7):
+    """Get the appropriate LLM instance using LangChain's model factory.
 
-    env_var = api_keys.get(provider, "OPENAI_API_KEY")
-    api_key = os.environ.get(env_var)
+    Args:
+        provider: Model provider (openai, anthropic, google)
+        model: Model name. If None, will use provider defaults.
+        temperature: Model temperature (0.0 to 1.0). Defaults to 0.7.
 
-    if not api_key:
-        raise ValueError(
-            f"{env_var} environment variable is required for {provider} provider"
-        )
+    Returns:
+        ChatModel instance
+    """
 
-    return api_key
+    # Set default models for each provider if not specified
+    if model is None:
+        default_models = {
+            "openai": "gpt-3.5-turbo",
+            "anthropic": "claude-3-haiku-20240307",
+            "google": "gemini-1.5-flash",
+        }
+        model = default_models.get(provider)
 
-
-# TODO: Use langgraph to get the llm and possible set the model and temperature
-# TODO: Add max_tokens to the llm
-def get_llm(provider: str, model: Optional[str] = None):
-    """Get the appropriate LLM instance for the given provider."""
-    api_key = get_api_key(provider)
-
-    if provider == "openai":
-        return ChatOpenAI(
-            api_key=api_key,
-            model=model or "gpt-3.5-turbo",
-            temperature=0.7,
-        )
-
-    elif provider == "anthropic":
-        return ChatAnthropic(
-            api_key=api_key,
-            model=model or "claude-3-haiku-20240307",
-            temperature=0.7,
-        )
-
-    elif provider == "google":
-        return ChatGoogleGenerativeAI(
-            google_api_key=api_key,
-            model=model or "gemini-1.5-flash",
-            temperature=0.7,
-        )
-
-    else:
-        raise ValueError(
-            f"Unsupported provider: {provider}. "
-            f"Supported providers: openai, anthropic, google"
-        )
+    # Use LangChain's model factory with automatic provider inference
+    # The factory will handle API key loading automatically from environment variables
+    return init_chat_model(
+        model=model, model_provider=provider, temperature=temperature
+    )
