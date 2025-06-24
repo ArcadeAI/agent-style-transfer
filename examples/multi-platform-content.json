@@ -1,0 +1,109 @@
+{
+  "reference_style": [
+    {
+      "name": "Tech Educator Style",
+      "description": "Educational content that makes complex topics accessible and engaging",
+      "style_definition": {
+        "tone": "educational and approachable",
+        "formality_level": 5,
+        "sentence_structure": "clear and structured",
+        "vocabulary_level": "moderate",
+        "personality_traits": ["helpful", "knowledgeable", "encouraging"],
+        "writing_patterns": {
+          "use_examples": true,
+          "step_by_step": true,
+          "include_code_snippets": true,
+          "use_analogies": true,
+          "encourage_questions": true
+        }
+      },
+      "categories": ["educational", "tech", "tutorial"],
+      "confidence": 0.85
+    },
+    {
+      "name": "Social Media Tech Influencer",
+      "description": "Engaging social media content with hooks and viral potential",
+      "style_definition": {
+        "tone": "casual and engaging",
+        "formality_level": 3,
+        "sentence_structure": "short and punchy",
+        "vocabulary_level": "simple",
+        "personality_traits": ["enthusiastic", "relatable", "trendy"],
+        "writing_patterns": {
+          "use_emojis": true,
+          "hashtag_frequency": "high",
+          "question_style": "engaging",
+          "use_hooks": true,
+          "call_to_action": true
+        }
+      },
+      "categories": ["social media", "casual", "viral"],
+      "confidence": 0.8
+    }
+  ],
+  "intent": "Create educational content about API design best practices across multiple platforms",
+  "focus": "Extract key concepts from technical documentation and research, then adapt them for both social media engagement and comprehensive educational content",
+  "target_content": [
+    {
+      "url": "https://api-design-guide.example.com/rest-best-practices",
+      "type": "Documentation",
+      "category": "Technical",
+      "file_type": "markdown",
+      "title": "REST API Design Best Practices: A Comprehensive Guide",
+      "author": "API Design Team",
+      "date_published": "2024-01-18T09:00:00Z",
+      "metadata": {
+        "word_count": 4500,
+        "target_audience": "developers",
+        "difficulty": "intermediate",
+        "topics": ["API design", "REST", "best practices"],
+        "sections": ["naming conventions", "status codes", "versioning", "security"]
+      }
+    },
+    {
+      "url": "https://research.example.com/api-adoption-survey-2024",
+      "type": "Research",
+      "category": "Academic",
+      "file_type": "pdf",
+      "title": "2024 API Adoption Survey: Developer Preferences and Pain Points",
+      "author": "Developer Research Institute",
+      "date_published": "2024-01-15T16:00:00Z",
+      "metadata": {
+        "word_count": 2800,
+        "target_audience": "researchers",
+        "difficulty": "advanced",
+        "topics": ["API adoption", "developer experience", "survey results"],
+        "sample_size": "2,500 developers",
+        "key_findings": ["naming consistency", "documentation quality", "error handling"]
+      }
+    }
+  ],
+  "target_schemas": [
+    {
+      "name": "Engaging Tweet",
+      "output_type": "tweet_single",
+      "max_length": 280,
+      "format": "text",
+      "tweet_single": {
+        "text": "",
+        "url_allowed": true
+      },
+      "description": "Viral tweet about API design tips",
+      "platform": "Twitter"
+    },
+    {
+      "name": "Educational Blog Post",
+      "output_type": "blog_post",
+      "max_length": 2000,
+      "format": "markdown",
+      "blog_post": {
+        "title": "",
+        "markdown": "",
+        "tags": [],
+        "categories": []
+      },
+      "description": "Comprehensive blog post about API design best practices",
+      "platform": "Company Blog"
+    }
+  ]
+} 

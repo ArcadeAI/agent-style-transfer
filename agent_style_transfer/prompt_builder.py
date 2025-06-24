@@ -142,6 +142,10 @@ def extract_target_information(target_docs: list[Document]) -> str:
             for key, value in doc.metadata.items():
                 target_info.append(f"  - {key}: {value}")
 
+        if doc.content:
+            target_info.append("Content:")
+            target_info.append(doc.content)
+
         target_info.append("")  # Empty line for separation
 
     return "\n".join(target_info)

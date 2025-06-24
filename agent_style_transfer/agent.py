@@ -13,11 +13,11 @@ from agent_style_transfer.schemas import (
 )
 
 
-async def transfer_style(request: StyleTransferRequest) -> list[StyleTransferResponse]:
+async def transfer_style(request: StyleTransferRequest, llm_provider: str = "google") -> list[StyleTransferResponse]:
     """Main interface for style transfer functionality with parallel processing."""
     
     # Get LLM provider once for all schemas
-    llm = get_llm(request.llm_provider)
+    llm = get_llm(llm_provider)
     
     # Create tasks for parallel processing
     tasks = []
@@ -47,8 +47,8 @@ async def process_target_schema(
     # Get the appropriate schema class
     schema_class = output_schema.output_type.get_schema()
 
-    # Wrap LLM for structured output
-    structured_llm = llm.with_structured_output(schema_class)
+    # Wrap LLM for structured output with function_calling method for gpt-3.5-turbo compatibility
+    structured_llm = llm.with_structured_output(schema_class, method="function_calling")
 
     # Build prompt and generate
     prompt = build_generation_prompt(
