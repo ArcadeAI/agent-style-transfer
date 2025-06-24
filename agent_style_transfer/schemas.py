@@ -46,7 +46,7 @@ class DocumentType(str, Enum):
 
     TXT = "txt"
     MARKDOWN = "markdown"
-    URL = "url"
+    HTML = "website"
     PDF = "pdf"
     DOCX = "docx"
 
@@ -87,10 +87,10 @@ class WritingStyle(BaseModel):
     tone: str = Field(
         description="Overall tone: formal, casual, professional, friendly, etc.",
     )
-    formality_level: int = Field(
-        ge=1,
-        le=10,
-        description="Formality scale from 1 (very casual) to 10 (very formal)",
+    formality_level: float = Field(
+        ge=0.0,
+        le=1.0,
+        description="Formality scale from 0.0 (very casual) to 1.0 (very formal)",
     )
     sentence_structure: str = Field(
         description="Sentence structure preference: short, long, varied, etc.",
