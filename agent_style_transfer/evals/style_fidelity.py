@@ -1,8 +1,7 @@
 """Style fidelity evaluation."""
 
-from . import (
-    StyleTransferRequest,
-    StyleTransferResponse,
+from agent_style_transfer.schemas import StyleTransferRequest, StyleTransferResponse
+from agent_style_transfer.utils.evaluation import (
     create_llm_evaluator,
     format_result,
     get_text_content,

@@ -9,16 +9,6 @@ from agent_style_transfer.agent import transfer_style
 from agent_style_transfer.schemas import StyleTransferRequest
 
 
-@pytest.fixture(scope="session")
-def vcr_config() -> dict:
-    """Configure VCR for recording HTTP interactions."""
-    return {
-        "cassette_library_dir": "tests/cassettes",
-        "record_mode": "once",
-        "filter_headers": ["authorization", "x-api-key"],
-    }
-
-
 @pytest.mark.vcr
 @pytest.mark.asyncio
 async def test_single_tech_tweet():
