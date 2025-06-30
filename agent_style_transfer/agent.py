@@ -24,7 +24,8 @@ async def transfer_style(
 
     Args:
         request: Style transfer request with reference styles and target content
-        llm_provider: Model provider (openai, anthropic, google_genai). Defaults to "google_genai".
+        llm_provider: Model provider (openai, anthropic, google_genai).
+            Defaults to "google_genai".
         model: Model name. If None, will use provider defaults.
         temperature: Model temperature (0.0 to 1.0). Defaults to 0.7.
 

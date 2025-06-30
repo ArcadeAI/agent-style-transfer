@@ -1,30 +1,9 @@
-"""Style Transfer Agent.
+"""Agent Style Transfer - A service for transforming content using reference styles."""
 
-A standalone Python agent that implements textual style transfer
-from pre-processed documents using LangChain.
-"""
+from .evals import *  # noqa: F403
+from .service import StyleTransferService
 
-from agent_style_transfer.agent import transfer_style
-from agent_style_transfer.schemas import (
-    ContentType,
-    Document,
-    DocumentCategory,
-    OutputSchema,
-    ReferenceStyle,
-    StyleTransferRequest,
-    StyleTransferResponse,
-    WritingStyle,
-)
-
-__version__ = "0.1.0"
 __all__ = [
-    "ContentType",
-    "Document",
-    "DocumentCategory",
-    "OutputSchema",
-    "ReferenceStyle",
-    "StyleTransferRequest",
-    "StyleTransferResponse",
-    "WritingStyle",
-    "transfer_style",
+    "StyleTransferService",
+    # All evaluation functions are imported from evals
 ]
