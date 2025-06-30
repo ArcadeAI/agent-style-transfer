@@ -3,8 +3,11 @@
 from openevals.string.embedding_similarity import create_embedding_similarity_evaluator
 
 from agent_style_transfer.schemas import StyleTransferRequest, StyleTransferResponse
-
-from . import format_result, get_text_content, safe_evaluation
+from agent_style_transfer.utils.evaluation import (
+    format_result,
+    get_text_content,
+    safe_evaluation,
+)
 
 
 @safe_evaluation("content_preservation")
