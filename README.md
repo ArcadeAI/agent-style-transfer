@@ -36,14 +36,21 @@ ANTHROPIC_API_KEY=your_anthropic_api_key
 ### 3. Run the Interface
 
 ```bash
-python generate-content.py
+python main.py
 ```
 
+The interface supports three operations:
+1. **Generate content only** (default) - Create style-transferred content
+2. **Evaluate existing content only** - Evaluate previously generated content
+3. **Generate content and evaluate** - Do both in one workflow
+
 The interface will prompt you for:
+- Operation choice
 - JSON file path containing your content request
 - AI provider choice (Google, OpenAI, Anthropic)
 - Model selection (provider-specific models with defaults)
 - Temperature setting (0.0-1.0, controls creativity)
+- Evaluation model (if evaluating content)
 
 ### Provider Options
 
@@ -71,9 +78,15 @@ Temperature controls the creativity and randomness of the output:
 ### Example Session
 
 ```
-🎨 Style Transfer Agent
-==============================
-📁 Enter JSON file path: examples/linkedin-fullstack-skills.json
+🎨 Style Transfer Agent with Evaluation
+========================================
+🎯 Choose operation:
+1. Generate content only (default)
+2. Evaluate existing content only
+3. Generate content and evaluate
+Operation (1-3, default=1): 1
+
+📁 Enter JSON file path (with request): examples/linkedin-fullstack-skills.json
 ✅ Loaded JSON from examples/linkedin-fullstack-skills.json
 ✅ Parsed StyleTransferRequest with 1 target documents
 
@@ -83,10 +96,10 @@ Temperature controls the creativity and randomness of the output:
 3. Anthropic - Requires credits
 Provider (1-3, default=1): 1
 
-🧠 Available openai models:
-1. gpt-3.5-turbo (default)
-2. gpt-4
-3. gpt-4-turbo
+🧠 Available google_genai models:
+1. gemini-1.5-flash (default)
+2. gemini-1.5-pro
+3. gemini-pro
 Model (1-3, default=1): 1
 
 🌡️  Temperature controls creativity:
@@ -101,20 +114,20 @@ Temperature (0.0-1.0, default=0.7): 0.8
   - LLM Provider: google_genai
   - Model: gemini-1.5-flash
   - Temperature: 0.8
-  - Intent: Share valuable insights about in-demand full-stack development skills
-  - Focus: Extract key data points and insights about full-stack skills demand, then present them in an engaging professional format with actionable takeaways
 
 🚀 Processing with google_genai/gemini-1.5-flash (temp: 0.8)...
 
 ✅ Generated 1 response(s):
 
---- LinkedIn Professional Post ---
+--- Response 1: LinkedIn Professional Post ---
 Style: LinkedIn Tech Thought Leader
 Content:
 {
   "text": "\"2024 Full-Stack Developer Skills Report: What Employers Are Actually Looking For\"\n\nThe landscape of full-stack development is constantly evolving.  To help you navigate this dynamic environment, we analyzed 50,000+ job postings from LinkedIn, Indeed, and Stack Overflow to identify the most in-demand skills for 2024.  Our findings reveal some key trends that full-stack developers should prioritize to remain competitive.\n\n**Key Skills in High Demand:**\n\n* **Frontend Development:**  React, Angular, Vue.js continue to dominate, with a strong emphasis on component-based architecture and performance optimization.  Experience with modern JavaScript frameworks and libraries is essential.\n* **Backend Development:** Node.js, Python (Django/Flask), and Java remain popular choices.  Cloud-native development skills (AWS, Azure, GCP) are increasingly important, alongside proficiency in containerization (Docker, Kubernetes).\n* **Databases:** SQL and NoSQL databases are both crucial.  Expertise in database design, optimization, and querying is highly valued.\n* **DevOps:**  Understanding CI/CD pipelines, infrastructure-as-code, and cloud deployment strategies is becoming a non-negotiable skill for full-stack developers.\n* **Testing and Quality Assurance:**  Proficiency in automated testing methodologies and frameworks is essential for ensuring high-quality software.\n\n**Emerging Trends:**\n\n* **AI/ML Integration:**  Incorporating AI and machine learning capabilities into applications is gaining significant traction.  Familiarity with relevant libraries and frameworks is advantageous.\n* **Web3 Development:**  While still emerging, skills in blockchain technologies and decentralized applications are becoming increasingly sought after.\n* **Security Best Practices:**  Developers must demonstrate a strong understanding of security principles and practices to protect applications from vulnerabilities.\n\n**Actionable Takeaways:**\n\nBased on our analysis, here's what you can do to enhance your skillset and boost your job prospects:\n\n* **Upskill/Reskill:**  Identify skill gaps based on the analysis above and focus on acquiring the most in-demand skills.  Numerous online courses and bootcamps can help with this.\n* **Build a Strong Portfolio:**  Showcase your expertise by building compelling projects that demonstrate your mastery of these skills.\n* **Network Strategically:**  Attend industry events and connect with professionals to stay informed about emerging trends and opportunities.\n\nThe full-stack development landscape is competitive, but with focused effort and a strategic approach to upskilling, you can significantly improve your chances of success.  Start building your future-proof skillset today!\n",
   "multimedia_url": null
 }
+
+💾 Save results to file? (y/n, default=n): n
 ```
 
 ## Usage
