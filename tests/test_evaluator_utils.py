@@ -3,6 +3,7 @@
 
 import json
 from unittest.mock import Mock, patch
+import pytest
 
 from agent_style_transfer.evals import (
     evaluate_content_preservation,
@@ -37,44 +38,74 @@ def test_format_result_empty_comment():
     assert result["comment"] == "No comment provided"
 
 
-def test_get_text_content_with_real_example():
-    """Test text content extraction using real example data."""
-    # Load real example request
-    with open("examples/single-tech-tweet.json") as f:
+@pytest.mark.parametrize(
+    "request_file,response_file,expected_keywords",
+    [
+        (
+            "fixtures/tweet-request.json",
+            "fixtures/tweet-response.json",
+            ["Machine Learning", "AI", "programming"],
+        ),
+        (
+            "fixtures/linkedin-request.json",
+            "fixtures/linkedin-response.json",
+            ["full-stack developers", "React", "Node.js"],
+        ),
+        (
+            "fixtures/tweet-and-blog-request.json",
+            "fixtures/tweet-and-blog-response.json",
+            ["API", "REST", "design"],
+        ),
+    ],
+)
+def test_get_text_content(request_file, response_file, expected_keywords):
+    """Test text content extraction with various fixture data."""
+    # Load request data
+    with open(request_file) as f:
         request_data = json.load(f)
     request = StyleTransferRequest(**request_data)
 
-    # Create realistic response based on actual agent output
-    response = StyleTransferResponse(
-        processed_content=json.dumps(
-            {
-                "text": "Dive into #MachineLearning basics with this beginner-friendly guide for devs! 🧠 Learn the essentials of AI and programming in just 2500 words. 👨‍💻 #TechTips #DevLife",
-                "url_allowed": True,
-            }
-        ),
-        applied_style="Tech Influencer Style",
-        output_schema=request.target_schemas[0],
-        metadata={
-            "schema_name": "Twitter Single Post",
-            "reference_styles_count": 1,
-            "target_documents_count": 1,
-        },
-    )
+    # Load response data
+    with open(response_file) as f:
+        response_data = json.load(f)
 
-    generated_text, original_text = get_text_content(request, response)
+    # Test each response in the file
+    for response_item in response_data["responses"]:
+        # Find matching schema
+        matching_schema = None
+        for schema in request.target_schemas:
+            if schema.name == response_item["output_schema"]:
+                matching_schema = schema
+                break
 
-    assert (
-        generated_text
-        == "Dive into #MachineLearning basics with this beginner-friendly guide for devs! 🧠 Learn the essentials of AI and programming in just 2500 words. 👨‍💻 #TechTips #DevLife"
-    )
-    # The original content would be the blog post content, but it's not in the example
-    assert original_text == ""
+        if not matching_schema:
+            continue
+
+        response = StyleTransferResponse(
+            processed_content=response_item["processed_content"],
+            applied_style=response_item["applied_style"],
+            output_schema=matching_schema,
+            metadata=response_item["metadata"],
+        )
+
+        generated_text, original_text = get_text_content(request, response)
+
+        # Assertions
+        assert isinstance(generated_text, str)
+        assert isinstance(original_text, str)
+        
+        # Check that generated text contains expected keywords
+        for keyword in expected_keywords:
+            assert keyword.lower() in generated_text.lower(), f"Expected '{keyword}' in generated text"
+        
+        # Original text should be empty since fixture files don't contain actual content
+        assert original_text == "", f"Expected empty original text, got: {original_text}"
 
 
 def test_get_text_content_no_original_content():
     """Test text content extraction when original content is None."""
     # Load real example request
-    with open("examples/single-tech-tweet.json") as f:
+    with open("fixtures/tweet-request.json") as f:
         request_data = json.load(f)
 
     # Modify to have no content
@@ -136,7 +167,7 @@ def test_content_preservation_evaluation_mock(mock_evaluator):
     mock_evaluator.return_value = mock_eval
 
     # Load real example request
-    with open("examples/single-tech-tweet.json") as f:
+    with open("fixtures/tweet-request.json") as f:
         request_data = json.load(f)
     request = StyleTransferRequest(**request_data)
 
@@ -171,7 +202,7 @@ def test_style_fidelity_evaluation_mock(mock_evaluator):
     mock_evaluator.return_value = mock_eval
 
     # Load real example request
-    with open("examples/single-tech-tweet.json") as f:
+    with open("fixtures/tweet-request.json") as f:
         request_data = json.load(f)
     request = StyleTransferRequest(**request_data)
 
@@ -200,7 +231,7 @@ def test_style_fidelity_evaluation_mock(mock_evaluator):
 def test_evaluation_with_invalid_json():
     """Test evaluation with invalid JSON in processed content."""
     # Load real example request
-    with open("examples/single-tech-tweet.json") as f:
+    with open("fixtures/tweet-request.json") as f:
         request_data = json.load(f)
     request = StyleTransferRequest(**request_data)
 
@@ -222,7 +253,7 @@ def test_evaluation_with_invalid_json():
 def test_evaluation_with_empty_content():
     """Test evaluation with empty content."""
     # Load real example request
-    with open("examples/single-tech-tweet.json") as f:
+    with open("fixtures/tweet-request.json") as f:
         request_data = json.load(f)
     request = StyleTransferRequest(**request_data)
 
@@ -243,59 +274,4 @@ def test_evaluation_with_empty_content():
     assert isinstance(result["comment"], str)
 
 
-def test_linkedin_example():
-    """Test with LinkedIn example data."""
-    # Load LinkedIn example request
-    with open("examples/linkedin-fullstack-skills.json") as f:
-        request_data = json.load(f)
-    request = StyleTransferRequest(**request_data)
 
-    response = StyleTransferResponse(
-        processed_content=json.dumps(
-            {
-                "text": "I'm excited to share insights from our analysis of 50,000+ job postings. The demand for full-stack developers continues to grow, with React, Node.js, and cloud skills leading the way. Here's what employers are actually looking for in 2024."
-            }
-        ),
-        applied_style="LinkedIn Tech Thought Leader",
-        output_schema=request.target_schemas[0],
-        metadata={
-            "schema_name": "LinkedIn Professional Post",
-            "reference_styles_count": 1,
-            "target_documents_count": 1,
-        },
-    )
-
-    generated_text, original_text = get_text_content(request, response)
-
-    assert "full-stack developers" in generated_text.lower()
-    assert original_text == ""  # No content in the example
-
-
-def test_multi_platform_example():
-    """Test with multi-platform example data."""
-    # Load multi-platform example request
-    with open("examples/multi-platform-content.json") as f:
-        request_data = json.load(f)
-    request = StyleTransferRequest(**request_data)
-
-    # Test with first schema (Twitter)
-    response = StyleTransferResponse(
-        processed_content=json.dumps(
-            {
-                "text": "🚀 REST API design tips that will save you hours! #APIDesign #BestPractices #DevTips",
-                "url_allowed": True,
-            }
-        ),
-        applied_style="Social Media Tech Influencer",
-        output_schema=request.target_schemas[0],
-        metadata={
-            "schema_name": "Engaging Tweet",
-            "reference_styles_count": 2,
-            "target_documents_count": 2,
-        },
-    )
-
-    generated_text, original_text = get_text_content(request, response)
-
-    assert "API" in generated_text
-    assert original_text == ""

@@ -86,8 +86,8 @@ Temperature controls the creativity and randomness of the output:
 3. Generate content and evaluate
 Operation (1-3, default=1): 1
 
-📁 Enter JSON file path (with request): examples/linkedin-fullstack-skills.json
-✅ Loaded JSON from examples/linkedin-fullstack-skills.json
+📁 Enter JSON file path (with request): fixtures/linkedin-request.json
+✅ Loaded JSON from fixtures/linkedin-request.json
 ✅ Parsed StyleTransferRequest with 1 target documents
 
 🤖 Choose AI provider:
