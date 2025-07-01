@@ -2,6 +2,7 @@
 """Unit tests for evaluator utility functions."""
 
 import json
+
 import pytest
 
 from agent_style_transfer.evals import (
@@ -172,4 +173,3 @@ def test_evaluation_with_empty_content():
     assert result["key"] == "content_preservation"
     assert isinstance(result["score"], (int, float))
     assert isinstance(result["comment"], str)
-

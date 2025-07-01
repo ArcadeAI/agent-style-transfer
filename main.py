@@ -5,7 +5,6 @@
 
 import asyncio
 import json
-import os
 from pathlib import Path
 from typing import Optional
 
@@ -112,7 +111,7 @@ def get_evaluation_model_choice():
         "3": ("anthropic", "claude-3-haiku-20240307"),
         "4": ("google_genai", "gemini-1.5-flash"),
     }
-    
+
     provider, model = model_map.get(choice, ("openai", "gpt-4"))
     return provider, model
 
@@ -339,9 +338,9 @@ def list_json_files(directory: str, filter_suffix: Optional[str] = None) -> list
     dir_path = Path(directory)
     if not dir_path.exists() or not dir_path.is_dir():
         return []
-    
+
     json_files = list(dir_path.glob("*.json"))
-    
+
     if filter_suffix:
         if filter_suffix == "request":
             # Show only files with -request suffix
@@ -349,11 +348,13 @@ def list_json_files(directory: str, filter_suffix: Optional[str] = None) -> list
         elif filter_suffix == "response":
             # Show only files without -request suffix
             json_files = [f for f in json_files if not f.name.endswith("-request.json")]
-    
+
     return sorted(json_files)
 
 
-def select_file_from_directory(directory: str, file_type: str = "file") -> Optional[str]:
+def select_file_from_directory(
+    directory: str, file_type: str = "file"
+) -> Optional[str]:
     """Let user select a file from a directory."""
     # Determine filter based on file type
     filter_suffix = None
@@ -361,25 +362,25 @@ def select_file_from_directory(directory: str, file_type: str = "file") -> Optio
         filter_suffix = "request"
     elif file_type == "response":
         filter_suffix = "response"
-    
+
     json_files = list_json_files(directory, filter_suffix)
-    
+
     if not json_files:
         print(f"❌ No {file_type} files found in {directory}")
         return None
-    
+
     print(f"\n📁 Available {file_type}s in {directory}:")
     for i, file_path in enumerate(json_files, 1):
         print(f"{i}. {file_path.name}")
-    
+
     print(f"{len(json_files) + 1}. Enter custom path")
-    
+
     while True:
         choice = input(f"\nSelect {file_type} (1-{len(json_files) + 1}): ").strip()
-        
+
         if not choice:
             return None
-        
+
         try:
             choice_num = int(choice)
             if 1 <= choice_num <= len(json_files):
@@ -518,7 +519,9 @@ async def main():
             )
             if evaluate_choice in ["", "y", "yes"]:
                 eval_provider, eval_model = get_evaluation_model_choice()
-                evaluations = evaluate_content(request, responses, eval_provider, eval_model)
+                evaluations = evaluate_content(
+                    request, responses, eval_provider, eval_model
+                )
 
     # Display evaluation results
     if evaluations:
@@ -531,21 +534,23 @@ async def main():
         )
         if save_choice in ["y", "yes"]:
             print(f"\n📁 Save to {directory}:")
-            
+
             if operation == "2":
                 # Evaluation only
                 default_filename = "evaluation_results.json"
-                custom_filename = input(
-                    f"📄 Output filename (default: {default_filename}): "
-                ).strip() or default_filename
+                custom_filename = (
+                    input(f"📄 Output filename (default: {default_filename}): ").strip()
+                    or default_filename
+                )
                 output_file = str(Path(directory) / custom_filename)
                 save_evaluation_results(evaluations, output_file)
             else:
                 # Generation or both
                 default_filename = "results.json"
-                custom_filename = input(
-                    f"📄 Output filename (default: {default_filename}): "
-                ).strip() or default_filename
+                custom_filename = (
+                    input(f"📄 Output filename (default: {default_filename}): ").strip()
+                    or default_filename
+                )
                 output_file = str(Path(directory) / custom_filename)
                 save_results(responses, evaluations, output_file)
 

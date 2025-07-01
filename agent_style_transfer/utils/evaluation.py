@@ -2,9 +2,9 @@
 
 from typing import Any, Dict
 
+from agent_style_transfer.llm_provider_setup import get_llm
 from agent_style_transfer.schemas import StyleTransferRequest, StyleTransferResponse
 from agent_style_transfer.utils.content_extractor import extract_content
-from agent_style_transfer.llm_provider_setup import get_llm
 
 
 def format_result(key: str, score: float, comment: str) -> Dict[str, Any]:
