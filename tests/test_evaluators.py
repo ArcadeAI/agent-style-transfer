@@ -33,7 +33,7 @@ def vcr_config() -> dict:
 @pytest.fixture
 def single_tech_tweet_request() -> StyleTransferRequest:
     """Load the single tech tweet example request."""
-    with open("examples/single-tech-tweet.json") as f:
+    with open("fixtures/tweet-request.json") as f:
         request_data = json.load(f)
     return StyleTransferRequest(**request_data)
 
@@ -62,7 +62,7 @@ def single_tech_tweet_response(single_tech_tweet_request) -> StyleTransferRespon
 @pytest.fixture
 def linkedin_request() -> StyleTransferRequest:
     """Load the LinkedIn fullstack skills example request."""
-    with open("examples/linkedin-fullstack-skills.json") as f:
+    with open("fixtures/linkedin-request.json") as f:
         request_data = json.load(f)
     return StyleTransferRequest(**request_data)
 
@@ -90,7 +90,7 @@ def linkedin_response(linkedin_request) -> StyleTransferResponse:
 @pytest.fixture
 def multi_platform_request() -> StyleTransferRequest:
     """Load the multi-platform content example request."""
-    with open("examples/multi-platform-content.json") as f:
+    with open("fixtures/tweet-and-blog-request.json") as f:
         request_data = json.load(f)
     return StyleTransferRequest(**request_data)
 
@@ -290,7 +290,7 @@ def test_evaluation_error_handling():
         )
 
     # Test evaluation with minimal valid request but broken content
-    with open("examples/single-tech-tweet.json") as f:
+    with open("fixtures/tweet-request.json") as f:
         request_data = json.load(f)
     request = StyleTransferRequest(**request_data)
 

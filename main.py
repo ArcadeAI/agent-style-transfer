@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Optional
 
 from agent_style_transfer.agent import transfer_style
-from agent_style_transfer.evals import evaluate_all, evaluate_batch
+from agent_style_transfer.evaluation import evaluate
 from agent_style_transfer.schemas import StyleTransferRequest, StyleTransferResponse
 
 
@@ -252,7 +252,7 @@ def evaluate_content(request: StyleTransferRequest, responses: list[StyleTransfe
     print(f"\n🔍 Evaluating content with {eval_model}...")
     
     try:
-        batch_results = evaluate_batch(request, responses, eval_model)
+        batch_results = evaluate(request, responses, eval_model)
         return batch_results
     except Exception as e:
         print(f"❌ Error evaluating content: {e}")
@@ -347,7 +347,7 @@ async def main():
     if operation == "2":
         # For evaluation, we need to get the original request from a separate file
         print("\n📋 For evaluation, you need to provide the original request context.")
-        request_file = input("📁 Enter original request file path (e.g., examples/linkedin-fullstack-skills.json): ").strip()
+        request_file = input("📁 Enter original request file path (e.g., fixtures/linkedin-request.json): ").strip()
         
         if request_file:
             request_data = load_json_file(request_file)
