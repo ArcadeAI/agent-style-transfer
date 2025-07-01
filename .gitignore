@@ -29,7 +29,7 @@ htmlcov/
 # Results and outputs
 results/
 *.json
-!examples/*.json
+!fixtures/*.json
 !pyproject.toml
 !pytest.ini
 

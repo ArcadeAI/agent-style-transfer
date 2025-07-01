@@ -1,0 +1,57 @@
+{
+  "reference_style": [
+    {
+      "name": "Tech Influencer Style",
+      "description": "Casual, engaging tech content with emojis and hashtags for social media",
+      "style_definition": {
+        "tone": "casual and engaging",
+        "formality_level": 0.3,
+        "sentence_structure": "short and punchy",
+        "vocabulary_level": "simple",
+        "personality_traits": ["enthusiastic", "knowledgeable", "approachable"],
+        "writing_patterns": {
+          "use_emojis": true,
+          "hashtag_frequency": "moderate",
+          "question_style": "rhetorical",
+          "bullet_points": true,
+          "call_to_action": true
+        }
+      },
+      "categories": ["tech", "social media", "casual"],
+      "confidence": 0.9
+    }
+  ],
+  "intent": "Make technical content accessible and engaging for social media audiences",
+  "focus": "Extract key technical concepts and adapt them for Twitter with engaging hooks and clear value propositions",
+  "target_content": [
+    {
+      "url": "https://blog.example.com/machine-learning-basics-2024",
+      "type": "Blog",
+      "category": "Technical",
+      "file_type": "markdown",
+      "title": "Understanding Machine Learning Basics: A Developer's Guide",
+      "author": "Dr. Sarah Chen",
+      "date_published": "2024-01-15T10:00:00Z",
+      "metadata": {
+        "word_count": 2500,
+        "target_audience": "developers",
+        "difficulty": "beginner",
+        "topics": ["machine learning", "AI", "programming"]
+      }
+    }
+  ],
+  "target_schemas": [
+    {
+      "name": "Twitter Single Post",
+      "output_type": "tweet_single",
+      "max_length": 280,
+      "format": "text",
+      "tweet_single": {
+        "text": "",
+        "url_allowed": true
+      },
+      "description": "Single tweet optimized for tech content with engagement",
+      "platform": "Twitter"
+    }
+  ]
+} 

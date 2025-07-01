@@ -1,0 +1,17 @@
+{
+  "responses": [
+    {
+      "applied_style": "Tech Influencer Style",
+      "processed_content": "{\n  \"text\": \"Want to understand Machine Learning? 🚀 I've got you covered! Check out my latest blog post for a developer-friendly guide to the basics. #MachineLearning #AI #programming #developers\",\n  \"url_allowed\": true\n}",
+      "output_schema": "Twitter Single Post",
+      "metadata": {
+        "reference_styles_count": 1,
+        "target_documents_count": 1,
+        "focus": "Extract key technical concepts and adapt them for Twitter with engaging hooks and clear value propositions",
+        "intent": "Make technical content accessible and engaging for social media audiences",
+        "schema_name": "Twitter Single Post"
+      }
+    }
+  ],
+  "evaluations": []
+}
