@@ -37,15 +37,19 @@ def load_request(fixture_name: str) -> StyleTransferRequest:
     return StyleTransferRequest(**request_data)
 
 
-def load_response(fixture_name: str, request: StyleTransferRequest = None) -> StyleTransferResponse:
+def load_response(
+    fixture_name: str, request: StyleTransferRequest = None
+) -> StyleTransferResponse:
     """Load a StyleTransferResponse from a JSON fixture file."""
     with open(f"fixtures/{fixture_name}-response.json") as f:
         response_data = json.load(f)
     # Use the first response from the responses array
     response_obj = response_data["responses"][0]
-    
+
     # Handle output_schema field - it might be a string that needs to be matched with the request
-    if "output_schema" in response_obj and isinstance(response_obj["output_schema"], str):
+    if "output_schema" in response_obj and isinstance(
+        response_obj["output_schema"], str
+    ):
         schema_name = response_obj["output_schema"]
         output_schema = None
         if request:
@@ -56,7 +60,7 @@ def load_response(fixture_name: str, request: StyleTransferRequest = None) -> St
                     break
         # If no match found or no request provided, set to None
         response_obj["output_schema"] = output_schema
-    
+
     return StyleTransferResponse(**response_obj)
 
 
@@ -65,8 +69,10 @@ def test_style_fidelity_evaluation():
     """Test style fidelity evaluation with VCR recording."""
     request = load_request("tweet")
     response = load_response("tweet", request)
-    
-    result = evaluate_style_fidelity(request, response, "claude-3-haiku-20240307")
+
+    result = evaluate_style_fidelity(
+        request, response, "anthropic", "claude-3-haiku-20240307"
+    )
 
     assert isinstance(result, dict)
     assert result["key"] == "style_fidelity"
@@ -81,13 +87,13 @@ def test_content_preservation_evaluation():
     """Test content preservation evaluation with VCR recording."""
     request = load_request("tweet")
     response = load_response("tweet", request)
-    
+
     result = evaluate_content_preservation(request, response)
 
     assert isinstance(result, dict)
     assert result["key"] == "content_preservation"
     assert isinstance(result["score"], (int, float))
-    assert 0 <= result["score"] <= 1  # Embedding similarity is typically 0-1
+    assert 0 <= result["score"] <= 5  # Now using 0-5 range for consistency
     assert isinstance(result["comment"], str)
 
 
@@ -96,8 +102,8 @@ def test_quality_evaluation():
     """Test content quality evaluation with VCR recording."""
     request = load_request("tweet")
     response = load_response("tweet", request)
-    
-    result = evaluate_quality(request, response, "claude-3-haiku-20240307")
+
+    result = evaluate_quality(request, response, "anthropic", "claude-3-haiku-20240307")
 
     assert isinstance(result, dict)
     assert result["key"] == "content_quality"
@@ -112,8 +118,10 @@ def test_platform_appropriateness_evaluation():
     """Test platform appropriateness evaluation with VCR recording."""
     request = load_request("tweet")
     response = load_response("tweet", request)
-    
-    result = evaluate_platform_appropriateness(request, response, "claude-3-haiku-20240307")
+
+    result = evaluate_platform_appropriateness(
+        request, response, "anthropic", "claude-3-haiku-20240307"
+    )
 
     assert isinstance(result, dict)
     assert result["key"] == "platform_appropriateness"
@@ -128,8 +136,8 @@ def test_evaluate_all():
     """Test running all evaluations together with VCR recording."""
     request = load_request("tweet")
     response = load_response("tweet", request)
-    
-    results = evaluate_all(request, response, "claude-3-haiku-20240307")
+
+    results = evaluate_all(request, response, "anthropic", "claude-3-haiku-20240307")
 
     assert isinstance(results, list)
     assert len(results) == 4
@@ -160,9 +168,11 @@ def test_evaluate_batch():
     request = load_request("tweet")
     response1 = load_response("tweet", request)
     response2 = load_response("tweet-2", request)
-    
+
     responses = [response1, response2]
-    batch_results = evaluate_batch(request, responses, "claude-3-haiku-20240307")
+    batch_results = evaluate_batch(
+        request, responses, "anthropic", "claude-3-haiku-20240307"
+    )
 
     assert isinstance(batch_results, list)
     assert len(batch_results) == 2
@@ -187,8 +197,8 @@ def test_linkedin_post_evaluation():
     """Test evaluation with LinkedIn post content."""
     request = load_request("linkedin")
     response = load_response("linkedin", request)
-    
-    results = evaluate_all(request, response, "claude-3-haiku-20240307")
+
+    results = evaluate_all(request, response, "anthropic", "claude-3-haiku-20240307")
 
     assert len(results) == 4
     for result in results:
@@ -201,8 +211,8 @@ def test_multi_platform_evaluation():
     """Test evaluation with multi-platform content."""
     request = load_request("tweet-and-blog")
     response = load_response("tweet-and-blog", request)
-    
-    results = evaluate_all(request, response, "claude-3-haiku-20240307")
+
+    results = evaluate_all(request, response, "anthropic", "claude-3-haiku-20240307")
 
     assert len(results) == 4
     for result in results:
@@ -245,7 +255,7 @@ def test_evaluation_without_api_calls():
     # depending on the implementation
     request = load_request("tweet")
     response = load_response("tweet", request)
-    
+
     result = evaluate_content_preservation(request, response)
 
     assert isinstance(result, dict)

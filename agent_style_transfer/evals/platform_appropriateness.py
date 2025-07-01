@@ -21,7 +21,8 @@ Score 1-5 where 1=inappropriate, 5=perfect for platform.
 def evaluate_platform_appropriateness(
     request: StyleTransferRequest,
     response: StyleTransferResponse,
-    model: str = "openai:o3-mini",
+    provider: str = "openai",
+    model: str = "gpt-4",
 ):
     """Evaluate platform appropriateness."""
     generated_text, _ = get_text_content(request, response)
@@ -32,7 +33,7 @@ def evaluate_platform_appropriateness(
     )
 
     evaluator = create_llm_evaluator(
-        PLATFORM_APPROPRIATENESS_PROMPT, "platform_appropriateness", model
+        PLATFORM_APPROPRIATENESS_PROMPT, "platform_appropriateness", provider, model
     )
     result = evaluator(outputs=generated_text, platform=platform)
 

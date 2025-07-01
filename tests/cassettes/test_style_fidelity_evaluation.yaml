@@ -1,22 +1,12 @@
 interactions:
 - request:
     body: "{\"max_tokens\":1024,\"messages\":[{\"role\":\"user\",\"content\":\"\\nRate
-      the style fidelity of this content (1-5 scale):\\n\\nReference Style: name='Tech
-      Influencer Style' description='Casual, engaging tech content with emojis and
-      hashtags for social media' documents=None style_definition=WritingStyle(tone='casual
-      and engaging', formality_level=0.3, sentence_structure='short and punchy', vocabulary_level='simple',
-      personality_traits=['enthusiastic', 'knowledgeable', 'approachable'], writing_patterns={'use_emojis':
-      True, 'hashtag_frequency': 'moderate', 'question_style': 'rhetorical', 'bullet_points':
-      True, 'call_to_action': True}) categories={'tech', 'casual', 'social media'}
-      confidence=0.9\\nOriginal Content: \\nGenerated Content: Dive into #MachineLearning
-      basics with this beginner-friendly guide for devs! \U0001F9E0 Learn the essentials
-      of AI and programming in just 2500 words. \U0001F468\u200D\U0001F4BB #TechTips
-      #DevLife\\n\\nConsider tone, formality, vocabulary, and writing patterns.\\nScore
-      1-5 where 1=completely different, 5=excellent match.\\n\"}],\"model\":\"claude-3-haiku-20240307\",\"tool_choice\":{\"type\":\"tool\",\"name\":\"score\"},\"tools\":[{\"name\":\"score\",\"input_schema\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"reasoning\":{\"type\":\"string\",\"description\":\"A
-      human-readable explanation of the score. You MUST end the reasoning with a sentence
-      that says: Thus, the score should be: SCORE_YOU_ASSIGN.\"},\"score\":{\"type\":\"boolean\",\"description\":\"A
-      score that is true if criteria in the prompt are met, and false otherwise.\"}},\"required\":[\"reasoning\",\"score\"]},\"description\":\"A
-      score that is true if criteria in the prompt are met, and false otherwise.\"}]}"
+      the style fidelity of this content (1-5 scale):\\n\\nReference Style: {reference_style}\\nOriginal
+      Content: {original_content}\\nGenerated Content: {outputs}\\n\\nConsider tone,
+      formality, vocabulary, and writing patterns.\\nScore 1-5 where 1=completely
+      different, 5=excellent match.\\n\\n\\nOutput: Want to understand Machine Learning?
+      \U0001F680 I've got you covered! Check out my latest blog post for a developer-friendly
+      guide to the basics. #MachineLearning #AI #programming #developers\"}],\"model\":\"claude-3-haiku-20240307\",\"temperature\":0.1}"
     headers:
       accept:
       - application/json
@@ -27,7 +17,7 @@ interactions:
       connection:
       - keep-alive
       content-length:
-      - '1651'
+      - '595'
       content-type:
       - application/json
       host:
@@ -55,17 +45,21 @@ interactions:
     method: POST
     uri: https://api.anthropic.com/v1/messages
   response:
-    content: '{"id":"msg_01JVEVUFN7YQgvqDvdCWFPBz","type":"message","role":"assistant","model":"claude-3-haiku-20240307","content":[{"type":"tool_use","id":"toolu_01AbxRZdG8f1mRekZ5c3VuXc","name":"score","input":{"reasoning":"The
-      generated content matches the reference style quite well. The tone is casual
-      and engaging, with the use of emojis and hashtags. The vocabulary is simple
-      and approachable, and the sentence structure is short and punchy, as described
-      in the style definition. The content also includes a call-to-action and covers
-      relevant tech/AI topics. Overall, the writing patterns and personality traits
-      align very closely with the ''Tech Influencer Style'' reference.\nThus, the
-      score should be: 5","score":true}}],"stop_reason":"tool_use","stop_sequence":null,"usage":{"input_tokens":790,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":156,"service_tier":"standard"}}'
+    content: '{"id":"msg_01EWAQQLqjkyLW8grLh8hdw6","type":"message","role":"assistant","model":"claude-3-haiku-20240307","content":[{"type":"text","text":"Based
+      on the reference style, original content, and generated output provided, I would
+      rate the style fidelity as a 4 out of 5.\n\nThe tone, formality, vocabulary,
+      and writing patterns of the generated output seem to match the reference style
+      quite well. The content has an engaging, conversational tone that is appropriate
+      for a blog post or social media post. The vocabulary and writing style also
+      seem to align with the reference.\n\nThe only minor difference I notice is that
+      the generated output includes some hashtags, which may not be present in the
+      reference style. However, this is a common practice for social media posts,
+      so it doesn''t detract significantly from the overall style match.\n\nOverall,
+      the generated output maintains the key stylistic elements of the reference and
+      would likely be perceived as a natural continuation of the same writing style."}],"stop_reason":"end_turn","stop_sequence":null,"usage":{"input_tokens":131,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":176,"service_tier":"standard"}}'
     headers:
       CF-RAY:
-      - 958119355db302fc-CWB
+      - 95879c544d30034b-CWB
       Connection:
       - keep-alive
       Content-Encoding:
@@ -73,7 +67,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Mon, 30 Jun 2025 22:28:47 GMT
+      - Tue, 01 Jul 2025 17:26:52 GMT
       Server:
       - cloudflare
       Transfer-Encoding:
@@ -87,29 +81,29 @@ interactions:
       anthropic-ratelimit-input-tokens-remaining:
       - '50000'
       anthropic-ratelimit-input-tokens-reset:
-      - '2025-06-30T22:28:46Z'
+      - '2025-07-01T17:26:50Z'
       anthropic-ratelimit-output-tokens-limit:
       - '10000'
       anthropic-ratelimit-output-tokens-remaining:
       - '10000'
       anthropic-ratelimit-output-tokens-reset:
-      - '2025-06-30T22:28:47Z'
+      - '2025-07-01T17:26:53Z'
       anthropic-ratelimit-requests-limit:
       - '50'
       anthropic-ratelimit-requests-remaining:
       - '49'
       anthropic-ratelimit-requests-reset:
-      - '2025-06-30T22:28:46Z'
+      - '2025-07-01T17:26:51Z'
       anthropic-ratelimit-tokens-limit:
       - '60000'
       anthropic-ratelimit-tokens-remaining:
       - '60000'
       anthropic-ratelimit-tokens-reset:
-      - '2025-06-30T22:28:46Z'
+      - '2025-07-01T17:26:50Z'
       cf-cache-status:
       - DYNAMIC
       request-id:
-      - req_011CQfCG5r7dakvL61AxYD4C
+      - req_011CQgh3gj7jVYEgBPK2cL14
       strict-transport-security:
       - max-age=31536000; includeSubDomains; preload
       via:

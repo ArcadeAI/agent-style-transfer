@@ -17,32 +17,38 @@ BatchEvaluationResults = List[EvaluationResults]
 def evaluate(
     request: StyleTransferRequest,
     responses: Union[StyleTransferResponse, List[StyleTransferResponse]],
-    model: str = "openai:o3-mini",
+    provider: str = "openai",
+    model: str = "gpt-4",
 ) -> Union[EvaluationResults, BatchEvaluationResults]:
     """Evaluate style transfer response(s).
     Args:
         request: The original style transfer request
         responses: Single response or list of responses to evaluate
-        model: Model to use for LLM evaluations
+        provider: Model provider (openai, anthropic, google_genai)
+        model: Model name to use for LLM evaluations
     Returns:
         List of evaluation results for single response, or list of lists for
         multiple responses
     """
     if isinstance(responses, list):
-        return [_evaluate_single(request, response, model) for response in responses]
+        return [
+            _evaluate_single(request, response, provider, model)
+            for response in responses
+        ]
     else:
-        return _evaluate_single(request, responses, model)
+        return _evaluate_single(request, responses, provider, model)
 
 
 def _evaluate_single(
     request: StyleTransferRequest,
     response: StyleTransferResponse,
-    model: str = "openai:o3-mini",
+    provider: str = "openai",
+    model: str = "gpt-4",
 ) -> EvaluationResults:
     """Run all evaluations on a single style transfer response."""
     return [
-        evaluate_style_fidelity(request, response, model),
+        evaluate_style_fidelity(request, response, provider, model),
         evaluate_content_preservation(request, response),
-        evaluate_quality(request, response, model),
-        evaluate_platform_appropriateness(request, response, model),
+        evaluate_quality(request, response, provider, model),
+        evaluate_platform_appropriateness(request, response, provider, model),
     ]

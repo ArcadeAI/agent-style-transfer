@@ -119,9 +119,7 @@ def get_evaluation_model_choice():
         if model_name == "gpt-4":
             return "o3-mini"  # evaluator expects 'o3-mini' for GPT-4
         return model_name  # e.g., 'gpt-3.5-turbo'
-    elif ui_model.startswith("anthropic:"):
-        return ui_model.split(":", 1)[1]
-    elif ui_model.startswith("google:"):
+    elif ui_model.startswith("anthropic:") or ui_model.startswith("google:"):
         return ui_model.split(":", 1)[1]
     else:
         return ui_model
@@ -161,7 +159,9 @@ def parse_style_transfer_request(json_data: dict) -> Optional[StyleTransferReque
         return None
 
 
-def parse_responses(json_data: dict, original_request: Optional[StyleTransferRequest] = None) -> Optional[list[StyleTransferResponse]]:
+def parse_responses(
+    json_data: dict, original_request: Optional[StyleTransferRequest] = None
+) -> Optional[list[StyleTransferResponse]]:
     """Parse responses from JSON data."""
     try:
         if "responses" in json_data:
@@ -184,13 +184,13 @@ def parse_responses(json_data: dict, original_request: Optional[StyleTransferReq
                     if schema.name == schema_name:
                         output_schema = schema
                         break
-            
+
             # Create StyleTransferResponse with proper output schema
             response = StyleTransferResponse(
                 processed_content=resp_data["processed_content"],
                 applied_style=resp_data.get("applied_style", "Unknown"),
                 output_schema=output_schema,
-                metadata=resp_data.get("metadata", {})
+                metadata=resp_data.get("metadata", {}),
             )
             responses.append(response)
 
@@ -205,7 +205,10 @@ def display_responses(responses: list[StyleTransferResponse]):
     """Display generated responses."""
     print(f"\n✅ Generated {len(responses)} response(s):")
     for i, response in enumerate(responses, 1):
-        print(f"\n--- Response {i}: {response.output_schema.name if response.output_schema else 'Unknown'} ---")
+        schema_name = (
+            response.output_schema.name if response.output_schema else "Unknown"
+        )
+        print(f"\n--- Response {i}: {schema_name} ---")
         print(f"Style: {response.applied_style}")
         print(f"Content:\n{response.processed_content}")
         print("-" * 50)
@@ -215,14 +218,14 @@ def display_evaluation_results(results: list[dict], response_index: int = 1):
     """Display evaluation results."""
     print(f"\n📊 Evaluation Results for Response {response_index}:")
     print("-" * 40)
-    
+
     for result in results:
         score = result["score"]
         comment = result["comment"]
-        
+
         # Create a visual score indicator
         score_bar = "█" * int(score) + "░" * (5 - int(score))
-        
+
         print(f"{result['key'].replace('_', ' ').title()}:")
         print(f"  Score: {score}/5 {score_bar}")
         print(f"  Comment: {comment}")
@@ -233,26 +236,28 @@ def display_batch_evaluation_results(batch_results: list[list[dict]]):
     """Display batch evaluation results."""
     print(f"\n📊 Batch Evaluation Results ({len(batch_results)} responses):")
     print("=" * 60)
-    
+
     for i, response_results in enumerate(batch_results, 1):
         print(f"\nResponse {i}:")
         print("-" * 20)
-        
+
         # Calculate average score
         avg_score = sum(r["score"] for r in response_results) / len(response_results)
-        
+
         for result in response_results:
             score = result["score"]
             score_bar = "█" * int(score) + "░" * (5 - int(score))
             print(f"  {result['key'].replace('_', ' ').title()}: {score}/5 {score_bar}")
-        
+
         print(f"  Average Score: {avg_score:.2f}/5")
 
 
-async def generate_content(request: StyleTransferRequest, provider: str, model: str, temperature: float) -> list[StyleTransferResponse]:
+async def generate_content(
+    request: StyleTransferRequest, provider: str, model: str, temperature: float
+) -> list[StyleTransferResponse]:
     """Generate content using the style transfer agent."""
     print(f"\n🚀 Processing with {provider}/{model} (temp: {temperature})...")
-    
+
     try:
         responses = await transfer_style(request, provider, model, temperature)
         return responses
@@ -261,10 +266,14 @@ async def generate_content(request: StyleTransferRequest, provider: str, model: 
         return []
 
 
-def evaluate_content(request: StyleTransferRequest, responses: list[StyleTransferResponse], eval_model: str) -> list[list[dict]]:
+def evaluate_content(
+    request: StyleTransferRequest,
+    responses: list[StyleTransferResponse],
+    eval_model: str,
+) -> list[list[dict]]:
     """Evaluate generated content."""
     print(f"\n🔍 Evaluating content with {eval_model}...")
-    
+
     try:
         batch_results = evaluate(request, responses, eval_model)
         return batch_results
@@ -273,7 +282,11 @@ def evaluate_content(request: StyleTransferRequest, responses: list[StyleTransfe
         return []
 
 
-def save_results(responses: list[StyleTransferResponse], evaluations: list[list[dict]], output_file: str):
+def save_results(
+    responses: list[StyleTransferResponse],
+    evaluations: list[list[dict]],
+    output_file: str,
+):
     """Save results to JSON file."""
     try:
         results = {
@@ -281,17 +294,19 @@ def save_results(responses: list[StyleTransferResponse], evaluations: list[list[
                 {
                     "applied_style": response.applied_style,
                     "processed_content": response.processed_content,
-                    "output_schema": response.output_schema.name if response.output_schema else None,
+                    "output_schema": (
+                        response.output_schema.name if response.output_schema else None
+                    ),
                     "metadata": response.metadata,
                 }
                 for response in responses
             ],
             "evaluations": evaluations,
         }
-        
+
         with open(output_file, "w", encoding="utf-8") as f:
             json.dump(results, f, indent=2, ensure_ascii=False)
-        
+
         print(f"✅ Results saved to {output_file}")
     except Exception as e:
         print(f"❌ Error saving results: {e}")
@@ -302,12 +317,9 @@ def save_evaluation_results(evaluations: list[list[dict]], output_file: str):
     try:
         results = {
             "evaluations": evaluations,
-            "summary": {
-                "total_responses": len(evaluations),
-                "average_scores": {}
-            }
+            "summary": {"total_responses": len(evaluations), "average_scores": {}},
         }
-        
+
         # Calculate summary statistics
         if evaluations:
             all_scores = {}
@@ -317,13 +329,13 @@ def save_evaluation_results(evaluations: list[list[dict]], output_file: str):
                     if key not in all_scores:
                         all_scores[key] = []
                     all_scores[key].append(result["score"])
-            
+
             for key, scores in all_scores.items():
                 results["summary"]["average_scores"][key] = sum(scores) / len(scores)
-        
+
         with open(output_file, "w", encoding="utf-8") as f:
             json.dump(results, f, indent=2, ensure_ascii=False)
-        
+
         print(f"✅ Evaluation results saved to {output_file}")
     except Exception as e:
         print(f"❌ Error saving results: {e}")
@@ -357,21 +369,27 @@ async def main():
     request = None
     responses = []
     evaluations = []
-    
+
     if operation == "2":
         # For evaluation, we need to get the original request from a separate file
         print("\n📋 For evaluation, you need to provide the original request context.")
-        request_file = input("📁 Enter original request file path (e.g., fixtures/linkedin-request.json): ").strip()
-        
+        request_file = input(
+            "📁 Enter original request file path "
+            "(e.g., fixtures/linkedin-request.json): "
+        ).strip()
+
         if request_file:
             request_data = load_json_file(request_file)
             if request_data:
                 request = parse_style_transfer_request(request_data)
-        
+
         if not request:
-            print("❌ Could not load original request. Evaluation requires the original request context.")
+            print(
+                "❌ Could not load original request. "
+                "Evaluation requires the original request context."
+            )
             return
-            
+
         # Parse responses from the evaluation file
         responses = parse_responses(json_data, original_request=request)
         if not responses:
@@ -428,7 +446,11 @@ async def main():
             display_responses(responses)
 
             # Ask if user wants to evaluate
-            evaluate_choice = input("\n🔍 Evaluate the generated content? (y/n, default=y): ").strip().lower()
+            evaluate_choice = (
+                input("\n🔍 Evaluate the generated content? (y/n, default=y): ")
+                .strip()
+                .lower()
+            )
             if evaluate_choice in ["", "y", "yes"]:
                 eval_model = get_evaluation_model_choice()
                 evaluations = evaluate_content(request, responses, eval_model)
@@ -439,17 +461,30 @@ async def main():
 
     # Ask if user wants to save results
     if responses or evaluations:
-        save_choice = input("\n💾 Save results to file? (y/n, default=n): ").strip().lower()
+        save_choice = (
+            input("\n💾 Save results to file? (y/n, default=n): ").strip().lower()
+        )
         if save_choice in ["y", "yes"]:
             if operation == "2":
                 # Evaluation only
-                output_file = input("📁 Output file path (default: results/evaluation_results.json): ").strip() or "results/evaluation_results.json"
+                output_file = (
+                    input(
+                        "📁 Output file path "
+                        "(default: results/evaluation_results.json): "
+                    ).strip()
+                    or "results/evaluation_results.json"
+                )
                 save_evaluation_results(evaluations, output_file)
             else:
                 # Generation or both
-                output_file = input("📁 Output file path (default: results/results.json): ").strip() or "results/results.json"
+                output_file = (
+                    input(
+                        "📁 Output file path (default: results/results.json): "
+                    ).strip()
+                    or "results/results.json"
+                )
                 save_results(responses, evaluations, output_file)
 
 
 if __name__ == "__main__":
-    asyncio.run(main()) 
+    asyncio.run(main())

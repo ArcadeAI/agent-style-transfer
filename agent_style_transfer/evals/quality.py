@@ -22,7 +22,8 @@ Score 1-5 where 1=poor, 5=excellent.
 def evaluate_quality(
     request: StyleTransferRequest,
     response: StyleTransferResponse,
-    model: str = "openai:o3-mini",
+    provider: str = "openai",
+    model: str = "gpt-4",
 ):
     """Evaluate overall content quality."""
     generated_text, _ = get_text_content(request, response)
@@ -32,7 +33,7 @@ def evaluate_quality(
         else "unknown"
     )
 
-    evaluator = create_llm_evaluator(QUALITY_PROMPT, "content_quality", model)
+    evaluator = create_llm_evaluator(QUALITY_PROMPT, "content_quality", provider, model)
     result = evaluator(
         outputs=generated_text,
         platform=platform,

@@ -1,16 +1,12 @@
 interactions:
 - request:
     body: "{\"max_tokens\":1024,\"messages\":[{\"role\":\"user\",\"content\":\"\\nRate
-      the overall quality of this content (1-5 scale):\\n\\nGenerated Content: Dive
-      into #MachineLearning basics with this beginner-friendly guide for devs! \U0001F9E0
-      Learn the essentials of AI and programming in just 2500 words. \U0001F468\u200D\U0001F4BB
-      #TechTips #DevLife\\nPlatform: tweet_single\\nIntent: Make technical content
-      accessible and engaging for social media audiences\\n\\nConsider writing quality,
-      engagement potential, and value.\\nScore 1-5 where 1=poor, 5=excellent.\\n\"}],\"model\":\"claude-3-haiku-20240307\",\"tool_choice\":{\"type\":\"tool\",\"name\":\"score\"},\"tools\":[{\"name\":\"score\",\"input_schema\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"reasoning\":{\"type\":\"string\",\"description\":\"A
-      human-readable explanation of the score. You MUST end the reasoning with a sentence
-      that says: Thus, the score should be: SCORE_YOU_ASSIGN.\"},\"score\":{\"type\":\"boolean\",\"description\":\"A
-      score that is true if criteria in the prompt are met, and false otherwise.\"}},\"required\":[\"reasoning\",\"score\"]},\"description\":\"A
-      score that is true if criteria in the prompt are met, and false otherwise.\"}]}"
+      the overall quality of this content (1-5 scale):\\n\\nGenerated Content: {outputs}\\nPlatform:
+      {platform}\\nIntent: {intent}\\n\\nConsider writing quality, engagement potential,
+      and value.\\nScore 1-5 where 1=poor, 5=excellent.\\n\\n\\nOutput: Want to understand
+      Machine Learning? \U0001F680 I've got you covered! Check out my latest blog
+      post for a developer-friendly guide to the basics. #MachineLearning #AI #programming
+      #developers\"}],\"model\":\"claude-3-haiku-20240307\",\"temperature\":0.1}"
     headers:
       accept:
       - application/json
@@ -21,7 +17,7 @@ interactions:
       connection:
       - keep-alive
       content-length:
-      - '1141'
+      - '539'
       content-type:
       - application/json
       host:
@@ -49,16 +45,19 @@ interactions:
     method: POST
     uri: https://api.anthropic.com/v1/messages
   response:
-    content: '{"id":"msg_01DEth3yPamYpesBBZQrDgns","type":"message","role":"assistant","model":"claude-3-haiku-20240307","content":[{"type":"tool_use","id":"toolu_01LRvADUh8dVF1EsNcpuGsz4","name":"score","input":{"reasoning":"The
-      content is well-written and covers a relevant topic - machine learning basics
-      - in a beginner-friendly way. The length of ~2500 words is appropriate for a
-      social media post. The hashtags and emojis help make the content more engaging
-      and accessible for a social media audience. Overall, the content seems to strike
-      a good balance between educational value and social media-friendly formatting.\n\nThus,
-      the score should be: 4","score":true}}],"stop_reason":"tool_use","stop_sequence":null,"usage":{"input_tokens":634,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":142,"service_tier":"standard"}}'
+    content: '{"id":"msg_012G1KvqNxAPBsGgn2TKMXbP","type":"message","role":"assistant","model":"claude-3-haiku-20240307","content":[{"type":"text","text":"Based
+      on the provided content, I would rate the overall quality as a 4 out of 5.\n\nThe
+      writing quality is strong, with clear and engaging language that effectively
+      communicates the topic and intent. The content has good potential to engage
+      the target audience of developers interested in learning about machine learning.
+      The value is also high, as the post appears to offer a helpful, developer-friendly
+      introduction to the fundamentals of machine learning.\n\nThe only potential
+      area for improvement could be to provide even more depth or detail on the machine
+      learning concepts covered, but overall this is a high-quality piece of content
+      that seems well-suited to achieve its intended purpose."}],"stop_reason":"end_turn","stop_sequence":null,"usage":{"input_tokens":119,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":137,"service_tier":"standard"}}'
     headers:
       CF-RAY:
-      - 958119acfdcd0357-CWB
+      - 95879cc1df2b02fc-CWB
       Connection:
       - keep-alive
       Content-Encoding:
@@ -66,7 +65,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Mon, 30 Jun 2025 22:29:05 GMT
+      - Tue, 01 Jul 2025 17:27:15 GMT
       Server:
       - cloudflare
       Transfer-Encoding:
@@ -80,29 +79,29 @@ interactions:
       anthropic-ratelimit-input-tokens-remaining:
       - '50000'
       anthropic-ratelimit-input-tokens-reset:
-      - '2025-06-30T22:29:05Z'
+      - '2025-07-01T17:27:12Z'
       anthropic-ratelimit-output-tokens-limit:
       - '10000'
       anthropic-ratelimit-output-tokens-remaining:
       - '10000'
       anthropic-ratelimit-output-tokens-reset:
-      - '2025-06-30T22:29:06Z'
+      - '2025-07-01T17:27:16Z'
       anthropic-ratelimit-requests-limit:
       - '50'
       anthropic-ratelimit-requests-remaining:
       - '49'
       anthropic-ratelimit-requests-reset:
-      - '2025-06-30T22:29:05Z'
+      - '2025-07-01T17:27:09Z'
       anthropic-ratelimit-tokens-limit:
       - '60000'
       anthropic-ratelimit-tokens-remaining:
       - '60000'
       anthropic-ratelimit-tokens-reset:
-      - '2025-06-30T22:29:05Z'
+      - '2025-07-01T17:27:12Z'
       cf-cache-status:
       - DYNAMIC
       request-id:
-      - req_011CQfCHVgc5z2ra32ypgaCL
+      - req_011CQgh4zG5uK5wPbfR4NvLJ
       strict-transport-security:
       - max-age=31536000; includeSubDomains; preload
       via:

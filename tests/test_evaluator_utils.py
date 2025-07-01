@@ -3,6 +3,7 @@
 
 import json
 from unittest.mock import Mock, patch
+
 import pytest
 
 from agent_style_transfer.evals import (
@@ -93,13 +94,17 @@ def test_get_text_content(request_file, response_file, expected_keywords):
         # Assertions
         assert isinstance(generated_text, str)
         assert isinstance(original_text, str)
-        
+
         # Check that generated text contains expected keywords
         for keyword in expected_keywords:
-            assert keyword.lower() in generated_text.lower(), f"Expected '{keyword}' in generated text"
-        
+            assert (
+                keyword.lower() in generated_text.lower()
+            ), f"Expected '{keyword}' in generated text"
+
         # Original text should be empty since fixture files don't contain actual content
-        assert original_text == "", f"Expected empty original text, got: {original_text}"
+        assert (
+            original_text == ""
+        ), f"Expected empty original text, got: {original_text}"
 
 
 def test_get_text_content_no_original_content():
@@ -156,9 +161,7 @@ def test_safe_evaluation_decorator_success():
     assert result["comment"] == "Success!"
 
 
-@patch(
-    "agent_style_transfer.evals.content_preservation.create_embedding_similarity_evaluator"
-)
+@patch("agent_style_transfer.evals.content_preservation.create_llm_evaluator")
 def test_content_preservation_evaluation_mock(mock_evaluator):
     """Test content preservation evaluation with mocked dependencies."""
     # Mock the evaluator
@@ -272,6 +275,3 @@ def test_evaluation_with_empty_content():
     assert result["key"] == "content_preservation"
     assert isinstance(result["score"], (int, float))
     assert isinstance(result["comment"], str)
-
-
-

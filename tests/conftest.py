@@ -26,7 +26,6 @@ def load_env():
     load_dotenv(env_file)
 
 
-
 @pytest.fixture(scope="session")
 def vcr_cassette_dir() -> str:
     """Directory for VCR cassettes."""
