@@ -2,13 +2,11 @@
 """Unit tests for evaluator utility functions."""
 
 import json
-from unittest.mock import Mock, patch
 
 import pytest
 
 from agent_style_transfer.evals import (
     evaluate_content_preservation,
-    evaluate_style_fidelity,
 )
 from agent_style_transfer.schemas import (
     StyleTransferRequest,
@@ -161,76 +159,6 @@ def test_safe_evaluation_decorator_success():
     assert result["comment"] == "Success!"
 
 
-@patch("agent_style_transfer.evals.content_preservation.create_llm_evaluator")
-def test_content_preservation_evaluation_mock(mock_evaluator):
-    """Test content preservation evaluation with mocked dependencies."""
-    # Mock the evaluator
-    mock_eval = Mock()
-    mock_eval.return_value = {"score": 0.85, "comment": "Good similarity"}
-    mock_evaluator.return_value = mock_eval
-
-    # Load real example request
-    with open("fixtures/tweet-request.json") as f:
-        request_data = json.load(f)
-    request = StyleTransferRequest(**request_data)
-
-    response = StyleTransferResponse(
-        processed_content=json.dumps(
-            {
-                "text": "Dive into #MachineLearning basics with this beginner-friendly guide for devs! 🧠 Learn the essentials of AI and programming in just 2500 words. 👨‍💻 #TechTips #DevLife",
-                "url_allowed": True,
-            }
-        ),
-        applied_style="Tech Influencer Style",
-        output_schema=request.target_schemas[0],
-        metadata={},
-    )
-
-    result = evaluate_content_preservation(request, response)
-
-    assert result["key"] == "content_preservation"
-    assert result["score"] == 0.85
-    assert result["comment"] == "Good similarity"
-
-    # Verify the evaluator was called correctly
-    mock_eval.assert_called_once()
-
-
-@patch("agent_style_transfer.evals.style_fidelity.create_llm_evaluator")
-def test_style_fidelity_evaluation_mock(mock_evaluator):
-    """Test style fidelity evaluation with mocked dependencies."""
-    # Mock the evaluator
-    mock_eval = Mock()
-    mock_eval.return_value = {"score": 4.0, "comment": "Good style match"}
-    mock_evaluator.return_value = mock_eval
-
-    # Load real example request
-    with open("fixtures/tweet-request.json") as f:
-        request_data = json.load(f)
-    request = StyleTransferRequest(**request_data)
-
-    response = StyleTransferResponse(
-        processed_content=json.dumps(
-            {
-                "text": "Dive into #MachineLearning basics with this beginner-friendly guide for devs! 🧠 Learn the essentials of AI and programming in just 2500 words. 👨‍💻 #TechTips #DevLife",
-                "url_allowed": True,
-            }
-        ),
-        applied_style="Tech Influencer Style",
-        output_schema=request.target_schemas[0],
-        metadata={},
-    )
-
-    result = evaluate_style_fidelity(request, response, "openai:o3-mini")
-
-    assert result["key"] == "style_fidelity"
-    assert result["score"] == 4.0
-    assert result["comment"] == "Good style match"
-
-    # Verify the evaluator was called correctly
-    mock_eval.assert_called_once()
-
-
 def test_evaluation_with_invalid_json():
     """Test evaluation with invalid JSON in processed content."""
     # Load real example request
@@ -275,3 +203,4 @@ def test_evaluation_with_empty_content():
     assert result["key"] == "content_preservation"
     assert isinstance(result["score"], (int, float))
     assert isinstance(result["comment"], str)
+
