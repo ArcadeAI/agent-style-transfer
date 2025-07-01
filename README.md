@@ -20,7 +20,7 @@ A comprehensive content transformation system that applies style transfer techni
 ### 1. Installation
 
 ```bash
-pip install -r requirements.txt
+pip install .
 ```
 
 ### 2. Environment Setup
