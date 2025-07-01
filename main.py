@@ -5,6 +5,7 @@
 
 import asyncio
 import json
+import os
 from pathlib import Path
 from typing import Optional
 
@@ -104,25 +105,16 @@ def get_evaluation_model_choice():
 
     choice = input("Model (1-4, default=1): ").strip() or "1"
 
-    # Map user choice to the model name used in the UI
+    # Map user choice to provider and model
     model_map = {
-        "1": "openai:gpt-4",
-        "2": "openai:gpt-3.5-turbo",
-        "3": "anthropic:claude-3-haiku-20240307",
-        "4": "google:gemini-1.5-flash",
+        "1": ("openai", "gpt-4"),
+        "2": ("openai", "gpt-3.5-turbo"),
+        "3": ("anthropic", "claude-3-haiku-20240307"),
+        "4": ("google_genai", "gemini-1.5-flash"),
     }
-    ui_model = model_map.get(choice, "openai:gpt-4")
-
-    # Translate to evaluator format
-    if ui_model.startswith("openai:"):
-        model_name = ui_model.split(":", 1)[1]
-        if model_name == "gpt-4":
-            return "o3-mini"  # evaluator expects 'o3-mini' for GPT-4
-        return model_name  # e.g., 'gpt-3.5-turbo'
-    elif ui_model.startswith("anthropic:") or ui_model.startswith("google:"):
-        return ui_model.split(":", 1)[1]
-    else:
-        return ui_model
+    
+    provider, model = model_map.get(choice, ("openai", "gpt-4"))
+    return provider, model
 
 
 def load_json_file(file_path: str) -> Optional[dict]:
@@ -269,13 +261,14 @@ async def generate_content(
 def evaluate_content(
     request: StyleTransferRequest,
     responses: list[StyleTransferResponse],
+    eval_provider: str,
     eval_model: str,
 ) -> list[list[dict]]:
     """Evaluate generated content."""
-    print(f"\n🔍 Evaluating content with {eval_model}...")
+    print(f"\n🔍 Evaluating content with {eval_provider}/{eval_model}...")
 
     try:
-        batch_results = evaluate(request, responses, eval_model)
+        batch_results = evaluate(request, responses, eval_provider, eval_model)
         return batch_results
     except Exception as e:
         print(f"❌ Error evaluating content: {e}")
@@ -341,6 +334,76 @@ def save_evaluation_results(evaluations: list[list[dict]], output_file: str):
         print(f"❌ Error saving results: {e}")
 
 
+def list_json_files(directory: str, filter_suffix: Optional[str] = None) -> list[Path]:
+    """List all JSON files in the given directory, optionally filtered by suffix."""
+    dir_path = Path(directory)
+    if not dir_path.exists() or not dir_path.is_dir():
+        return []
+    
+    json_files = list(dir_path.glob("*.json"))
+    
+    if filter_suffix:
+        if filter_suffix == "request":
+            # Show only files with -request suffix
+            json_files = [f for f in json_files if f.name.endswith("-request.json")]
+        elif filter_suffix == "response":
+            # Show only files without -request suffix
+            json_files = [f for f in json_files if not f.name.endswith("-request.json")]
+    
+    return sorted(json_files)
+
+
+def select_file_from_directory(directory: str, file_type: str = "file") -> Optional[str]:
+    """Let user select a file from a directory."""
+    # Determine filter based on file type
+    filter_suffix = None
+    if file_type == "request":
+        filter_suffix = "request"
+    elif file_type == "response":
+        filter_suffix = "response"
+    
+    json_files = list_json_files(directory, filter_suffix)
+    
+    if not json_files:
+        print(f"❌ No {file_type} files found in {directory}")
+        return None
+    
+    print(f"\n📁 Available {file_type}s in {directory}:")
+    for i, file_path in enumerate(json_files, 1):
+        print(f"{i}. {file_path.name}")
+    
+    print(f"{len(json_files) + 1}. Enter custom path")
+    
+    while True:
+        choice = input(f"\nSelect {file_type} (1-{len(json_files) + 1}): ").strip()
+        
+        if not choice:
+            return None
+        
+        try:
+            choice_num = int(choice)
+            if 1 <= choice_num <= len(json_files):
+                selected_file = json_files[choice_num - 1]
+                print(f"✅ Selected: {selected_file}")
+                return str(selected_file)
+            elif choice_num == len(json_files) + 1:
+                custom_path = input("Enter custom file path: ").strip()
+                if custom_path:
+                    return custom_path
+                else:
+                    print("❌ No path provided")
+            else:
+                print(f"❌ Invalid choice. Please enter 1-{len(json_files) + 1}")
+        except ValueError:
+            print("❌ Please enter a valid number")
+
+
+def get_directory_choice(default_dir: str = "fixtures") -> str:
+    """Let user choose a directory to browse."""
+    directory = input(f"📂 Directory to browse (default: {default_dir}): ").strip()
+    return directory if directory else default_dir
+
+
 async def main():
     """Main CLI interface."""
     print("🎨 Style Transfer Agent with Evaluation")
@@ -349,16 +412,20 @@ async def main():
     # Get operation choice
     operation = get_operation_choice()
 
-    # Get input file
+    # Select directory once at the beginning
+    directory = get_directory_choice()
+
+    # Get input file based on operation
     if operation == "2":
         # Evaluation only - need file with responses
-        file_path = input("📁 Enter JSON file path (with responses): ").strip()
+        file_path = select_file_from_directory(directory, "response")
     else:
         # Generation or both - need file with request only
-        file_path = input("📁 Enter JSON file path (with request): ").strip()
+        print("\n📁 Select request file:")
+        file_path = select_file_from_directory(directory, "request")
 
     if not file_path:
-        print("❌ No file path provided. Exiting.")
+        print("❌ No file selected. Exiting.")
         return
 
     json_data = load_json_file(file_path)
@@ -373,10 +440,8 @@ async def main():
     if operation == "2":
         # For evaluation, we need to get the original request from a separate file
         print("\n📋 For evaluation, you need to provide the original request context.")
-        request_file = input(
-            "📁 Enter original request file path "
-            "(e.g., fixtures/linkedin-request.json): "
-        ).strip()
+        print("📁 Select original request file:")
+        request_file = select_file_from_directory(directory, "request")
 
         if request_file:
             request_data = load_json_file(request_file)
@@ -425,8 +490,8 @@ async def main():
         print(f"  - Target content: {len(request.target_content)}")
         print(f"  - Responses to evaluate: {len(responses)}")
 
-        eval_model = get_evaluation_model_choice()
-        evaluations = evaluate_content(request, responses, eval_model)
+        eval_provider, eval_model = get_evaluation_model_choice()
+        evaluations = evaluate_content(request, responses, eval_provider, eval_model)
 
     elif operation == "3":
         # Generate content and evaluate
@@ -452,8 +517,8 @@ async def main():
                 .lower()
             )
             if evaluate_choice in ["", "y", "yes"]:
-                eval_model = get_evaluation_model_choice()
-                evaluations = evaluate_content(request, responses, eval_model)
+                eval_provider, eval_model = get_evaluation_model_choice()
+                evaluations = evaluate_content(request, responses, eval_provider, eval_model)
 
     # Display evaluation results
     if evaluations:
@@ -465,24 +530,23 @@ async def main():
             input("\n💾 Save results to file? (y/n, default=n): ").strip().lower()
         )
         if save_choice in ["y", "yes"]:
+            print(f"\n📁 Save to {directory}:")
+            
             if operation == "2":
                 # Evaluation only
-                output_file = (
-                    input(
-                        "📁 Output file path "
-                        "(default: results/evaluation_results.json): "
-                    ).strip()
-                    or "results/evaluation_results.json"
-                )
+                default_filename = "evaluation_results.json"
+                custom_filename = input(
+                    f"📄 Output filename (default: {default_filename}): "
+                ).strip() or default_filename
+                output_file = str(Path(directory) / custom_filename)
                 save_evaluation_results(evaluations, output_file)
             else:
                 # Generation or both
-                output_file = (
-                    input(
-                        "📁 Output file path (default: results/results.json): "
-                    ).strip()
-                    or "results/results.json"
-                )
+                default_filename = "results.json"
+                custom_filename = input(
+                    f"📄 Output filename (default: {default_filename}): "
+                ).strip() or default_filename
+                output_file = str(Path(directory) / custom_filename)
                 save_results(responses, evaluations, output_file)
 
 
