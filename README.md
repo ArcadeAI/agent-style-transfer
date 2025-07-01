@@ -76,7 +76,7 @@ The interface supports three major AI providers:
 
 ### Evaluation System
 
-The project includes a custom evaluation system that assesses generated content across multiple dimensions:
+The project includes a comprehensive custom evaluation system that assesses generated content across multiple dimensions:
 
 - **Style Adherence**: How well the content matches the target style
 - **Content Quality**: Overall writing quality and coherence
@@ -87,6 +87,110 @@ The project includes a custom evaluation system that assesses generated content 
 **Why Custom Evaluation?** The evaluation system uses a custom implementation rather than established frameworks like LangSmith, OpenEval, or AgentEvals due to incompatibility issues with model formatting requirements. The custom approach ensures seamless integration with the style transfer workflow and provides consistent evaluation across different AI providers and models.
 
 The evaluation results include detailed scores (1-5 scale) with explanatory comments for each dimension, helping you understand the strengths and areas for improvement in your generated content.
+
+#### Evaluation Architecture
+
+The evaluation system is organized into a modular, extensible architecture:
+
+```
+agent_style_transfer/
+├── evaluation.py              # Main entry point for evaluations
+├── evals/                     # Repository of available evaluations
+│   ├── __init__.py           # Exports all evaluation functions
+│   ├── style_fidelity.py     # Style adherence evaluation
+│   ├── content_preservation.py # Content preservation check
+│   ├── quality.py            # Overall quality assessment
+│   └── platform_appropriateness.py # Platform suitability
+└── utils/
+    ├── evaluation.py         # Shared evaluation utilities
+    ├── content_extractor.py  # Content extraction helpers
+    └── pydantic_utils.py     # Pydantic schema utilities
+```
+
+#### How Evaluations Work
+
+**1. Main Entry Point (`evaluation.py`)**
+- Provides the `evaluate()` function as the primary interface
+- Handles both single response and batch evaluation
+- Automatically runs all available evaluations
+- Returns structured results with scores and comments
+
+**2. Evaluation Repository (`evals/`)**
+- Each evaluation is a standalone module with a specific focus
+- Evaluations can be run individually or as part of a batch
+- Easy to add new evaluations by creating new modules
+- All evaluations follow a consistent interface pattern
+
+**3. Evaluation Utilities (`utils/evaluation.py`)**
+- `create_llm_evaluator()`: Creates LLM-based evaluators with consistent interface
+- `format_result()`: Standardizes evaluation result format
+- `get_text_content()`: Extracts text content from requests and responses
+- Handles score normalization and error handling
+
+**4. Content Processing (`utils/content_extractor.py`)**
+- Extracts text content from structured outputs
+- Handles different output schemas (tweets, LinkedIn posts, etc.)
+- Parses JSON content and extracts relevant text fields
+
+#### Available Evaluations
+
+**Style Fidelity (`evals/style_fidelity.py`)**
+- Evaluates how well the generated content matches the reference style
+- Considers tone, formality, vocabulary, and writing patterns
+- Uses LLM to assess style consistency
+
+**Content Preservation (`evals/content_preservation.py`)**
+- Checks if key information from the original content is preserved
+- Evaluates factual accuracy and completeness
+- Ensures the core message is maintained
+
+**Quality Assessment (`evals/quality.py`)**
+- Overall writing quality evaluation
+- Considers grammar, coherence, and engagement
+- Assesses value and readability
+
+**Platform Appropriateness (`evals/platform_appropriateness.py`)**
+- Evaluates suitability for the target platform
+- Considers platform-specific requirements and conventions
+- Assesses format and style appropriateness
+
+#### Using the Evaluation System
+
+**Single Response Evaluation:**
+```python
+from agent_style_transfer.evaluation import evaluate
+
+results = evaluate(request, response, provider="openai", model="gpt-4")
+```
+
+**Batch Evaluation:**
+```python
+results = evaluate(request, responses, provider="anthropic", model="claude-3-haiku")
+```
+
+**Individual Evaluations:**
+```python
+from agent_style_transfer.evals import evaluate_style_fidelity, evaluate_quality
+
+style_score = evaluate_style_fidelity(request, response, "openai", "gpt-4")
+quality_score = evaluate_quality(request, response, "anthropic", "claude-3-haiku")
+```
+
+#### Adding New Evaluations
+
+To add a new evaluation:
+
+1. **Create a new module** in `evals/` (e.g., `evals/readability.py`)
+2. **Follow the standard interface**:
+   ```python
+   def evaluate_readability(request, response, provider="openai", model="gpt-4"):
+       # Your evaluation logic here
+       return format_result("readability", score, comment)
+   ```
+3. **Add to exports** in `evals/__init__.py`
+4. **Update main evaluation** in `evaluation.py` to include the new evaluation
+
+The modular design makes it easy to extend the evaluation system with new metrics and criteria.
 
 ### Temperature Control
 
