@@ -1,31 +1,10 @@
 """Evaluation utility functions."""
 
-from functools import wraps
-from typing import Any, Callable, Dict
+from typing import Any, Dict
 
-from agent_style_transfer.llm_provider_setup import get_llm
 from agent_style_transfer.schemas import StyleTransferRequest, StyleTransferResponse
 from agent_style_transfer.utils.content_extractor import extract_content
-
-
-def safe_evaluation(evaluation_name: str):
-    """Decorator to handle errors in evaluation functions."""
-
-    def decorator(func: Callable) -> Callable:
-        @wraps(func)
-        def wrapper(*args, **kwargs) -> Dict[str, Any]:
-            try:
-                return func(*args, **kwargs)
-            except Exception as e:
-                return {
-                    "key": evaluation_name,
-                    "score": 0,
-                    "comment": f"Evaluation failed: {e!s}",
-                }
-
-        return wrapper
-
-    return decorator
+from agent_style_transfer.llm_provider_setup import get_llm
 
 
 def format_result(key: str, score: float, comment: str) -> Dict[str, Any]:

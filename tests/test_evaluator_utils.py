@@ -2,7 +2,6 @@
 """Unit tests for evaluator utility functions."""
 
 import json
-
 import pytest
 
 from agent_style_transfer.evals import (
@@ -15,7 +14,6 @@ from agent_style_transfer.schemas import (
 from agent_style_transfer.utils.evaluation import (
     format_result,
     get_text_content,
-    safe_evaluation,
 )
 
 
@@ -128,35 +126,6 @@ def test_get_text_content_no_original_content():
 
     assert generated_text == "Generated content here"
     assert original_text == ""
-
-
-def test_safe_evaluation_decorator():
-    """Test the safe_evaluation decorator."""
-
-    @safe_evaluation("test_eval")
-    def failing_function():
-        raise ValueError("Test error")
-
-    result = failing_function()
-
-    assert result["key"] == "test_eval"
-    assert result["score"] == 0
-    assert "Evaluation failed" in result["comment"]
-    assert "Test error" in result["comment"]
-
-
-def test_safe_evaluation_decorator_success():
-    """Test the safe_evaluation decorator with successful execution."""
-
-    @safe_evaluation("test_eval")
-    def successful_function():
-        return {"key": "test_eval", "score": 5.0, "comment": "Success!"}
-
-    result = successful_function()
-
-    assert result["key"] == "test_eval"
-    assert result["score"] == 5.0
-    assert result["comment"] == "Success!"
 
 
 def test_evaluation_with_invalid_json():
