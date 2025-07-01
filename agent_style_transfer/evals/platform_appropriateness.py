@@ -5,7 +5,6 @@ from agent_style_transfer.utils.evaluation import (
     create_llm_evaluator,
     format_result,
     get_text_content,
-    safe_evaluation,
 )
 
 PLATFORM_APPROPRIATENESS_PROMPT = """
@@ -19,7 +18,6 @@ Score 1-5 where 1=inappropriate, 5=perfect for platform.
 """
 
 
-@safe_evaluation("platform_appropriateness")
 def evaluate_platform_appropriateness(
     request: StyleTransferRequest,
     response: StyleTransferResponse,

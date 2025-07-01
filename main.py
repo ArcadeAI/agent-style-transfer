@@ -104,13 +104,27 @@ def get_evaluation_model_choice():
 
     choice = input("Model (1-4, default=1): ").strip() or "1"
 
+    # Map user choice to the model name used in the UI
     model_map = {
         "1": "openai:gpt-4",
         "2": "openai:gpt-3.5-turbo",
         "3": "anthropic:claude-3-haiku-20240307",
         "4": "google:gemini-1.5-flash",
     }
-    return model_map.get(choice, "openai:gpt-4")
+    ui_model = model_map.get(choice, "openai:gpt-4")
+
+    # Translate to evaluator format
+    if ui_model.startswith("openai:"):
+        model_name = ui_model.split(":", 1)[1]
+        if model_name == "gpt-4":
+            return "o3-mini"  # evaluator expects 'o3-mini' for GPT-4
+        return model_name  # e.g., 'gpt-3.5-turbo'
+    elif ui_model.startswith("anthropic:"):
+        return ui_model.split(":", 1)[1]
+    elif ui_model.startswith("google:"):
+        return ui_model.split(":", 1)[1]
+    else:
+        return ui_model
 
 
 def load_json_file(file_path: str) -> Optional[dict]:

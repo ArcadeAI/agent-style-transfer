@@ -5,7 +5,6 @@ from agent_style_transfer.utils.evaluation import (
     create_llm_evaluator,
     format_result,
     get_text_content,
-    safe_evaluation,
 )
 
 STYLE_FIDELITY_PROMPT = """
@@ -20,7 +19,6 @@ Score 1-5 where 1=completely different, 5=excellent match.
 """
 
 
-@safe_evaluation("style_fidelity")
 def evaluate_style_fidelity(
     request: StyleTransferRequest,
     response: StyleTransferResponse,
