@@ -30,118 +30,59 @@ def vcr_config() -> dict:
     }
 
 
-@pytest.fixture
-def single_tech_tweet_request() -> StyleTransferRequest:
-    """Load the single tech tweet example request."""
-    with open("fixtures/tweet-request.json") as f:
+def load_request(fixture_name: str) -> StyleTransferRequest:
+    """Load a StyleTransferRequest from a JSON fixture file."""
+    with open(f"fixtures/{fixture_name}-request.json") as f:
         request_data = json.load(f)
     return StyleTransferRequest(**request_data)
 
 
-@pytest.fixture
-def single_tech_tweet_response(single_tech_tweet_request) -> StyleTransferResponse:
-    """Create a realistic response for the single tech tweet example."""
-    response = StyleTransferResponse(
-        processed_content=json.dumps(
-            {
-                "text": "Dive into #MachineLearning basics with this beginner-friendly guide for devs! 🧠 Learn the essentials of AI and programming in just 2500 words. 👨‍💻 #TechTips #DevLife",
-                "url_allowed": True,
-            }
-        ),
-        applied_style="Tech Influencer Style",
-        output_schema=single_tech_tweet_request.target_schemas[0],
-        metadata={
-            "schema_name": "Twitter Single Post",
-            "reference_styles_count": 1,
-            "target_documents_count": 1,
-        },
-    )
-    return response
-
-
-@pytest.fixture
-def linkedin_request() -> StyleTransferRequest:
-    """Load the LinkedIn fullstack skills example request."""
-    with open("fixtures/linkedin-request.json") as f:
-        request_data = json.load(f)
-    return StyleTransferRequest(**request_data)
-
-
-@pytest.fixture
-def linkedin_response(linkedin_request) -> StyleTransferResponse:
-    """Create a realistic response for the LinkedIn example."""
-    response = StyleTransferResponse(
-        processed_content=json.dumps(
-            {
-                "text": "I'm excited to share insights from our analysis of 50,000+ job postings. The demand for full-stack developers continues to grow, with React, Node.js, and cloud skills leading the way. Here's what employers are actually looking for in 2024."
-            }
-        ),
-        applied_style="LinkedIn Tech Thought Leader",
-        output_schema=linkedin_request.target_schemas[0],
-        metadata={
-            "schema_name": "LinkedIn Professional Post",
-            "reference_styles_count": 1,
-            "target_documents_count": 1,
-        },
-    )
-    return response
-
-
-@pytest.fixture
-def multi_platform_request() -> StyleTransferRequest:
-    """Load the multi-platform content example request."""
-    with open("fixtures/tweet-and-blog-request.json") as f:
-        request_data = json.load(f)
-    return StyleTransferRequest(**request_data)
-
-
-@pytest.fixture
-def multi_platform_response(multi_platform_request) -> StyleTransferResponse:
-    """Create a realistic response for the multi-platform example."""
-    response = StyleTransferResponse(
-        processed_content=json.dumps(
-            {
-                "text": "🚀 REST API design tips that will save you hours! #APIDesign #BestPractices #DevTips",
-                "url_allowed": True,
-            }
-        ),
-        applied_style="Social Media Tech Influencer",
-        output_schema=multi_platform_request.target_schemas[0],
-        metadata={
-            "schema_name": "Engaging Tweet",
-            "reference_styles_count": 2,
-            "target_documents_count": 2,
-        },
-    )
-    return response
+def load_response(fixture_name: str, request: StyleTransferRequest = None) -> StyleTransferResponse:
+    """Load a StyleTransferResponse from a JSON fixture file."""
+    with open(f"fixtures/{fixture_name}-response.json") as f:
+        response_data = json.load(f)
+    # Use the first response from the responses array
+    response_obj = response_data["responses"][0]
+    
+    # Handle output_schema field - it might be a string that needs to be matched with the request
+    if "output_schema" in response_obj and isinstance(response_obj["output_schema"], str):
+        schema_name = response_obj["output_schema"]
+        output_schema = None
+        if request:
+            # Try to find matching output schema from original request
+            for schema in request.target_schemas:
+                if schema.name == schema_name:
+                    output_schema = schema
+                    break
+        # If no match found or no request provided, set to None
+        response_obj["output_schema"] = output_schema
+    
+    return StyleTransferResponse(**response_obj)
 
 
 @pytest.mark.vcr
-def test_style_fidelity_evaluation(
-    single_tech_tweet_request, single_tech_tweet_response
-):
+def test_style_fidelity_evaluation():
     """Test style fidelity evaluation with VCR recording."""
-    result = evaluate_style_fidelity(
-        single_tech_tweet_request, single_tech_tweet_response, "claude-3-haiku-20240307"
-    )
+    request = load_request("tweet")
+    response = load_response("tweet", request)
+    
+    result = evaluate_style_fidelity(request, response, "claude-3-haiku-20240307")
 
     assert isinstance(result, dict)
     assert result["key"] == "style_fidelity"
     assert isinstance(result["score"], (int, float))
-
     assert 1 <= result["score"] <= 5
     assert isinstance(result["comment"], str)
     assert len(result["comment"]) > 0
 
 
 @pytest.mark.vcr
-def test_content_preservation_evaluation(
-    single_tech_tweet_request, single_tech_tweet_response
-):
+def test_content_preservation_evaluation():
     """Test content preservation evaluation with VCR recording."""
-    result = evaluate_content_preservation(
-        single_tech_tweet_request, single_tech_tweet_response
-    )
+    request = load_request("tweet")
+    response = load_response("tweet", request)
+    
+    result = evaluate_content_preservation(request, response)
 
     assert isinstance(result, dict)
     assert result["key"] == "content_preservation"
@@ -151,11 +92,12 @@ def test_content_preservation_evaluation(
 
 
 @pytest.mark.vcr
-def test_quality_evaluation(single_tech_tweet_request, single_tech_tweet_response):
+def test_quality_evaluation():
     """Test content quality evaluation with VCR recording."""
-    result = evaluate_quality(
-        single_tech_tweet_request, single_tech_tweet_response, "claude-3-haiku-20240307"
-    )
+    request = load_request("tweet")
+    response = load_response("tweet", request)
+    
+    result = evaluate_quality(request, response, "claude-3-haiku-20240307")
 
     assert isinstance(result, dict)
     assert result["key"] == "content_quality"
@@ -166,13 +108,12 @@ def test_quality_evaluation(single_tech_tweet_request, single_tech_tweet_respons
 
 
 @pytest.mark.vcr
-def test_platform_appropriateness_evaluation(
-    single_tech_tweet_request, single_tech_tweet_response
-):
+def test_platform_appropriateness_evaluation():
     """Test platform appropriateness evaluation with VCR recording."""
-    result = evaluate_platform_appropriateness(
-        single_tech_tweet_request, single_tech_tweet_response, "claude-3-haiku-20240307"
-    )
+    request = load_request("tweet")
+    response = load_response("tweet", request)
+    
+    result = evaluate_platform_appropriateness(request, response, "claude-3-haiku-20240307")
 
     assert isinstance(result, dict)
     assert result["key"] == "platform_appropriateness"
@@ -183,11 +124,12 @@ def test_platform_appropriateness_evaluation(
 
 
 @pytest.mark.vcr
-def test_evaluate_all(single_tech_tweet_request, single_tech_tweet_response):
+def test_evaluate_all():
     """Test running all evaluations together with VCR recording."""
-    results = evaluate_all(
-        single_tech_tweet_request, single_tech_tweet_response, "claude-3-haiku-20240307"
-    )
+    request = load_request("tweet")
+    response = load_response("tweet", request)
+    
+    results = evaluate_all(request, response, "claude-3-haiku-20240307")
 
     assert isinstance(results, list)
     assert len(results) == 4
@@ -213,25 +155,14 @@ def test_evaluate_all(single_tech_tweet_request, single_tech_tweet_response):
 
 
 @pytest.mark.vcr
-def test_evaluate_batch(single_tech_tweet_request, single_tech_tweet_response):
+def test_evaluate_batch():
     """Test batch evaluation with multiple responses."""
-    # Create a second response with different content
-    second_response = StyleTransferResponse(
-        processed_content=json.dumps(
-            {
-                "text": "Another tech achievement! Deployed new microservices with 50% faster response times. The architecture is solid! 💪 #Microservices #Performance",
-                "url_allowed": True,
-            }
-        ),
-        applied_style="Tech Influencer Style",
-        output_schema=single_tech_tweet_response.output_schema,
-        metadata=single_tech_tweet_response.metadata,
-    )
-
-    responses = [single_tech_tweet_response, second_response]
-    batch_results = evaluate_batch(
-        single_tech_tweet_request, responses, "claude-3-haiku-20240307"
-    )
+    request = load_request("tweet")
+    response1 = load_response("tweet", request)
+    response2 = load_response("tweet-2", request)
+    
+    responses = [response1, response2]
+    batch_results = evaluate_batch(request, responses, "claude-3-haiku-20240307")
 
     assert isinstance(batch_results, list)
     assert len(batch_results) == 2
@@ -252,11 +183,12 @@ def test_evaluate_batch(single_tech_tweet_request, single_tech_tweet_response):
 
 
 @pytest.mark.vcr
-def test_linkedin_post_evaluation(linkedin_request, linkedin_response):
+def test_linkedin_post_evaluation():
     """Test evaluation with LinkedIn post content."""
-    results = evaluate_all(
-        linkedin_request, linkedin_response, "claude-3-haiku-20240307"
-    )
+    request = load_request("linkedin")
+    response = load_response("linkedin", request)
+    
+    results = evaluate_all(request, response, "claude-3-haiku-20240307")
 
     assert len(results) == 4
     for result in results:
@@ -265,11 +197,12 @@ def test_linkedin_post_evaluation(linkedin_request, linkedin_response):
 
 
 @pytest.mark.vcr
-def test_multi_platform_evaluation(multi_platform_request, multi_platform_response):
+def test_multi_platform_evaluation():
     """Test evaluation with multi-platform content."""
-    results = evaluate_all(
-        multi_platform_request, multi_platform_response, "claude-3-haiku-20240307"
-    )
+    request = load_request("tweet-and-blog")
+    response = load_response("tweet-and-blog", request)
+    
+    results = evaluate_all(request, response, "claude-3-haiku-20240307")
 
     assert len(results) == 4
     for result in results:
@@ -290,9 +223,7 @@ def test_evaluation_error_handling():
         )
 
     # Test evaluation with minimal valid request but broken content
-    with open("fixtures/tweet-request.json") as f:
-        request_data = json.load(f)
-    request = StyleTransferRequest(**request_data)
+    request = load_request("tweet")
 
     malformed_response = StyleTransferResponse(
         processed_content="invalid json content",
@@ -308,15 +239,14 @@ def test_evaluation_error_handling():
     assert "Evaluation failed" in result["comment"]
 
 
-def test_evaluation_without_api_calls(
-    single_tech_tweet_request, single_tech_tweet_response
-):
+def test_evaluation_without_api_calls():
     """Test evaluation functions that don't require API calls."""
     # Content preservation uses embedding similarity which may not require API calls
     # depending on the implementation
-    result = evaluate_content_preservation(
-        single_tech_tweet_request, single_tech_tweet_response
-    )
+    request = load_request("tweet")
+    response = load_response("tweet", request)
+    
+    result = evaluate_content_preservation(request, response)
 
     assert isinstance(result, dict)
     assert result["key"] == "content_preservation"

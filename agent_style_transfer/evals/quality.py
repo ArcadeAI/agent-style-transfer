@@ -5,7 +5,6 @@ from agent_style_transfer.utils.evaluation import (
     create_llm_evaluator,
     format_result,
     get_text_content,
-    safe_evaluation,
 )
 
 QUALITY_PROMPT = """
@@ -20,7 +19,6 @@ Score 1-5 where 1=poor, 5=excellent.
 """
 
 
-@safe_evaluation("content_quality")
 def evaluate_quality(
     request: StyleTransferRequest,
     response: StyleTransferResponse,

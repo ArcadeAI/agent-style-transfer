@@ -6,11 +6,9 @@ from agent_style_transfer.schemas import StyleTransferRequest, StyleTransferResp
 from agent_style_transfer.utils.evaluation import (
     format_result,
     get_text_content,
-    safe_evaluation,
 )
 
 
-@safe_evaluation("content_preservation")
 def evaluate_content_preservation(
     request: StyleTransferRequest, response: StyleTransferResponse
 ):
