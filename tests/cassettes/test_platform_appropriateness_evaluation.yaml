@@ -2,15 +2,11 @@ interactions:
 - request:
     body: "{\"max_tokens\":1024,\"messages\":[{\"role\":\"user\",\"content\":\"\\nRate
       how appropriate this content is for the target platform (1-5 scale):\\n\\nContent:
-      Dive into #MachineLearning basics with this beginner-friendly guide for devs!
-      \U0001F9E0 Learn the essentials of AI and programming in just 2500 words. \U0001F468\u200D\U0001F4BB
-      #TechTips #DevLife\\nPlatform: tweet_single\\n\\nConsider platform-specific
-      requirements and conventions.\\nScore 1-5 where 1=inappropriate, 5=perfect for
-      platform.\\n\"}],\"model\":\"claude-3-haiku-20240307\",\"tool_choice\":{\"type\":\"tool\",\"name\":\"score\"},\"tools\":[{\"name\":\"score\",\"input_schema\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"reasoning\":{\"type\":\"string\",\"description\":\"A
-      human-readable explanation of the score. You MUST end the reasoning with a sentence
-      that says: Thus, the score should be: SCORE_YOU_ASSIGN.\"},\"score\":{\"type\":\"boolean\",\"description\":\"A
-      score that is true if criteria in the prompt are met, and false otherwise.\"}},\"required\":[\"reasoning\",\"score\"]},\"description\":\"A
-      score that is true if criteria in the prompt are met, and false otherwise.\"}]}"
+      {outputs}\\nPlatform: {platform}\\n\\nConsider platform-specific requirements
+      and conventions.\\nScore 1-5 where 1=inappropriate, 5=perfect for platform.\\n\\n\\nOutput:
+      Want to understand Machine Learning? \U0001F680 I've got you covered! Check
+      out my latest blog post for a developer-friendly guide to the basics. #MachineLearning
+      #AI #programming #developers\"}],\"model\":\"claude-3-haiku-20240307\",\"temperature\":0.1}"
     headers:
       accept:
       - application/json
@@ -21,7 +17,7 @@ interactions:
       connection:
       - keep-alive
       content-length:
-      - '1086'
+      - '549'
       content-type:
       - application/json
       host:
@@ -49,19 +45,19 @@ interactions:
     method: POST
     uri: https://api.anthropic.com/v1/messages
   response:
-    content: '{"id":"msg_01DCcfF8cZHZWkXYJVWQ8HWH","type":"message","role":"assistant","model":"claude-3-haiku-20240307","content":[{"type":"tool_use","id":"toolu_01BTuE6B4fGep9wonMgf4XSw","name":"score","input":{"reasoning":"This
-      content is appropriate for a tweet platform in several ways:\n- It has a concise
-      length of around 2500 words, which is well-suited for the short-form tweet format.\n-
-      The content focuses on beginner-friendly machine learning and AI basics, which
-      aligns well with the educational and informative nature of many tweets.\n- The
-      use of relevant hashtags like #MachineLearning, #TechTips, and #DevLife helps
-      make the content discoverable and engaging for the target audience of developers.\n-
-      The tone is friendly and enthusiastic, using emojis and an exclamation point,
-      which matches the casual and conversational style common on Twitter.\n\nThus,
-      the score should be: 4","score":true}}],"stop_reason":"tool_use","stop_sequence":null,"usage":{"input_tokens":623,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":207,"service_tier":"standard"}}'
+    content: '{"id":"msg_01XpXPJvzTbDGoCz63mLm5HB","type":"message","role":"assistant","model":"claude-3-haiku-20240307","content":[{"type":"text","text":"For
+      the given content and platform, I would rate the appropriateness as a 4 out
+      of 5.\n\nThe content is well-suited for a developer-focused platform, as it
+      provides a helpful introduction to machine learning for programmers and developers.
+      The language is friendly and engaging, and the use of relevant hashtags helps
+      make the content discoverable.\n\nThe only potential area for improvement could
+      be to provide more specific details or examples related to the machine learning
+      concepts, to make the content even more valuable and informative for the target
+      audience. But overall, the content is well-crafted and appropriate for a developer-focused
+      platform."}],"stop_reason":"end_turn","stop_sequence":null,"usage":{"input_tokens":115,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":134,"service_tier":"standard"}}'
     headers:
       CF-RAY:
-      - 958119b8a8b40357-CWB
+      - 95879cf4c90502df-CWB
       Connection:
       - keep-alive
       Content-Encoding:
@@ -69,7 +65,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Mon, 30 Jun 2025 22:29:10 GMT
+      - Tue, 01 Jul 2025 17:27:19 GMT
       Server:
       - cloudflare
       Transfer-Encoding:
@@ -83,29 +79,29 @@ interactions:
       anthropic-ratelimit-input-tokens-remaining:
       - '50000'
       anthropic-ratelimit-input-tokens-reset:
-      - '2025-06-30T22:29:07Z'
+      - '2025-07-01T17:27:18Z'
       anthropic-ratelimit-output-tokens-limit:
       - '10000'
       anthropic-ratelimit-output-tokens-remaining:
       - '10000'
       anthropic-ratelimit-output-tokens-reset:
-      - '2025-06-30T22:29:11Z'
+      - '2025-07-01T17:27:20Z'
       anthropic-ratelimit-requests-limit:
       - '50'
       anthropic-ratelimit-requests-remaining:
       - '49'
       anthropic-ratelimit-requests-reset:
-      - '2025-06-30T22:29:07Z'
+      - '2025-07-01T17:27:17Z'
       anthropic-ratelimit-tokens-limit:
       - '60000'
       anthropic-ratelimit-tokens-remaining:
       - '60000'
       anthropic-ratelimit-tokens-reset:
-      - '2025-06-30T22:29:07Z'
+      - '2025-07-01T17:27:18Z'
       cf-cache-status:
       - DYNAMIC
       request-id:
-      - req_011CQfCHe39hLsG996ZVNUhk
+      - req_011CQgh5aVsfrnoe6byed4Hr
       strict-transport-security:
       - max-age=31536000; includeSubDomains; preload
       via:

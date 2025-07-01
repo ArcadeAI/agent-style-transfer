@@ -22,12 +22,15 @@ Score 1-5 where 1=completely different, 5=excellent match.
 def evaluate_style_fidelity(
     request: StyleTransferRequest,
     response: StyleTransferResponse,
-    model: str = "openai:o3-mini",
+    provider: str = "openai",
+    model: str = "gpt-4",
 ):
     """Evaluate how well the output matches the reference style."""
     generated_text, original_text = get_text_content(request, response)
 
-    evaluator = create_llm_evaluator(STYLE_FIDELITY_PROMPT, "style_fidelity", model)
+    evaluator = create_llm_evaluator(
+        STYLE_FIDELITY_PROMPT, "style_fidelity", provider, model
+    )
     result = evaluator(
         reference_style=str(request.reference_style[0]),
         original_content=original_text,
