@@ -1,0 +1,29 @@
+{
+  "responses": [
+    {
+      "applied_style": "Tech Educator Style",
+      "processed_content": "{\n  \"text\": \"REST API design best practices? 🤔 Learn how to create awesome APIs with clear naming, proper status codes & more! #API #RESTAPI #APIdesign\",\n  \"url_allowed\": true\n}",
+      "output_schema": "Engaging Tweet",
+      "metadata": {
+        "reference_styles_count": 2,
+        "target_documents_count": 2,
+        "focus": "Extract key concepts from technical documentation and research, then adapt them for both social media engagement and comprehensive educational content",
+        "intent": "Create educational content about API design best practices across multiple platforms",
+        "schema_name": "Engaging Tweet"
+      }
+    },
+    {
+      "applied_style": "Tech Educator Style",
+      "processed_content": "{\n  \"title\": \"REST API Design: Best Practices for Devs 🚀\",\n  \"subtitle\": null,\n  \"markdown\": \"## REST API Design: Best Practices for Devs 🚀\\n\\nHey #APIdevs! Let's talk about designing killer REST APIs.  This isn't just about code; it's about creating an awesome developer experience. Think of it like building a super-smooth highway for your users' apps to cruise on! 🚗💨\\n\\n**Why Good API Design Matters:**\\n\\nImagine trying to navigate a city with confusing street names and no signs.  That's what a poorly designed API feels like.  Clear, consistent design means happy developers and successful integrations.  And who doesn't want that?\\n\\n**Key Ingredients for API Awesome-Sauce:**\\n\\n* **Naming Conventions:**  Be consistent! Use clear, descriptive names for endpoints and parameters. Think about how easy it is to understand what each part does.  Consistency is king!\\n* **HTTP Status Codes:** Master the status codes! Use them correctly to tell developers exactly what's happening.  A 200 OK is like a thumbs-up 👍, while a 404 Not Found is like saying \\\"Oops, that page doesn't exist!\\\" 😜\\n* **API Versioning:**  Always version your API! This lets you update and improve without breaking existing integrations. It's like having a separate lane on the highway for older vehicles.\\n* **Security First:** Keep your API safe! Secure authentication and authorization are non-negotiable.  Think of it as the guard dogs protecting your data 🐕‍🦺\\n\\n**Pro-Tip:**  Great documentation is your best friend.  Make it easy for developers to use your API.  Think clear examples, easy-to-follow instructions and helpful error messages.\\n\\n**Want to learn more?** Check out our comprehensive guide for a deep dive into API design best practices! [Link to your guide here]\\n\\n#RESTAPI #APIDesign #BestPractices #Developers #APIIntegration #Tech\",\n  \"tags\": [\n    \"REST\",\n    \"API\",\n    \"best practices\",\n    \"developers\"\n  ],\n  \"categories\": [\n    \"Technical\"\n  ],\n  \"date\": \"2024-01-18T00:00:00\"\n}",
+      "output_schema": "Educational Blog Post",
+      "metadata": {
+        "reference_styles_count": 2,
+        "target_documents_count": 2,
+        "focus": "Extract key concepts from technical documentation and research, then adapt them for both social media engagement and comprehensive educational content",
+        "intent": "Create educational content about API design best practices across multiple platforms",
+        "schema_name": "Educational Blog Post"
+      }
+    }
+  ],
+  "evaluations": []
+}
