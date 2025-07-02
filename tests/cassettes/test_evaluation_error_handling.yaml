@@ -1,0 +1,86 @@
+interactions:
+- request:
+    body: '{"messages":[{"content":"You are an expert evaluator assessing content
+      preservation in style transfer.\nYour task is to evaluate how well the core
+      meaning and key information from the original text is preserved in the style-transferred
+      version.\n\nPlease evaluate the content preservation on a scale of 0-5, where:\n-
+      5: Perfect preservation - all key information, facts, and meaning preserved\n-
+      4: Good preservation - most key information preserved, minor details may differ\n-
+      3: Moderate preservation - some key information preserved, but significant omissions
+      or changes\n- 2: Poor preservation - most key information lost or significantly
+      altered\n- 1: Very poor preservation - significant information lost\n- 0: No
+      preservation - completely different meaning or content\n\nProvide your score
+      (0-5) and a brief explanation of your reasoning.\n\nOutput: invalid json content","role":"user"}],"model":"gpt-4","stream":false,"temperature":0.1}'
+    headers:
+      accept:
+      - application/json
+      accept-encoding:
+      - gzip, deflate, zstd
+      connection:
+      - keep-alive
+      content-length:
+      - '946'
+      content-type:
+      - application/json
+      host:
+      - api.openai.com
+      user-agent:
+      - OpenAI/Python 1.91.0
+      x-stainless-arch:
+      - x64
+      x-stainless-async:
+      - 'false'
+      x-stainless-lang:
+      - python
+      x-stainless-os:
+      - Linux
+      x-stainless-package-version:
+      - 1.91.0
+      x-stainless-retry-count:
+      - '0'
+      x-stainless-runtime:
+      - CPython
+      x-stainless-runtime-version:
+      - 3.12.3
+    method: POST
+    uri: https://api.openai.com/v1/chat/completions
+  response:
+    content: "{\n    \"error\": {\n        \"message\": \"The model `gpt-4` does not
+      exist or you do not have access to it.\",\n        \"type\": \"invalid_request_error\",\n
+      \       \"param\": null,\n        \"code\": \"model_not_found\"\n    }\n}\n"
+    headers:
+      CF-RAY:
+      - 959145d7dbc16223-GRU
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 02 Jul 2025 21:35:25 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - __cf_bm=be6lU1NvIaucTGMo0ClZNwHL0aw7pjLXRljCQHN6EvE-1751492125-1.0.1.1-vdGvOlT1Zj6.inT0FchSN4WvxGB9ASJ8yi4n4YRAYGiTb7pbmgmMyWaNq9sagT4Ndkwp.dQ0b5S8uujWNV9KlpLC72Ig7iN6Z4dq2LiPzu4;
+        path=/; expires=Wed, 02-Jul-25 22:05:25 GMT; domain=.api.openai.com; HttpOnly;
+        Secure; SameSite=None
+      - _cfuvid=gA125AkYpmg35OWulum2Mx_i3NU.6HRErDe7iJ0QMP8-1751492125865-0.0.1.1-604800000;
+        path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None
+      Transfer-Encoding:
+      - chunked
+      X-Content-Type-Options:
+      - nosniff
+      alt-svc:
+      - h3=":443"; ma=86400
+      cf-cache-status:
+      - DYNAMIC
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains; preload
+      vary:
+      - Origin
+      x-request-id:
+      - req_e46f018d8725180dbeb6c652f7cf3d35
+    http_version: HTTP/1.1
+    status_code: 404
+version: 1

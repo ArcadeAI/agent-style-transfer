@@ -74,7 +74,15 @@ testpaths = ["tests"]
 python_files = ["test_*.py"]
 python_classes = ["Test*"]
 python_functions = ["test_*"]
+asyncio_mode = "auto"
 addopts = [
     "-v",
     "--tb=short",
+    "--strict-markers",
+    "--strict-config",
+    "--color=yes",
+]
+markers = [
+    "asyncio: mark a test as an async test",
+    "vcr: mark a test to record API calls",
 ] 
