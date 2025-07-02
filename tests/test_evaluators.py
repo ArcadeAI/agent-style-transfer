@@ -76,7 +76,7 @@ def test_style_fidelity_evaluation():
 
     assert isinstance(result, dict)
     assert result["key"] == "style_fidelity"
-    assert isinstance(result["score"], (int, float))
+    assert isinstance(result["score"], int | float)
     assert 1 <= result["score"] <= 5
     assert isinstance(result["comment"], str)
     assert len(result["comment"]) > 0
@@ -92,7 +92,7 @@ def test_content_preservation_evaluation():
 
     assert isinstance(result, dict)
     assert result["key"] == "content_preservation"
-    assert isinstance(result["score"], (int, float))
+    assert isinstance(result["score"], int | float)
     assert 0 <= result["score"] <= 5  # Now using 0-5 range for consistency
     assert isinstance(result["comment"], str)
 
@@ -107,7 +107,7 @@ def test_quality_evaluation():
 
     assert isinstance(result, dict)
     assert result["key"] == "content_quality"
-    assert isinstance(result["score"], (int, float))
+    assert isinstance(result["score"], int | float)
     assert 1 <= result["score"] <= 5
     assert isinstance(result["comment"], str)
     assert len(result["comment"]) > 0
@@ -125,7 +125,7 @@ def test_platform_appropriateness_evaluation():
 
     assert isinstance(result, dict)
     assert result["key"] == "platform_appropriateness"
-    assert isinstance(result["score"], (int, float))
+    assert isinstance(result["score"], int | float)
     assert 1 <= result["score"] <= 5
     assert isinstance(result["comment"], str)
     assert len(result["comment"]) > 0
@@ -158,7 +158,7 @@ def test_evaluate_all():
         assert "key" in result
         assert "score" in result
         assert "comment" in result
-        assert isinstance(result["score"], (int, float))
+        assert isinstance(result["score"], int | float)
         assert isinstance(result["comment"], str)
 
 
@@ -202,7 +202,7 @@ def test_linkedin_post_evaluation():
 
     assert len(results) == 4
     for result in results:
-        assert isinstance(result["score"], (int, float))
+        assert isinstance(result["score"], int | float)
         assert result["score"] >= 0
 
 
@@ -216,7 +216,7 @@ def test_multi_platform_evaluation():
 
     assert len(results) == 4
     for result in results:
-        assert isinstance(result["score"], (int, float))
+        assert isinstance(result["score"], int | float)
         assert result["score"] >= 0
 
 
@@ -261,5 +261,5 @@ def test_evaluation_without_api_calls():
 
     assert isinstance(result, dict)
     assert result["key"] == "content_preservation"
-    assert isinstance(result["score"], (int, float))
+    assert isinstance(result["score"], int | float)
     assert isinstance(result["comment"], str)
