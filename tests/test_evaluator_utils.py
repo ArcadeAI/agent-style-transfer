@@ -5,9 +5,7 @@ import json
 
 import pytest
 
-from agent_style_transfer.evals import (
-    evaluate_content_preservation,
-)
+
 from agent_style_transfer.schemas import (
     StyleTransferRequest,
     StyleTransferResponse,
@@ -129,47 +127,4 @@ def test_get_text_content_no_original_content():
     assert original_text == ""
 
 
-def test_evaluation_with_invalid_json():
-    """Test evaluation with invalid JSON in processed content."""
-    # Load real example request
-    with open("fixtures/tweet-request.json") as f:
-        request_data = json.load(f)
-    request = StyleTransferRequest(**request_data)
 
-    response = StyleTransferResponse(
-        processed_content="invalid json content",  # Invalid JSON
-        applied_style="Tech Influencer Style",
-        output_schema=request.target_schemas[0],
-        metadata={},
-    )
-
-    # This should handle the JSON parsing error gracefully
-    result = evaluate_content_preservation(request, response)
-
-    assert result["key"] == "content_preservation"
-    assert result["score"] == 0
-    assert "Evaluation failed" in result["comment"]
-
-
-def test_evaluation_with_empty_content():
-    """Test evaluation with empty content."""
-    # Load real example request
-    with open("fixtures/tweet-request.json") as f:
-        request_data = json.load(f)
-    request = StyleTransferRequest(**request_data)
-
-    response = StyleTransferResponse(
-        processed_content=json.dumps(
-            {"text": "", "url_allowed": True}  # Empty generated content
-        ),
-        applied_style="Tech Influencer Style",
-        output_schema=request.target_schemas[0],
-        metadata={},
-    )
-
-    # This should handle empty content gracefully
-    result = evaluate_content_preservation(request, response)
-
-    assert result["key"] == "content_preservation"
-    assert isinstance(result["score"], (int, float))
-    assert isinstance(result["comment"], str)

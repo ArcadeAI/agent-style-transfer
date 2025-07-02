@@ -220,6 +220,7 @@ def test_multi_platform_evaluation():
         assert result["score"] >= 0
 
 
+@pytest.mark.vcr
 def test_evaluation_error_handling():
     """Test that evaluation functions handle errors gracefully."""
     # Test that creating a malformed request raises ValidationError
@@ -249,10 +250,10 @@ def test_evaluation_error_handling():
     assert "Evaluation failed" in result["comment"]
 
 
+@pytest.mark.vcr
 def test_evaluation_without_api_calls():
-    """Test evaluation functions that don't require API calls."""
-    # Content preservation uses embedding similarity which may not require API calls
-    # depending on the implementation
+    """Test evaluation functions with VCR recording."""
+    # Content preservation evaluation uses LLM calls which are recorded with VCR
     request = load_request("tweet")
     response = load_response("tweet", request)
 
