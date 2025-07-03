@@ -6,7 +6,6 @@
 import asyncio
 import json
 from pathlib import Path
-from typing import Optional
 
 from agent_style_transfer.agent import transfer_style
 from agent_style_transfer.evaluation import evaluate
@@ -116,7 +115,7 @@ def get_evaluation_model_choice():
     return provider, model
 
 
-def load_json_file(file_path: str) -> Optional[dict]:
+def load_json_file(file_path: str) -> dict | None:
     """Load and validate JSON file."""
     file_path = Path(file_path)
     if not file_path.exists():
@@ -136,7 +135,7 @@ def load_json_file(file_path: str) -> Optional[dict]:
         return None
 
 
-def parse_style_transfer_request(json_data: dict) -> Optional[StyleTransferRequest]:
+def parse_style_transfer_request(json_data: dict) -> StyleTransferRequest | None:
     """Parse JSON data into StyleTransferRequest."""
     try:
         request = StyleTransferRequest(**json_data)
@@ -151,8 +150,8 @@ def parse_style_transfer_request(json_data: dict) -> Optional[StyleTransferReque
 
 
 def parse_responses(
-    json_data: dict, original_request: Optional[StyleTransferRequest] = None
-) -> Optional[list[StyleTransferResponse]]:
+    json_data: dict, original_request: StyleTransferRequest | None = None
+) -> list[StyleTransferResponse] | None:
     """Parse responses from JSON data."""
     try:
         if "responses" in json_data:
@@ -333,7 +332,7 @@ def save_evaluation_results(evaluations: list[list[dict]], output_file: str):
         print(f"❌ Error saving results: {e}")
 
 
-def list_json_files(directory: str, filter_suffix: Optional[str] = None) -> list[Path]:
+def list_json_files(directory: str, filter_suffix: str | None = None) -> list[Path]:
     """List all JSON files in the given directory, optionally filtered by suffix."""
     dir_path = Path(directory)
     if not dir_path.exists() or not dir_path.is_dir():
@@ -354,7 +353,7 @@ def list_json_files(directory: str, filter_suffix: Optional[str] = None) -> list
 
 def select_file_from_directory(
     directory: str, file_type: str = "file"
-) -> Optional[str]:
+) -> str | None:
     """Let user select a file from a directory."""
     # Determine filter based on file type
     filter_suffix = None

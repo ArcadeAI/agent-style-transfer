@@ -1,7 +1,5 @@
 """LLM provider setup and configuration using LangChain model factories."""
 
-from typing import Optional
-
 from dotenv import load_dotenv
 from langchain.chat_models import init_chat_model
 
@@ -9,7 +7,7 @@ from langchain.chat_models import init_chat_model
 load_dotenv()
 
 
-def get_llm(provider: str, model: Optional[str] = None, temperature: float = 0.7):
+def get_llm(provider: str, model: str | None = None, temperature: float = 0.7):
     """Get the appropriate LLM instance using LangChain's model factory.
 
     Args:

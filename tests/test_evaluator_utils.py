@@ -5,7 +5,6 @@ import json
 
 import pytest
 
-
 from agent_style_transfer.schemas import (
     StyleTransferRequest,
     StyleTransferResponse,
@@ -125,6 +124,3 @@ def test_get_text_content_no_original_content():
 
     assert generated_text == "Generated content here"
     assert original_text == ""
-
-
-

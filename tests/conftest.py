@@ -2,15 +2,14 @@
 
 import os
 from pathlib import Path
-from typing import Any, Dict
-from unittest.mock import patch
+from typing import Any
 
 import pytest
 from dotenv import load_dotenv
 
 
 @pytest.fixture(scope="session")
-def vcr_config() -> Dict[str, Any]:
+def vcr_config() -> dict[str, Any]:
     """Configure VCR for recording HTTP interactions."""
     return {
         "cassette_library_dir": "tests/cassettes",
@@ -52,10 +51,10 @@ def load_env():
             f".env.test file not found at {test_env_file}. "
             "Create this file with your test API keys to run integration tests."
         )
-    
+
     load_dotenv(test_env_file)
     print("Loaded .env.test for integration tests")
-    
+
     # Set testing environment variable
     os.environ["TESTING"] = "1"
 

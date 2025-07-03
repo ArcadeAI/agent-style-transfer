@@ -1,4 +1,4 @@
-from typing import Any, Dict, List, Union
+from typing import Any
 
 from agent_style_transfer.evals import (
     evaluate_content_preservation,
@@ -9,17 +9,17 @@ from agent_style_transfer.evals import (
 from agent_style_transfer.schemas import StyleTransferRequest, StyleTransferResponse
 
 # Type aliases for cleaner annotations
-EvaluationResult = Dict[str, Any]
-EvaluationResults = List[EvaluationResult]
-BatchEvaluationResults = List[EvaluationResults]
+EvaluationResult = dict[str, Any]
+EvaluationResults = list[EvaluationResult]
+BatchEvaluationResults = list[EvaluationResults]
 
 
 def evaluate(
     request: StyleTransferRequest,
-    responses: Union[StyleTransferResponse, List[StyleTransferResponse]],
+    responses: StyleTransferResponse | list[StyleTransferResponse],
     provider: str = "openai",
     model: str = "gpt-4",
-) -> Union[EvaluationResults, BatchEvaluationResults]:
+) -> EvaluationResults | BatchEvaluationResults:
     """Evaluate style transfer response(s).
     Args:
         request: The original style transfer request

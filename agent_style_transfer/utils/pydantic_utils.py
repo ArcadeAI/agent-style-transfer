@@ -1,11 +1,11 @@
 """General-purpose utilities for working with Pydantic models."""
 
-from typing import List, Union, get_args, get_origin
+from typing import Union, get_args, get_origin
 
 from pydantic import BaseModel
 
 
-def get_text_fields(schema_class: type[BaseModel]) -> List[str]:
+def get_text_fields(schema_class: type[BaseModel]) -> list[str]:
     """Get all string fields from a Pydantic schema class."""
     return [
         field_name

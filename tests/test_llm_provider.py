@@ -34,7 +34,7 @@ def test_get_llm_google_genai():
 def test_get_llm_default_models():
     """Test LLM creation with default models."""
     providers = ["openai", "anthropic", "google_genai"]
-    
+
     for provider in providers:
         llm = get_llm(provider)  # No model specified, should use defaults
         assert llm is not None
@@ -46,4 +46,4 @@ def test_get_llm_with_temperature():
     """Test LLM creation with custom temperature."""
     llm = get_llm("openai", "gpt-3.5-turbo", temperature=0.1)
     assert llm is not None
-    assert hasattr(llm, "invoke") 
+    assert hasattr(llm, "invoke")

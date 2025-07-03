@@ -1,0 +1,17 @@
+[flake8]
+max-line-length = 88
+extend-ignore = E203,W503
+exclude = 
+    .venv,
+    .git,
+    __pycache__,
+    .pytest_cache,
+    .ruff_cache,
+    venv,
+    env,
+    ENV,
+    build,
+    dist,
+    *.egg-info
+per-file-ignores = 
+    tests/*:S101,ANN001,ANN201,E501 
