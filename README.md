@@ -1,27 +1,41 @@
-# AI Style Transfer Agent
+# AI Style Transfer Agent 🎨
 
-A comprehensive content transformation system that applies style transfer techniques to adapt content for different platforms while maintaining the core message and value. This system processes structured input to generate structured output across multiple content formats.
+A friendly tool that helps you adapt your content for different platforms. It keeps your message clear while changing the style to fit where you're posting.
 
-**Note**: While currently implemented as a pipeline, this project is designed to evolve into a true autonomous agent with capabilities like intelligent model selection, adaptive behavior, and autonomous decision-making. The foundation is built to support these future enhancements.
+> **Note**: Right now it's a helpful pipeline, but we're working on making it more independent. Soon it'll be able to choose models and make decisions on its own!
 
-## Features
+## 📋 Table of Contents
 
-- **Multi-platform Content Generation**: Create content for Twitter, LinkedIn, and blog posts
-- **Style Transfer**: Apply different writing styles (casual, formal, professional, technical, etc.) to your content
-- **Flexible Input Sources**: Process content from URLs, markdown files, PDFs, and more
-- **Multiple AI Providers**: Support for Google, OpenAI, and Anthropic LLMs
-- **Structured Output**: Generate content with specific formatting and length requirements
-- **Content Evaluation**: Built-in evaluation system to assess quality, style adherence, and effectiveness
-- **Interactive CLI**: User-friendly command-line interface with guided workflows
-- **Batch Processing**: Generate and evaluate multiple content pieces in one session
+- [Features](#-features)
+- [Quick Start](#-quick-start)
+- [Usage Guide](#-usage-guide)
+- [Evaluation System](#-evaluation-system)
+- [AI Providers](#-ai-providers)
+- [Examples](#-examples)
+- [Project Status](#-project-status)
 
-## Quick Start
+## ✨ Features
+
+- **🎯 Multi-platform Content Generation**: Create content for Twitter, LinkedIn, and blog posts
+- **🎨 Style Transfer**: Change your writing style from formal to casual, technical to simple, and more
+- **📄 Flexible Input Sources**: Works with URLs, markdown files, PDFs, and other formats
+- **🤖 Multiple AI Providers**: Choose from Google, OpenAI, and Anthropic
+- **📊 Structured Output**: Get content formatted exactly how you need it
+- **📈 Content Evaluation**: Built-in system to check quality and style
+- **💻 Interactive CLI**: Easy-to-use command line interface
+- **⚡ Batch Processing**: Handle multiple pieces of content at once
+
+---
+
+## 🚀 Quick Start
 
 ### 1. Installation
 
 ```bash
-pip install .
+uv sync
 ```
+
+That's it! 🎉
 
 ### 2. Environment Setup
 
@@ -38,166 +52,60 @@ OPENAI_API_KEY=your_openai_api_key
 ANTHROPIC_API_KEY=your_anthropic_api_key
 ```
 
-### 3. Run the Interface
+### 3. Testing Environment Setup (Optional)
+
+For testing and development, you can use encrypted environment files:
+
+#### Quick Setup for Testing
+
+1. **Install all dependencies:**
+
+   ```bash
+   uv sync --active --all-extras
+   ```
+
+2. **Create your `.env.test` file:**
+
+   ```bash
+   # .env.test
+   OPENAI_API_KEY=your_openai_test_key_here
+   ANTHROPIC_API_KEY=your_anthropic_test_key_here
+   GOOGLE_API_KEY=your_google_test_key_here
+   ```
+
+3. **Encrypt the file:**
+
+   ```bash
+   uv run python scripts/env_vault.py encrypt
+   ```
+
+4. **For team collaboration:**
+   - Commit `.env.test.vault` and `.env.key` files
+   - Share both files with your team
+   - Other developers can decrypt with: `uv run python scripts/env_vault.py decrypt`
+
+#### Security Notes
+
+- ✅ `.env.test.vault` is safe to commit to version control
+- ⚠️ `.env.key` should be in `.gitignore` but shared with your team
+- ❌ `.env.test` should be in `.gitignore`
+- 🔒 For production, use proper secret management (GitHub Secrets, etc.)
+
+### 4. Run the Interface
 
 ```bash
 python main.py
 ```
 
 The interface supports three operations:
-1. **Generate content only** (default) - Create style-transferred content
-2. **Evaluate existing content only** - Evaluate previously generated content
-3. **Generate content and evaluate** - Do both in one workflow
 
-The interface will prompt you for:
-- Operation choice
-- Directory to browse for files (default: `fixtures/`)
-- File selection from available JSON files in the directory
-- AI provider choice (Google, OpenAI, Anthropic)
-- Model selection (provider-specific models with defaults)
-- Temperature setting (0.0-1.0, controls creativity)
-- Evaluation model (if evaluating content)
+1. **Generate content only** (default)
+2. **Evaluate existing content only**
+3. **Generate content and evaluate**
 
-### Provider Options
+---
 
-The interface supports three major AI providers:
-
-1. **Google** - Free tier available
-   - Default: `gemini-1.5-flash`
-   - Options: `gemini-1.5-flash`, `gemini-1.5-pro`, `gemini-pro`
-
-2. **OpenAI** - Requires billing
-   - Default: `gpt-3.5-turbo`
-   - Options: `gpt-3.5-turbo`, `gpt-4`, `gpt-4-turbo`
-
-3. **Anthropic** - Requires credits
-   - Default: `claude-3-haiku-20240307`
-   - Options: `claude-3-haiku-20240307`, `claude-3-sonnet-20240229`, `claude-3-opus-20240229`
-
-### Evaluation System
-
-The project includes a comprehensive custom evaluation system that assesses generated content across multiple dimensions:
-
-- **Style Adherence**: How well the content matches the target style
-- **Content Quality**: Overall writing quality and coherence
-- **Platform Appropriateness**: Suitability for the target platform
-- **Engagement Potential**: Likelihood of audience engagement
-- **Technical Accuracy**: Factual correctness and technical precision
-
-**Why Custom Evaluation?** The evaluation system uses a custom implementation rather than established frameworks like LangSmith, OpenEval, or AgentEvals due to incompatibility issues with model formatting requirements. The custom approach ensures seamless integration with the style transfer workflow and provides consistent evaluation across different AI providers and models.
-
-The evaluation results include detailed scores (1-5 scale) with explanatory comments for each dimension, helping you understand the strengths and areas for improvement in your generated content.
-
-#### Evaluation Architecture
-
-The evaluation system is organized into a modular, extensible architecture:
-
-```
-agent_style_transfer/
-├── evaluation.py              # Main entry point for evaluations
-├── evals/                     # Repository of available evaluations
-│   ├── __init__.py           # Exports all evaluation functions
-│   ├── style_fidelity.py     # Style adherence evaluation
-│   ├── content_preservation.py # Content preservation check
-│   ├── quality.py            # Overall quality assessment
-│   └── platform_appropriateness.py # Platform suitability
-└── utils/
-    ├── evaluation.py         # Shared evaluation utilities
-    ├── content_extractor.py  # Content extraction helpers
-    └── pydantic_utils.py     # Pydantic schema utilities
-```
-
-#### How Evaluations Work
-
-**1. Main Entry Point (`evaluation.py`)**
-- Provides the `evaluate()` function as the primary interface
-- Handles both single response and batch evaluation
-- Automatically runs all available evaluations
-- Returns structured results with scores and comments
-
-**2. Evaluation Repository (`evals/`)**
-- Each evaluation is a standalone module with a specific focus
-- Evaluations can be run individually or as part of a batch
-- Easy to add new evaluations by creating new modules
-- All evaluations follow a consistent interface pattern
-
-**3. Evaluation Utilities (`utils/evaluation.py`)**
-- `create_llm_evaluator()`: Creates LLM-based evaluators with consistent interface
-- `format_result()`: Standardizes evaluation result format
-- `get_text_content()`: Extracts text content from requests and responses
-- Handles score normalization and error handling
-
-**4. Content Processing (`utils/content_extractor.py`)**
-- Extracts text content from structured outputs
-- Handles different output schemas (tweets, LinkedIn posts, etc.)
-- Parses JSON content and extracts relevant text fields
-
-#### Available Evaluations
-
-**Style Fidelity (`evals/style_fidelity.py`)**
-- Evaluates how well the generated content matches the reference style
-- Considers tone, formality, vocabulary, and writing patterns
-- Uses LLM to assess style consistency
-
-**Content Preservation (`evals/content_preservation.py`)**
-- Checks if key information from the original content is preserved
-- Evaluates factual accuracy and completeness
-- Ensures the core message is maintained
-
-**Quality Assessment (`evals/quality.py`)**
-- Overall writing quality evaluation
-- Considers grammar, coherence, and engagement
-- Assesses value and readability
-
-**Platform Appropriateness (`evals/platform_appropriateness.py`)**
-- Evaluates suitability for the target platform
-- Considers platform-specific requirements and conventions
-- Assesses format and style appropriateness
-
-#### Using the Evaluation System
-
-**Single Response Evaluation:**
-```python
-from agent_style_transfer.evaluation import evaluate
-
-results = evaluate(request, response, provider="openai", model="gpt-4")
-```
-
-**Batch Evaluation:**
-```python
-results = evaluate(request, responses, provider="anthropic", model="claude-3-haiku")
-```
-
-**Individual Evaluations:**
-```python
-from agent_style_transfer.evals import evaluate_style_fidelity, evaluate_quality
-
-style_score = evaluate_style_fidelity(request, response, "openai", "gpt-4")
-quality_score = evaluate_quality(request, response, "anthropic", "claude-3-haiku")
-```
-
-#### Adding New Evaluations
-
-To add a new evaluation:
-
-1. **Create a new module** in `evals/` (e.g., `evals/readability.py`)
-2. **Follow the standard interface**:
-   ```python
-   def evaluate_readability(request, response, provider="openai", model="gpt-4"):
-       # Your evaluation logic here
-       return format_result("readability", score, comment)
-   ```
-3. **Add to exports** in `evals/__init__.py`
-4. **Update main evaluation** in `evaluation.py` to include the new evaluation
-
-The modular design makes it easy to extend the evaluation system with new metrics and criteria.
-
-### Temperature Control
-
-Temperature controls the creativity and randomness of the output:
-- **0.0-0.3**: Very focused/conservative - closely follows the reference style with minimal variation
-- **0.4-0.7**: Balanced (default: 0.7) - good mix of creativity and consistency, maintains style while adding fresh perspectives
-- **0.8-1.0**: Very creative/random - high variation in outputs, may deviate significantly from reference style
+## 📖 Usage Guide
 
 ### Example Session
 
@@ -267,7 +175,15 @@ Content:
 ✅ Results saved to fixtures/my-linkedin-content.json
 ```
 
-## Usage
+### Temperature Control
+
+Temperature controls how creative the AI gets:
+
+| Range       | Description               | Use Case                                    |
+| ----------- | ------------------------- | ------------------------------------------- |
+| **0.0-0.3** | Very focused/conservative | Follows the style closely, very predictable |
+| **0.4-0.7** | Balanced (default: 0.7)   | Good mix of creativity and consistency      |
+| **0.8-1.0** | Very creative/random      | More creative, might surprise you           |
 
 ### JSON Request Format
 
@@ -316,141 +232,10 @@ Create a JSON file with the following structure:
 }
 ```
 
-### Agent/Pipeline Integration
-
-This style transfer system (Component B) is designed to work seamlessly in larger systems and agent chains. It accepts JSON objects (not Python objects) for broader compatibility across different programming languages and systems.
-
-#### Example Chain: URL Parser → Style Transfer Agent
-
-**Component A (URL Parser/Crawler)** can extract content from web pages and create the input JSON for **Component B (Style Transfer)**:
-
-```python
-# Agent A: URL Parser/Crawler
-import requests
-from bs4 import BeautifulSoup
-import json
-
-def parse_url_content(url):
-    """Agent A: Extract content from URL and create JSON input for Agent B"""
-    response = requests.get(url)
-    soup = BeautifulSoup(response.content, 'html.parser')
-    
-    # Extract content (simplified example)
-    title = soup.find('h1').text if soup.find('h1') else "Untitled"
-    content = soup.find('article').text if soup.find('article') else soup.get_text()
-    
-    # Create JSON input for Agent B following Pydantic structure
-    agent_b_input = {
-        "reference_style": [
-            {
-                "name": "Tech Blogger",
-                "description": "Engaging technical content for social media",
-                "style_definition": {
-                    "tone": "casual and informative",
-                    "formality_level": 0.4,
-                    "sentence_structure": "varied",
-                    "vocabulary_level": "moderate",
-                    "personality_traits": ["knowledgeable", "approachable"],
-                    "writing_patterns": {
-                        "use_emojis": true,
-                        "hashtag_frequency": "moderate"
-                    }
-                }
-            }
-        ],
-        "intent": "Convert technical blog post to engaging social media content",
-        "focus": "Extract key insights and make them accessible",
-        "target_content": [
-            {
-                "url": url,
-                "type": "Blog",
-                "category": "Technical",
-                "title": title,
-                "content": content[:1000]  # First 1000 chars as summary
-            }
-        ],
-        "target_schemas": [
-            {
-                "name": "Twitter Post",
-                "output_type": "tweet_single",
-                "max_length": 280,
-                "tweet_single": {
-                    "text": "",
-                    "url_allowed": True
-                }
-            },
-            {
-                "name": "LinkedIn Post",
-                "output_type": "linkedin_post",
-                "max_length": 1300,
-                "linkedin_post": {
-                    "text": "",
-                    "multimedia_allowed": False
-                }
-            }
-        ]
-    }
-    
-    return json.dumps(agent_b_input)
-
-# Usage in chain
-url = "https://example.com/tech-article"
-json_input = parse_url_content(url)
-
-# Pass to Agent B (this style transfer agent)
-# The agent will parse the JSON and validate against Pydantic schemas
-```
-
-#### Key Points for Agent Chaining
-
-1. **JSON Input Only**: This agent expects JSON strings or objects, not Python objects, ensuring compatibility across different systems and languages.
-
-2. **Pydantic Validation**: The JSON input must conform to the `StyleTransferRequest` schema defined in `agent_style_transfer/schemas.py`. Invalid JSON will be rejected with clear error messages.
-
-3. **Required Fields**: Ensure all required fields are present:
-   - `reference_style` (array with at least one style)
-   - `intent` (string describing the goal)
-   - `focus` (string describing how to process content)
-   - `target_content` (array with at least one content source)
-   - `target_schemas` (array with at least one output schema)
-
-4. **Content Extraction**: Agent A should extract and structure the source content appropriately:
-   - Provide meaningful titles and categories
-   - Include relevant metadata (author, date if available)
-   - Clean and format the content text
-
-5. **Error Handling**: The agent will return structured error responses if the JSON is invalid, making it easy for Agent A to handle and retry with corrected input.
-
-#### Integration Example
-
-```python
-# Agent A prepares the input
-def prepare_style_transfer_input(source_url, target_platforms):
-    # Extract content from URL
-    content_data = extract_content_from_url(source_url)
-    
-    # Create JSON input for Agent B
-    return {
-        "reference_style": [get_style_for_platform(platform) for platform in target_platforms],
-        "intent": "Convert content for multiple platforms",
-        "focus": "Maintain core message while adapting to each platform's style",
-        "target_content": [content_data],
-        "target_schemas": [get_schema_for_platform(platform) for platform in target_platforms]
-    }
-
-# Agent B processes the input
-from agent_style_transfer.agent import StyleTransferAgent
-
-agent_b = StyleTransferAgent()
-json_input = prepare_style_transfer_input("https://example.com/article", ["twitter", "linkedin"])
-result = agent_b.process_request(json_input)
-```
-
-This design allows for flexible agent chains where Agent A can be implemented in any language or system that can generate valid JSON, and Agent B will handle the style transfer processing with full validation and error handling.
-
 ### Key Parameters
 
 #### Reference Style
+
 - **name**: Identifier for the style
 - **style_definition**: Writing characteristics including:
   - `tone`: Overall tone (casual, formal, professional, etc.)
@@ -461,6 +246,7 @@ This design allows for flexible agent chains where Agent A can be implemented in
   - `writing_patterns`: Platform-specific patterns (emojis, hashtags, etc.)
 
 #### Target Content
+
 - **url**: Source content URL
 - **type**: Content type (Blog, Twitter, LinkedIn, etc.)
 - **category**: Content category (Technical, Casual, Formal, etc.)
@@ -469,6 +255,7 @@ This design allows for flexible agent chains where Agent A can be implemented in
 - **date_published**: Publication date (optional)
 
 #### Target Schemas
+
 - **name**: Output identifier
 - **output_type**: One of:
   - `tweet_single`: Single Twitter post
@@ -479,35 +266,108 @@ This design allows for flexible agent chains where Agent A can be implemented in
 - **max_length**: Maximum word count
 - **min_length**: Minimum word count (optional)
 
-## Pydantic Schemas
+---
 
-The system uses comprehensive Pydantic models for type safety and validation. All schemas are defined in `agent_style_transfer/schemas.py`:
+## 🤖 AI Providers
 
-### Core Models
+You can choose from three AI providers:
 
-- **`StyleTransferRequest`**: Main request model containing reference styles, target content, and output schemas
-- **`StyleTransferResponse`**: Response model with processed content and metadata
-- **`Document`**: Input document schema with URL, type, category, and metadata
-- **`ReferenceStyle`**: Style definition with either documents or explicit style characteristics
-- **`WritingStyle`**: Detailed writing style parameters (tone, formality, vocabulary, etc.)
+### 1. Google - Free tier available
 
-### Output Schemas
+- **Default**: `gemini-1.5-flash`
+- **Options**: `gemini-1.5-flash`, `gemini-1.5-pro`, `gemini-pro`
 
-- **`TweetSingle`**: Single tweet with text and URL allowance
-- **`TweetThread`**: Twitter thread with multiple tweets
-- **`LinkedInPost`**: LinkedIn post with text and optional multimedia
-- **`LinkedInComment`**: LinkedIn comment structure
-- **`BlogPost`**: Blog post with title, markdown content, tags, and categories
+### 2. OpenAI - Requires billing
 
-### Enums
+- **Default**: `gpt-3.5-turbo`
+- **Options**: `gpt-3.5-turbo`, `gpt-4`, `gpt-4-turbo`
 
-- **`ContentType`**: Supported content types (Twitter, Blog, LinkedIn, etc.)
-- **`DocumentCategory`**: Content categories (Technical, Professional, Casual, etc.)
-- **`OutputType`**: Output format types with schema mapping
+### 3. Anthropic - Requires credits
 
-The schemas provide automatic validation, type checking, and ensure consistent data structures throughout the style transfer process.
+- **Default**: `claude-3-haiku-20240307`
+- **Options**: `claude-3-haiku-20240307`, `claude-3-sonnet-20240229`, `claude-3-opus-20240229`
 
-## Examples
+---
+
+## 📊 Evaluation System
+
+The project includes a comprehensive custom evaluation system that assesses generated content across multiple dimensions:
+
+- **🎨 Style Adherence**: How well the content matches the target style
+- **📝 Content Quality**: Overall writing quality and coherence
+- **📱 Platform Appropriateness**: Suitability for the target platform
+- **📈 Engagement Potential**: Likelihood of audience engagement
+- **🔍 Technical Accuracy**: Factual correctness and technical precision
+
+> **Why Custom Evaluation?** The evaluation system uses a custom implementation rather than established frameworks like LangSmith, OpenEval, or AgentEvals due to incompatibility issues with model formatting requirements.
+
+### Evaluation Architecture
+
+```
+agent_style_transfer/
+├── evaluation.py              # Main entry point for evaluations
+├── evals/                     # Repository of available evaluations
+│   ├── __init__.py           # Exports all evaluation functions
+│   ├── style_fidelity.py     # Style adherence evaluation
+│   ├── content_preservation.py # Content preservation check
+│   ├── quality.py            # Overall quality assessment
+│   └── platform_appropriateness.py # Platform suitability
+└── utils/
+    ├── evaluation.py         # Shared evaluation utilities
+    ├── content_extractor.py  # Content extraction helpers
+    └── pydantic_utils.py     # Pydantic schema utilities
+```
+
+### Available Evaluations
+
+| Evaluation                   | Purpose                    | Focus                                           |
+| ---------------------------- | -------------------------- | ----------------------------------------------- |
+| **Style Fidelity**           | Style adherence evaluation | Tone, formality, vocabulary, writing patterns   |
+| **Content Preservation**     | Content preservation check | Key information, factual accuracy, core message |
+| **Quality Assessment**       | Overall quality evaluation | Grammar, coherence, engagement, readability     |
+| **Platform Appropriateness** | Platform suitability       | Platform-specific requirements and conventions  |
+
+### Using the Evaluation System
+
+**Single Response Evaluation:**
+
+```python
+from agent_style_transfer.evaluation import evaluate
+
+results = evaluate(request, response, provider="openai", model="gpt-4")
+```
+
+**Batch Evaluation:**
+
+```python
+results = evaluate(request, responses, provider="anthropic", model="claude-3-haiku")
+```
+
+**Individual Evaluations:**
+
+```python
+from agent_style_transfer.evals import evaluate_style_fidelity, evaluate_quality
+
+style_score = evaluate_style_fidelity(request, response, "openai", "gpt-4")
+quality_score = evaluate_quality(request, response, "anthropic", "claude-3-haiku")
+```
+
+---
+
+## 🔗 Agent/Pipeline Integration
+
+This style transfer system works well with other tools and systems. It accepts JSON objects for easy integration.
+
+### Key Points
+
+1. **JSON Input Only**: Send JSON strings or objects, not Python objects
+2. **Pydantic Validation**: JSON must follow the `StyleTransferRequest` schema
+3. **Required Fields**: Include all required fields in your JSON
+4. **Error Handling**: Returns clear error messages for invalid input
+
+---
+
+## 📚 Examples
 
 Check the `fixtures/` directory for ready-to-use templates:
 
@@ -515,12 +375,7 @@ Check the `fixtures/` directory for ready-to-use templates:
 - `twitter-request.json`: Twitter post creation
 - `blog-request.json`: Blog article generation
 
-For detailed input/output examples showing how the style transfer works in practice, see [examples.md](examples.md). This file contains comprehensive examples of:
-
-- Tech content style transfer across platforms
-- Business content adaptation
-- Professional vs. casual tone transformations
-- Complete JSON inputs and their corresponding outputs
+For detailed input/output examples showing how the style transfer works in practice, see [examples.md](examples.md).
 
 ### File Organization
 
@@ -533,7 +388,17 @@ The project uses a structured file organization:
 - **`agent_style_transfer/`**: Core package with all functionality
 - **`tests/`**: Test suite with comprehensive coverage
 
-## Testing
+---
+
+## 🏗️ Pydantic Schemas
+
+The system uses comprehensive Pydantic models for type safety and validation. All schemas are defined in [`agent_style_transfer/schemas.py`](agent_style_transfer/schemas.py).
+
+Key models include `StyleTransferRequest`, `StyleTransferResponse`, `Document`, `ReferenceStyle`, and various output schemas for different platforms. See the schema file for complete definitions and validation rules.
+
+---
+
+## 🧪 Testing
 
 Run the test suite:
 
@@ -543,7 +408,9 @@ pytest
 
 Tests use VCR.py to record and replay API interactions, ensuring consistent test results.
 
-## Supported Platforms
+---
+
+## 📱 Supported Platforms
 
 - **Twitter**: Single tweets and threads
 - **LinkedIn**: Posts and comments
@@ -551,36 +418,38 @@ Tests use VCR.py to record and replay API interactions, ensuring consistent test
 
 The system can read content from various sources (Twitter, LinkedIn, Reddit, Facebook, Instagram, TikTok, blogs) but currently generates output for Twitter, LinkedIn, and blog posts only.
 
-## AI Providers
+---
 
-1. **Google**: Free tier available, good performance
-2. **OpenAI**: Requires billing setup, excellent quality
-3. **Anthropic**: Requires credits, strong reasoning capabilities
-
-## Project Status
+## 📈 Project Status
 
 This project is **complete and production-ready**. All core functionality has been implemented and tested:
 
-✅ **Core Features**
+### ✅ Core Features
+
 - Multi-platform content generation (Twitter, LinkedIn, Blog)
 - Style transfer with customizable writing styles
 - Multiple AI provider support (Google, OpenAI, Anthropic)
 - Interactive CLI with guided workflows
 - Custom evaluation system with detailed scoring
 
-✅ **Quality Assurance**
+### ✅ Quality Assurance
+
 - Comprehensive test suite with VCR.py for consistent testing
 - Pydantic schemas for type safety and validation
 - Error handling and user-friendly error messages
 - Documentation and examples
 
-✅ **Architecture**
+### ✅ Architecture
+
 - Modular design for easy extension
 - Agent chaining compatibility with JSON interfaces
 - Clean separation of concerns
 - Scalable evaluation framework
 
+### 🚀 Future Enhancements
+
 The project is designed to evolve and can be easily extended with:
+
 - **True Agent Capabilities**: Intelligent model selection, autonomous decision-making, adaptive behavior
 - New AI providers and models
 - Additional content platforms
@@ -590,6 +459,8 @@ The project is designed to evolve and can be easily extended with:
 - Tool usage and external API integration
 - Memory and learning capabilities
 
-## License
+---
+
+## 📄 License
 
 See [LICENSE](LICENSE) file for details.
