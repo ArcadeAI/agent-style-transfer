@@ -10,6 +10,7 @@ dist/
 
 # Virtual environments
 .env
+!.env.test
 .venv/
 venv/
 ENV/
