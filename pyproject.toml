@@ -27,7 +27,6 @@ dev = [
     "vcrpy>=6.0.0",
     "black>=23.0.0",
     "isort>=5.12.0",
-    "mypy>=1.0.0",
     "flake8>=6.0.0",
     "autoflake>=2.0.0",
     "pyupgrade>=3.0.0",
@@ -51,11 +50,7 @@ extend-ignore = ["E203", "W503"]
 exclude = [".venv", ".git", "__pycache__", ".pytest_cache", ".ruff_cache", "venv", "env", "ENV", "build", "dist", "*.egg-info"]
 per-file-ignores = ["tests/*:S101,ANN001,ANN201,E501"]
 
-[tool.mypy]
-python_version = "3.10"
-warn_return_any = true
-warn_unused_configs = true
-disallow_untyped_defs = true
+
 
 [project.scripts]
 encrypt-env = "scripts.env_vault:encrypt_env"

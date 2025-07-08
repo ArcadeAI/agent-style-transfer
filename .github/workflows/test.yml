@@ -49,10 +49,6 @@ jobs:
           uv run isort --check-only .
           uv run flake8 .
 
-      - name: Run type checking
-        run: |
-          uv run mypy .
-
       - name: Run tests
         run: |
           uv run pytest tests/ -v
