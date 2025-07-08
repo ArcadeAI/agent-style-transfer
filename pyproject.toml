@@ -9,27 +9,23 @@ authors = [
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
-    "pydantic>=2.0.0",
-    "python-dotenv>=1.0.0",
-    "langchain>=0.1.0",
-    "langchain-openai>=0.1.0",
+    "autoflake>=2.0.0",
+    "black>=23.0.0",
+    "cryptography>=3.4.0",
+    "flake8>=6.0.0",
+    "isort>=5.12.0",
     "langchain-anthropic>=0.1.0",
     "langchain-google-genai>=0.1.0",
-    "cryptography>=3.4.0",
-]
-
-[project.optional-dependencies]
-dev = [
-    "pytest>=7.0.0",
+    "langchain-openai>=0.1.0",
+    "langchain>=0.1.0",
+    "pydantic>=2.0.0",
     "pytest-asyncio>=0.21.0",
-    "pytest-vcr>=1.0.2",
     "pytest-cov>=4.0.0",
-    "vcrpy>=6.0.0",
-    "black>=23.0.0",
-    "isort>=5.12.0",
-    "flake8>=6.0.0",
-    "autoflake>=2.0.0",
+    "pytest-vcr>=1.0.2",
+    "pytest>=7.0.0",
+    "python-dotenv>=1.0.0",
     "pyupgrade>=3.0.0",
+    "vcrpy>=6.0.0",
 ]
 
 [build-system]

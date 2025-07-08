@@ -351,9 +351,7 @@ def list_json_files(directory: str, filter_suffix: str | None = None) -> list[Pa
     return sorted(json_files)
 
 
-def select_file_from_directory(
-    directory: str, file_type: str = "file"
-) -> str | None:
+def select_file_from_directory(directory: str, file_type: str = "file") -> str | None:
     """Let user select a file from a directory."""
     # Determine filter based on file type
     filter_suffix = None
