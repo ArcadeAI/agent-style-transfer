@@ -15,6 +15,7 @@ name = "agent-style-transfer"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
+    { name = "cryptography" },
     { name = "langchain" },
     { name = "langchain-anthropic" },
     { name = "langchain-google-genai" },
@@ -27,7 +28,6 @@ dependencies = [
 dev = [
     { name = "autoflake" },
     { name = "black" },
-    { name = "cryptography" },
     { name = "flake8" },
     { name = "isort" },
     { name = "mypy" },
@@ -43,7 +43,7 @@ dev = [
 requires-dist = [
     { name = "autoflake", marker = "extra == 'dev'", specifier = ">=2.0.0" },
     { name = "black", marker = "extra == 'dev'", specifier = ">=23.0.0" },
-    { name = "cryptography", marker = "extra == 'dev'", specifier = ">=3.4.0" },
+    { name = "cryptography", specifier = ">=3.4.0" },
     { name = "flake8", marker = "extra == 'dev'", specifier = ">=6.0.0" },
     { name = "isort", marker = "extra == 'dev'", specifier = ">=5.12.0" },
     { name = "langchain", specifier = ">=0.1.0" },
