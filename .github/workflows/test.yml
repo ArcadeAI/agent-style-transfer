@@ -9,6 +9,9 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    outputs:
+      test_status: ${{ steps.test-run.outputs.test_exit_code }}
+      test_summary: ${{ steps.test-run.outputs.test_results }}
     steps:
       - uses: actions/checkout@v4
 
@@ -16,6 +19,8 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: "3.13"
+        env:
+          PYTHON_DEBUG: true
 
       - name: Install uv
         uses: astral-sh/setup-uv@v2
@@ -31,10 +36,11 @@ jobs:
           key: ${{ runner.os }}-uv-${{ hashFiles('**/pyproject.toml', '**/uv.lock') }}
           restore-keys: |
             ${{ runner.os }}-uv-
+        env:
+          CACHE_DEBUG: true
 
       - name: Install dependencies
-        run: |
-          uv sync
+        run: uv sync
 
       - name: Write .env.key from secret
         run: echo "${{ secrets.ENV_KEY }}" > .env.key
@@ -50,5 +56,23 @@ jobs:
           uv run flake8 .
 
       - name: Run tests
+        id: test-run
         run: |
-          uv run pytest tests/ -v
+          echo "Running tests..."
+          uv run pytest tests/ -v --tb=short > test_results.txt 2>&1
+          echo "test_exit_code=$?" >> $GITHUB_OUTPUT
+          echo "test_results<<EOF" >> $GITHUB_OUTPUT
+          cat test_results.txt >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Workflow Summary
+        run: |
+          echo "## 🎯 Workflow Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Test Results" >> $GITHUB_STEP_SUMMARY
+          echo "Exit Code: ${{ steps.test-run.outputs.test_exit_code }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Test Output" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          echo "${{ steps.test-run.outputs.test_results }}" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
