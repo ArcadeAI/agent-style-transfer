@@ -54,42 +54,64 @@ ANTHROPIC_API_KEY=your_anthropic_api_key
 
 ### 3. Testing Environment Setup (Optional)
 
-For testing and development, you can use encrypted environment files:
+For testing and development, you can use encrypted environment files to safely share API keys with your team.
 
-#### Quick Setup for Testing
+#### 🔐 How the Vault System Works
 
-1. **Install all dependencies:**
+I've created a `scripts/env_vault.py` Python script that uses the `cryptography` package (specifically the Fernet module) to encrypt and decrypt files using an encryption key.
 
-   ```bash
-   uv sync --active --all-extras
-   ```
+**Important:** You do NOT need to decrypt the `.env.test` file - that's a plain text file that should NOT be committed to git and lives only on your environment.
 
-2. **Create your `.env.test` file:**
+#### 📋 Simple Workflow
 
-   ```bash
-   # .env.test
-   OPENAI_API_KEY=your_openai_test_key_here
-   ANTHROPIC_API_KEY=your_anthropic_test_key_here
-   GOOGLE_API_KEY=your_google_test_key_here
-   ```
+**Step 1: Create Your Test Environment File**
 
-3. **Encrypt the file:**
+```bash
+# Create .env.test with your API keys
+OPENAI_API_KEY=your_openai_test_key_here
+ANTHROPIC_API_KEY=your_anthropic_test_key_here
+GOOGLE_API_KEY=your_google_test_key_here
+```
 
-   ```bash
-   uv run python scripts/env_vault.py encrypt
-   ```
+**Step 2: Encrypt Your Secrets**
 
-4. **For team collaboration:**
-   - Commit `.env.test.vault` and `.env.key` files
-   - Share both files with your team
-   - Other developers can decrypt with: `uv run python scripts/env_vault.py decrypt`
+```bash
+uv run python scripts/env_vault.py encrypt
+```
 
-#### Security Notes
+This will:
 
-- ✅ `.env.test.vault` is safe to commit to version control
-- ⚠️ `.env.key` should be in `.gitignore` but shared with your team
-- ❌ `.env.test` should be in `.gitignore`
-- 🔒 For production, use proper secret management (GitHub Secrets, etc.)
+- Generate a new `.env.key` file (or use existing one)
+- Create an encrypted `.env.test.vault` file
+
+**Step 3: Share with Your Team**
+
+- **Commit to git**: `.env.test.vault` (encrypted, safe to share)
+- **Share separately**: `.env.key` (via secure channel, not git)
+- **Keep private**: `.env.test` (never commit this!)
+
+**Step 4: Team Members Decrypt**
+
+```bash
+uv run python scripts/env_vault.py decrypt
+```
+
+This creates a new `.env.test` file with the API keys.
+
+#### 🔒 Security Best Practices
+
+| File              | Git Status        | Purpose              | Security Level    |
+| ----------------- | ----------------- | -------------------- | ----------------- |
+| `.env.test`       | ❌ Never commit   | Your actual API keys | 🔴 Private        |
+| `.env.test.vault` | ✅ Safe to commit | Encrypted secrets    | 🟢 Safe           |
+| `.env.key`        | ❌ Never commit   | Encryption key       | 🟡 Share securely |
+
+**Important Notes:**
+
+- The `.env.key` file is like a master key - anyone with it can decrypt your secrets
+- Share the key file through secure channels (Slack, email, password managers)
+- For production, use proper secret management (GitHub Secrets, AWS Secrets Manager, etc.)
+- The encryption is **symmetric** - same key encrypts and decrypts
 
 ### 4. Run the Interface
 
