@@ -311,6 +311,102 @@ You can choose from three AI providers:
 
 ---
 
+## 🔍 Writing Style Inference
+
+The system includes an intelligent writing style inferrer that can automatically analyze content and extract writing style parameters. This feature helps you understand the style of existing content and can be used to create style definitions for the transfer process.
+
+### How It Works
+
+The writing style inferrer analyzes text content and extracts:
+
+- **Tone**: The overall emotional tone (casual, formal, professional, etc.)
+- **Formality Level**: A score from 0.0 (very casual) to 1.0 (very formal)
+- **Sentence Structure**: Characteristics like length, complexity, and patterns
+- **Vocabulary Level**: Simple, moderate, advanced, or technical
+- **Personality Traits**: Writing personality characteristics
+- **Writing Patterns**: Platform-specific patterns (emojis, hashtags, etc.)
+
+### Using the Style Inferrer
+
+**Standalone Module Usage:**
+
+The writing style inferrer can be used independently to analyze any text content and extract style parameters.
+
+```python
+from agent_style_transfer.writing_style_inferrer import infer_writing_style
+
+# Example 1: Analyze a casual blog post
+casual_content = """
+Hey everyone! Just wanted to share this awesome new tool I found.
+It's super easy to use and really helps with productivity.
+Check it out and let me know what you think! 🚀
+"""
+
+style_params = infer_writing_style(
+    content=casual_content,
+    provider="anthropic",
+    model="claude-3-haiku"
+)
+
+print(f"Tone: {style_params.tone}")
+print(f"Formality Level: {style_params.formality_level}")
+print(f"Sentence Structure: {style_params.sentence_structure}")
+print(f"Vocabulary Level: {style_params.vocabulary_level}")
+print(f"Personality Traits: {style_params.personality_traits}")
+print(f"Writing Patterns: {style_params.writing_patterns}")
+
+# Example 2: Analyze formal business content
+formal_content = """
+The quarterly financial report indicates a 15% increase in revenue
+compared to the previous period. This growth can be attributed to
+strategic market expansion and improved operational efficiency.
+"""
+
+formal_style = infer_writing_style(
+    content=formal_content,
+    provider="openai",
+    model="gpt-4"
+)
+
+print(f"Formal content tone: {formal_style.tone}")
+print(f"Formal content formality: {formal_style.formality_level}")
+```
+
+**Command Line Testing:**
+
+You can also test the style inferrer directly from Python:
+
+```bash
+# Start Python in the project directory
+python
+
+# Then run:
+>>> from agent_style_transfer.writing_style_inferrer import infer_writing_style
+>>> content = "Your text to analyze here..."
+>>> result = infer_writing_style(content, "anthropic", "claude-3-haiku")
+>>> print(f"Tone: {result.tone}")
+>>> print(f"Formality: {result.formality_level}")
+```
+
+**Integration with Style Transfer:**
+
+The style inferrer is automatically used during the style transfer process to:
+
+- Analyze reference content and extract style parameters
+- Build comprehensive style definitions for the transfer
+- Ensure accurate style matching in generated content
+
+### Style Inference Evaluation
+
+The system includes specialized evaluations for the style inference capabilities:
+
+- **Style Inference Accuracy**: Measures how well the inferred style parameters match the actual content characteristics
+- **Style Rule Usefulness**: Evaluates the practical utility of the inferred style rules for content generation
+
+These evaluations help ensure the style inference is working correctly and producing useful results.
+
+---
+
 ## 📊 Evaluation System
 
 The project includes a comprehensive custom evaluation system that assesses generated content across multiple dimensions:
@@ -333,7 +429,9 @@ agent_style_transfer/
 │   ├── style_fidelity.py     # Style adherence evaluation
 │   ├── content_preservation.py # Content preservation check
 │   ├── quality.py            # Overall quality assessment
-│   └── platform_appropriateness.py # Platform suitability
+│   ├── platform_appropriateness.py # Platform suitability
+│   └── style_inference_evaluations.py # Style inference evaluations
+├── writing_style_inferrer.py  # Style inference functionality
 └── utils/
     ├── evaluation.py         # Shared evaluation utilities
     ├── content_extractor.py  # Content extraction helpers
@@ -348,6 +446,8 @@ agent_style_transfer/
 | **Content Preservation**     | Content preservation check | Key information, factual accuracy, core message |
 | **Quality Assessment**       | Overall quality evaluation | Grammar, coherence, engagement, readability     |
 | **Platform Appropriateness** | Platform suitability       | Platform-specific requirements and conventions  |
+| **Style Inference Accuracy** | Style inference evaluation | Accuracy of inferred style parameters           |
+| **Style Rule Usefulness**    | Style rule evaluation      | Practical utility of inferred style rules       |
 
 ### Using the Evaluation System
 
@@ -450,6 +550,7 @@ This project is **complete and production-ready**. All core functionality has be
 
 - Multi-platform content generation (Twitter, LinkedIn, Blog)
 - Style transfer with customizable writing styles
+- **Writing style inference** for automatic style parameter extraction
 - Multiple AI provider support (Google, OpenAI, Anthropic)
 - Interactive CLI with guided workflows
 - Custom evaluation system with detailed scoring
