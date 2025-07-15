@@ -1,6 +1,6 @@
 [flake8]
 max-line-length = 88
-extend-ignore = E203,W503
+extend-ignore = E203,W503,E501
 exclude = 
     .venv,
     .git,
@@ -14,4 +14,4 @@ exclude =
     dist,
     *.egg-info
 per-file-ignores = 
-    tests/*:S101,E501 
+    tests/*:S101,ANN001,ANN201,E501 

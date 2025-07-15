@@ -81,6 +81,13 @@ class Document(BaseModel):
     )
 
 
+class FewShotExample(BaseModel):
+    """Example input-output pair for style demonstration."""
+
+    input: str = Field(description="Input content to be styled")
+    output: str = Field(description="Output content in the target style")
+
+
 class WritingStyle(BaseModel):
     """Defines writing style characteristics."""
 
@@ -105,6 +112,15 @@ class WritingStyle(BaseModel):
     writing_patterns: dict[str, Any] = Field(
         default_factory=dict,
         description="Specific writing patterns and preferences",
+    )
+    style_rules: list[str] = Field(
+        default_factory=list,
+        description="List of explicit writing style rules (e.g., 'Use emojis', 'Short sentences')",
+        max_items=10,
+    )
+    few_shot_examples: list[FewShotExample] = Field(
+        default_factory=list,
+        description="Example input-output pairs demonstrating the style",
     )
 
 

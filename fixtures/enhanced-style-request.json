@@ -1,0 +1,89 @@
+{
+    "reference_style": [
+        {
+            "name": "Tech Influencer Style",
+            "description": "Casual, engaging tech content with emojis and hashtags",
+            "style_definition": {
+                "tone": "casual and engaging",
+                "formality_level": 0.3,
+                "sentence_structure": "short and punchy",
+                "vocabulary_level": "simple",
+                "personality_traits": [
+                    "enthusiastic",
+                    "knowledgeable",
+                    "approachable"
+                ],
+                "writing_patterns": {
+                    "use_emojis": true,
+                    "hashtag_frequency": "moderate",
+                    "question_style": "rhetorical"
+                },
+                "style_rules": [
+                    "Start with attention-grabbing emojis (🚀, 💡, ⚡, 🎯)",
+                    "Use bullet points with emoji prefixes (•, 🔥, ✅)",
+                    "Keep sentences under 20 words when possible",
+                    "Include 2-4 relevant hashtags at the end",
+                    "End with a call-to-action or question",
+                    "Use exclamation marks sparingly but effectively",
+                    "Avoid technical jargon unless explaining it",
+                    "Include personal pronouns (I, you, we) to create connection",
+                    "Use contractions (don't, can't, won't) for casual tone",
+                    "Include specific numbers and metrics when available"
+                ],
+                "few_shot_examples": [
+                    {
+                        "input": "New JavaScript framework released with 50% better performance",
+                        "output": "🚀 Just discovered a game-changing JS framework that's 50% faster than anything out there!\n\n🔥 What makes it special:\n• Lightning-fast performance\n• Zero configuration needed\n• Works with any existing project\n\nHave you tried it yet? Drop your thoughts below! 👇\n\n#JavaScript #WebDev #Performance"
+                    },
+                    {
+                        "input": "AI tool helps developers write better code",
+                        "output": "💡 This AI coding assistant is a total game-changer for developers!\n\n✅ What you get:\n• Real-time code suggestions\n• Bug detection before you run\n• 30% faster development time\n\nSeriously, why aren't you using this yet? 🤔\n\n#AI #Coding #DeveloperTools"
+                    }
+                ]
+            },
+            "categories": [
+                "tech",
+                "social media",
+                "casual"
+            ],
+            "confidence": 0.9
+        }
+    ],
+    "intent": "Make technical content accessible and engaging for social media audiences",
+    "focus": "Extract key technical concepts and adapt them for Twitter with engaging hooks and clear value propositions",
+    "target_content": [
+        {
+            "url": "https://blog.example.com/machine-learning-basics-2024",
+            "type": "Blog",
+            "category": "Technical",
+            "file_type": "markdown",
+            "title": "Understanding Machine Learning Basics: A Developer's Guide",
+            "author": "Dr. Sarah Chen",
+            "date_published": "2024-01-15T10:00:00Z",
+            "metadata": {
+                "word_count": 2500,
+                "target_audience": "developers",
+                "difficulty": "beginner",
+                "topics": [
+                    "machine learning",
+                    "AI",
+                    "programming"
+                ]
+            }
+        }
+    ],
+    "target_schemas": [
+        {
+            "name": "Twitter Single Post",
+            "output_type": "tweet_single",
+            "max_length": 280,
+            "format": "text",
+            "tweet_single": {
+                "text": "",
+                "url_allowed": true
+            },
+            "description": "Single tweet optimized for tech content with engagement",
+            "platform": "Twitter"
+        }
+    ]
+}

@@ -16,6 +16,9 @@ find . -name "*.py" -not -path "./.venv/*" -not -path "./.git/*" -exec uv run py
 echo "🧽 Running autoflake (remove unused imports)..."
 uv run autoflake --in-place --remove-all-unused-imports --recursive .
 
+echo "🧹 Fixing whitespace issues (W293)..."
+find . -name "*.py" -not -path "./.venv/*" -not -path "./.git/*" -exec sed -i 's/[[:space:]]*$//' {} \;
+
 echo "🔍 Running flake8..."
 uv run flake8 .
 

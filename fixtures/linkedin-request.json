@@ -8,7 +8,11 @@
         "formality_level": 0.7,
         "sentence_structure": "varied and engaging",
         "vocabulary_level": "moderate to advanced",
-        "personality_traits": ["confident", "thoughtful", "industry-expert"],
+        "personality_traits": [
+          "confident",
+          "thoughtful",
+          "industry-expert"
+        ],
         "writing_patterns": {
           "use_statistics": true,
           "include_call_to_action": true,
@@ -17,7 +21,31 @@
           "industry_references": true
         }
       },
-      "categories": ["professional", "tech", "thought-leadership"],
+      "documents": [
+        {
+          "url": "https://linkedin.com/posts/johndoe_fullstack-skills-2024",
+          "type": "LinkedIn",
+          "category": "Professional",
+          "file_type": "txt",
+          "title": "Full-Stack Development Skills Analysis",
+          "author": "John Doe",
+          "content": "📊 New data from our analysis of 50,000+ job postings reveals the most in-demand full-stack development skills for 2024.\n\nKey findings:\n• React/Next.js remains dominant (67% of postings)\n• Python backend skills up 23% year-over-year\n• DevOps knowledge now required for 45% of roles\n• Soft skills like communication mentioned in 78% of postings\n\nWhat's most surprising? The gap between what employers want and what candidates offer is widening.\n\nMy take: Focus on building end-to-end solutions, not just frontend or backend in isolation. The market rewards developers who can own the entire stack.\n\nWhat skills are you seeing most demand for in your network?\n\n#FullStackDevelopment #TechCareers #SoftwareEngineering #CareerGrowth"
+        },
+        {
+          "url": "https://linkedin.com/posts/janedoe_ai-development-trends",
+          "type": "LinkedIn",
+          "category": "Professional",
+          "file_type": "txt",
+          "title": "AI in Software Development Trends",
+          "author": "Jane Doe",
+          "content": "🤖 The integration of AI into software development workflows is accelerating faster than most predicted.\n\nRecent survey data shows:\n• 73% of developers now use AI coding assistants\n• 41% report 30%+ productivity gains\n• Code review time reduced by 60% with AI assistance\n\nBut here's what the data doesn't show: the quality of AI-assisted code vs. traditional development.\n\nFrom my experience leading engineering teams, the key is using AI as a collaborator, not a replacement. The best results come from developers who understand the fundamentals and use AI to accelerate repetitive tasks.\n\nThoughts on how AI is changing your development process?\n\n#AIDevelopment #SoftwareEngineering #TechTrends #Productivity"
+        }
+      ],
+      "categories": [
+        "professional",
+        "tech",
+        "thought-leadership"
+      ],
       "confidence": 0.9
     }
   ],
@@ -36,8 +64,17 @@
         "word_count": 3200,
         "target_audience": "developers",
         "difficulty": "intermediate",
-        "topics": ["full-stack development", "career", "skills", "hiring"],
-        "data_sources": ["LinkedIn Jobs", "Indeed", "Stack Overflow"],
+        "topics": [
+          "full-stack development",
+          "career",
+          "skills",
+          "hiring"
+        ],
+        "data_sources": [
+          "LinkedIn Jobs",
+          "Indeed",
+          "Stack Overflow"
+        ],
         "sample_size": "50,000+ job postings"
       }
     }
@@ -56,4 +93,4 @@
       "platform": "LinkedIn"
     }
   ]
-} 
+}

@@ -1,11 +1,14 @@
 """Pytest configuration for evaluator tests."""
 
+import json
 import os
 from pathlib import Path
 from typing import Any
 
 import pytest
 from dotenv import load_dotenv
+
+from agent_style_transfer.schemas import StyleTransferRequest, StyleTransferResponse
 
 
 @pytest.fixture(scope="session")
@@ -63,3 +66,22 @@ def load_env():
 def vcr_cassette_dir() -> str:
     """Directory for VCR cassettes."""
     return "tests/cassettes"
+
+
+def load_fixture(fixture_name: str, model: type = None) -> dict | StyleTransferRequest | StyleTransferResponse:
+    """Load a fixture, returning raw JSON by default or model instance if specified."""
+    with open(f"fixtures/{fixture_name}.json") as f:
+        data = json.load(f)
+
+    if model is None:
+        return data
+
+    # Always extract the first response if present
+    if "responses" in data and isinstance(data["responses"], list):
+        data = data["responses"][0]
+
+    # Convert string output_schema to None for StyleTransferResponse
+    if model == StyleTransferResponse and "output_schema" in data and isinstance(data["output_schema"], str):
+        data["output_schema"] = None
+
+    return model(**data)
