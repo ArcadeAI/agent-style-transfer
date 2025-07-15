@@ -13,11 +13,47 @@ def build_generation_prompt(
     intent: str | None,
     focus: str,
     target_docs: list[Document],
+    provider: str = "anthropic",
 ) -> str:
     """Build a comprehensive prompt for content generation."""
 
-    # NEW: Ensure all reference styles have complete style definitions
-    enhanced_reference_docs = ensure_complete_style_definitions(reference_docs)
+    # Infer style rules and examples directly from documents
+    enhanced_reference_docs = []
+    for ref_style in reference_docs:
+        enhanced_style = ref_style.model_copy()
+
+        if enhanced_style.documents:
+            from agent_style_transfer.writing_style_inferrer import (
+                infer_few_shot_examples,
+                infer_style_rules,
+            )
+
+            # Infer style rules and examples
+            style_rules = infer_style_rules(enhanced_style.documents, provider)
+            few_shot_examples = infer_few_shot_examples(
+                enhanced_style.documents, provider
+            )
+
+            # Update style definition with inferred data
+            if enhanced_style.style_definition:
+                enhanced_style.style_definition.style_rules = style_rules
+                enhanced_style.style_definition.few_shot_examples = few_shot_examples
+            else:
+                # Create basic style definition if none exists
+                from agent_style_transfer.schemas import WritingStyle
+
+                enhanced_style.style_definition = WritingStyle(
+                    tone="neutral",
+                    formality_level=0.5,
+                    sentence_structure="varied",
+                    vocabulary_level="moderate",
+                    personality_traits=[],
+                    writing_patterns={},
+                    style_rules=style_rules,
+                    few_shot_examples=few_shot_examples,
+                )
+
+        enhanced_reference_docs.append(enhanced_style)
 
     style_info = extract_style_information(enhanced_reference_docs)
 
@@ -185,79 +221,3 @@ def get_max_tokens(output_schema: OutputSchema) -> int:
     }
 
     return token_limits.get(output_type, 2000)
-
-
-def ensure_complete_style_definitions(
-    reference_docs: list[ReferenceStyle],
-) -> list[ReferenceStyle]:
-    """
-    Ensure all reference styles have complete style definitions.
-
-    This agent's responsibility: if style_rules or few_shot_examples are missing,
-    infer them from the provided documents.
-
-    Args:
-        reference_docs: List of reference styles to enhance
-
-    Returns:
-        List of enhanced reference styles with complete style definitions
-    """
-    enhanced_docs = []
-
-    for ref_style in reference_docs:
-        # Create a copy to avoid modifying the original
-        enhanced_style = ref_style.model_copy()
-
-        # Only enhance if we have documents to analyze
-        if enhanced_style.documents:
-            # If style_definition exists but is missing rules/examples, enhance it
-            if enhanced_style.style_definition:
-                style_def = enhanced_style.style_definition
-
-                if not style_def.style_rules or not style_def.few_shot_examples:
-                    print(
-                        f"🔧 Inferring missing style components for '{enhanced_style.name}'..."
-                    )
-
-                    # Infer missing components from documents
-                    from agent_style_transfer.writing_style_inferrer import (
-                        infer_few_shot_examples,
-                        infer_style_rules,
-                    )
-
-                    if not style_def.style_rules:
-                        style_def.style_rules = infer_style_rules(
-                            enhanced_style.documents
-                        )
-
-                    if not style_def.few_shot_examples:
-                        style_def.few_shot_examples = infer_few_shot_examples(
-                            enhanced_style.documents
-                        )
-
-            # If no style_definition exists, create one from documents
-            elif not enhanced_style.style_definition:
-                print(
-                    f"🔧 Creating style definition for '{enhanced_style.name}' from documents..."
-                )
-                # Create a basic style definition
-                from agent_style_transfer.schemas import WritingStyle
-                from agent_style_transfer.writing_style_inferrer import (
-                    infer_few_shot_examples,
-                    infer_style_rules,
-                )
-
-                enhanced_style.style_definition = WritingStyle(
-                    tone="neutral",
-                    formality_level=0.5,
-                    sentence_structure="varied",
-                    vocabulary_level="moderate",
-                    personality_traits=[],
-                    writing_patterns={},
-                    style_rules=infer_style_rules(enhanced_style.documents),
-                    few_shot_examples=infer_few_shot_examples(enhanced_style.documents),
-                )
-
-        enhanced_docs.append(enhanced_style)
-
-    return enhanced_docs

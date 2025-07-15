@@ -9,7 +9,10 @@ from agent_style_transfer.utils.evaluation import (
 
 
 def evaluate_content_preservation(
-    request: StyleTransferRequest, response: StyleTransferResponse
+    request: StyleTransferRequest,
+    response: StyleTransferResponse,
+    provider: str = "anthropic",
+    model: str = "claude-3-haiku-20240307",
 ):
     """Evaluate how well the original message is preserved."""
     generated_text, original_text = get_text_content(request, response)
@@ -35,7 +38,7 @@ def evaluate_content_preservation(
     )
 
     # Create evaluator using our custom framework
-    evaluator = create_llm_evaluator(prompt, "content_preservation", "openai", "gpt-4")
+    evaluator = create_llm_evaluator(prompt, "content_preservation", provider, model)
     result = evaluator(outputs=generated_text, reference_outputs=original_text)
 
     return format_result(

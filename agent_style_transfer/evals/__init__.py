@@ -8,6 +8,12 @@ from agent_style_transfer.evals.platform_appropriateness import (
 )
 from agent_style_transfer.evals.quality import evaluate_quality
 from agent_style_transfer.evals.style_fidelity import evaluate_style_fidelity
+from agent_style_transfer.evals.style_inference_accuracy import (
+    evaluate_style_inference_accuracy,
+)
+from agent_style_transfer.evals.style_rule_usefulness import (
+    evaluate_style_rule_usefulness,
+)
 
 __all__ = [
     "evaluate_all",
@@ -16,6 +22,8 @@ __all__ = [
     "evaluate_platform_appropriateness",
     "evaluate_quality",
     "evaluate_style_fidelity",
+    "evaluate_style_inference_accuracy",
+    "evaluate_style_rule_usefulness",
 ]
 
 
@@ -37,6 +45,18 @@ def evaluate_all(request, response, provider: str = "openai", model: str = "gpt-
     results.append(
         evaluate_platform_appropriateness(request, response, provider, model)
     )
+
+    # Add style inference evaluations (only if reference documents exist)
+    has_reference_docs = any(
+        ref_style.documents for ref_style in request.reference_style
+    )
+    if has_reference_docs:
+        results.append(
+            evaluate_style_inference_accuracy(request, response, provider, model)
+        )
+        results.append(
+            evaluate_style_rule_usefulness(request, response, provider, model)
+        )
 
     return results
 

@@ -1,12 +1,12 @@
 interactions:
 - request:
-    body: "{\"max_tokens\":1024,\"messages\":[{\"role\":\"user\",\"content\":\"\\nRate
-      the overall quality of this content (1-5 scale):\\n\\nGenerated Content: {outputs}\\nPlatform:
-      {platform}\\nIntent: {intent}\\n\\nConsider writing quality, engagement potential,
-      and value.\\nScore 1-5 where 1=poor, 5=excellent.\\n\\n\\nOutput: Want to understand
-      Machine Learning? \U0001F680 I've got you covered! Check out my latest blog
+    body: '{"max_tokens": 1024, "messages": [{"role": "user", "content": "\nRate the
+      overall quality of this content (1-5 scale):\n\nGenerated Content: {outputs}\nPlatform:
+      {platform}\nIntent: {intent}\n\nConsider writing quality, engagement potential,
+      and value.\nScore 1-5 where 1=poor, 5=excellent.\n\n\nOutput: Want to understand
+      Machine Learning? \ud83d\ude80 I''ve got you covered! Check out my latest blog
       post for a developer-friendly guide to the basics. #MachineLearning #AI #programming
-      #developers\"}],\"model\":\"claude-3-haiku-20240307\",\"temperature\":0.1}"
+      #developers"}], "model": "claude-3-haiku-20240307", "temperature": 0.1}'
     headers:
       accept:
       - application/json
@@ -23,7 +23,7 @@ interactions:
       host:
       - api.anthropic.com
       user-agent:
-      - Anthropic/Python 0.55.0
+      - Anthropic/Python 0.56.0
       x-stainless-arch:
       - x64
       x-stainless-async:
@@ -33,7 +33,7 @@ interactions:
       x-stainless-os:
       - Linux
       x-stainless-package-version:
-      - 0.55.0
+      - 0.56.0
       x-stainless-retry-count:
       - '0'
       x-stainless-runtime:
@@ -45,19 +45,22 @@ interactions:
     method: POST
     uri: https://api.anthropic.com/v1/messages
   response:
-    content: '{"id":"msg_012G1KvqNxAPBsGgn2TKMXbP","type":"message","role":"assistant","model":"claude-3-haiku-20240307","content":[{"type":"text","text":"Based
-      on the provided content, I would rate the overall quality as a 4 out of 5.\n\nThe
-      writing quality is strong, with clear and engaging language that effectively
-      communicates the topic and intent. The content has good potential to engage
-      the target audience of developers interested in learning about machine learning.
-      The value is also high, as the post appears to offer a helpful, developer-friendly
-      introduction to the fundamentals of machine learning.\n\nThe only potential
-      area for improvement could be to provide even more depth or detail on the machine
-      learning concepts covered, but overall this is a high-quality piece of content
-      that seems well-suited to achieve its intended purpose."}],"stop_reason":"end_turn","stop_sequence":null,"usage":{"input_tokens":119,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":137,"service_tier":"standard"}}'
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAwAAAP//ZFNNb9RADP0r1ly4ZFe7baEiR6QKyg2EBAhQ5Ga8ibUTT3bsSXep+t/R
+        ZD+k0tNI/nh+79nz5Ni72g3aNav1Xbf7Ouw/f/p++yX/3O8+/u3aH+vsKmeHkUoVqWJHrnIphhJA
+        VVZDMVe5IXoKrnZtwOxpcb3okbd5cbW6ulldr25d5dooRmKu/vV0RjTal975qd09PMYcPCQ0AusJ
+        4kQJQ4BdxsB2gLgB61nhhAQINxCzlfjb5W/5Ld96gsfExtJdmlhBLUXpYAFsbxRIOuxYugraQJgq
+        QPEFsmWlJRSIM74SDQqPFMJCMxt5sDgTM0wdGWD2TNJSIeBpohBHSgosRom01LNAmSGFED4UrgO2
+        PQtdwseJWWeQRIEmFIMetTfsdOaGAiTWZ2VU4xYsCkFPYVQYcHu06kx5QxSgjcNIIcxDxcOEIeND
+        oItFUcIBxlgaGANgIoRNTMDDmOJEQwG6L+qLedajvRjBCrviBjwkps0S7vYjii/DosyFWzrMftJo
+        WlT9L7m4MsRE4Gm0Htp56a+U0ESnMpZNTAMaTzTryUqbHGbGidBT0iV8KGdwPJfqeCSsgNBz1y9O
+        l1BdNg8jU0tHZUUxe1LoYjxaRUv3/KdyanFsEqFGcbUj8Y3lJO6UUNrlsnpXSw6hcnn+GfWTYxmz
+        NRa3JOrq9fp95Vpse2raRGgcpXlZsTrni5TXuZjtBd71u8oppYlbaowpudqVH+gxeff8/A8AAP//
+        AwDQZjh7zwMAAA==
     headers:
       CF-RAY:
-      - 95879cc1df2b02fc-CWB
+      - 95fb61aeeca702df-CWB
       Connection:
       - keep-alive
       Content-Encoding:
@@ -65,7 +68,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 01 Jul 2025 17:27:15 GMT
+      - Tue, 15 Jul 2025 18:39:18 GMT
       Server:
       - cloudflare
       Transfer-Encoding:
@@ -79,33 +82,34 @@ interactions:
       anthropic-ratelimit-input-tokens-remaining:
       - '50000'
       anthropic-ratelimit-input-tokens-reset:
-      - '2025-07-01T17:27:12Z'
+      - '2025-07-15T18:39:17Z'
       anthropic-ratelimit-output-tokens-limit:
       - '10000'
       anthropic-ratelimit-output-tokens-remaining:
       - '10000'
       anthropic-ratelimit-output-tokens-reset:
-      - '2025-07-01T17:27:16Z'
+      - '2025-07-15T18:39:18Z'
       anthropic-ratelimit-requests-limit:
       - '50'
       anthropic-ratelimit-requests-remaining:
       - '49'
       anthropic-ratelimit-requests-reset:
-      - '2025-07-01T17:27:09Z'
+      - '2025-07-15T18:39:17Z'
       anthropic-ratelimit-tokens-limit:
       - '60000'
       anthropic-ratelimit-tokens-remaining:
       - '60000'
       anthropic-ratelimit-tokens-reset:
-      - '2025-07-01T17:27:12Z'
+      - '2025-07-15T18:39:17Z'
       cf-cache-status:
       - DYNAMIC
       request-id:
-      - req_011CQgh4zG5uK5wPbfR4NvLJ
+      - req_011CR9HtsQUiqzrhzFU8L7GH
       strict-transport-security:
       - max-age=31536000; includeSubDomains; preload
       via:
       - 1.1 google
-    http_version: HTTP/1.1
-    status_code: 200
+    status:
+      code: 200
+      message: OK
 version: 1

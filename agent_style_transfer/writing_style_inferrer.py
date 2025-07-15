@@ -55,24 +55,25 @@ def infer_style_rules(
     """
     )
 
-    try:
-        response = llm.invoke(prompt)
-        content = response.content
+    response = llm.invoke(prompt)
+    content = response.content
 
-        # Parse the response to extract rules
-        rules = []
-        for line in content.split("\n"):
-            line = line.strip()
-            if line.startswith("-") or line.startswith("•"):
-                rule = line[1:].strip()
-                if rule:
-                    rules.append(rule)
+    # Handle different response formats (string vs list)
+    if isinstance(content, list):
+        content = content[0] if content else ""
+    elif not isinstance(content, str):
+        content = str(content)
 
-        return rules
+    # Parse the response to extract rules
+    rules = []
+    for line in content.split("\n"):
+        line = line.strip()
+        if line.startswith("-") or line.startswith("•"):
+            rule = line[1:].strip()
+            if rule:
+                rules.append(rule)
 
-    except Exception:
-        # Return empty list if LLM fails
-        return []
+    return rules
 
 
 def infer_few_shot_examples(
@@ -121,33 +122,27 @@ def infer_few_shot_examples(
             """
             )
 
-            try:
-                response = llm.invoke(prompt)
-                content = response.content
+            response = llm.invoke(prompt)
+            content = response.content
 
-                # Parse the response to extract input and output
-                lines = content.split("\n")
-                input_text = ""
-                output_text = ""
+            # Handle different response formats (string vs list)
+            if isinstance(content, list):
+                content = content[0] if content else ""
+            elif not isinstance(content, str):
+                content = str(content)
 
-                for line in lines:
-                    if line.strip().startswith("Input:"):
-                        input_text = line.replace("Input:", "").strip()
-                    elif line.strip().startswith("Output:"):
-                        output_text = line.replace("Output:", "").strip()
+            # Parse the response to extract input and output
+            lines = content.split("\n")
+            input_text = ""
+            output_text = ""
 
-                if input_text and output_text:
-                    examples.append(
-                        FewShotExample(input=input_text, output=output_text)
-                    )
+            for line in lines:
+                if line.strip().startswith("Input:"):
+                    input_text = line.replace("Input:", "").strip()
+                elif line.strip().startswith("Output:"):
+                    output_text = line.replace("Output:", "").strip()
 
-            except Exception:
-                # Fallback to simple example if LLM fails
-                input_text = f"Content about {doc.title.lower()}"
-                output_text = (
-                    doc.content[:200] + "..." if len(doc.content) > 200 else doc.content
-                )
-
+            if input_text and output_text:
                 examples.append(FewShotExample(input=input_text, output=output_text))
 
     return examples

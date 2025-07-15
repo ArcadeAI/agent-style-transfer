@@ -1,12 +1,13 @@
 interactions:
 - request:
-    body: "{\"max_tokens\":1024,\"messages\":[{\"role\":\"user\",\"content\":\"\\nRate
-      the style fidelity of this content (1-5 scale):\\n\\nReference Style: {reference_style}\\nOriginal
-      Content: {original_content}\\nGenerated Content: {outputs}\\n\\nConsider tone,
-      formality, vocabulary, and writing patterns.\\nScore 1-5 where 1=completely
-      different, 5=excellent match.\\n\\n\\nOutput: Want to understand Machine Learning?
-      \U0001F680 I've got you covered! Check out my latest blog post for a developer-friendly
-      guide to the basics. #MachineLearning #AI #programming #developers\"}],\"model\":\"claude-3-haiku-20240307\",\"temperature\":0.1}"
+    body: '{"max_tokens": 1024, "messages": [{"role": "user", "content": "\nRate the
+      style fidelity of this content (1-5 scale):\n\nReference Style: {reference_style}\nOriginal
+      Content: {original_content}\nGenerated Content: {outputs}\n\nConsider tone,
+      formality, vocabulary, and writing patterns.\nScore 1-5 where 1=completely different,
+      5=excellent match.\n\n\nOutput: Want to understand Machine Learning? \ud83d\ude80
+      I''ve got you covered! Check out my latest blog post for a developer-friendly
+      guide to the basics. #MachineLearning #AI #programming #developers"}], "model":
+      "claude-3-haiku-20240307", "temperature": 0.1}'
     headers:
       accept:
       - application/json
@@ -23,7 +24,7 @@ interactions:
       host:
       - api.anthropic.com
       user-agent:
-      - Anthropic/Python 0.55.0
+      - Anthropic/Python 0.56.0
       x-stainless-arch:
       - x64
       x-stainless-async:
@@ -33,7 +34,7 @@ interactions:
       x-stainless-os:
       - Linux
       x-stainless-package-version:
-      - 0.55.0
+      - 0.56.0
       x-stainless-retry-count:
       - '0'
       x-stainless-runtime:
@@ -45,21 +46,21 @@ interactions:
     method: POST
     uri: https://api.anthropic.com/v1/messages
   response:
-    content: '{"id":"msg_01EWAQQLqjkyLW8grLh8hdw6","type":"message","role":"assistant","model":"claude-3-haiku-20240307","content":[{"type":"text","text":"Based
-      on the reference style, original content, and generated output provided, I would
-      rate the style fidelity as a 4 out of 5.\n\nThe tone, formality, vocabulary,
-      and writing patterns of the generated output seem to match the reference style
-      quite well. The content has an engaging, conversational tone that is appropriate
-      for a blog post or social media post. The vocabulary and writing style also
-      seem to align with the reference.\n\nThe only minor difference I notice is that
-      the generated output includes some hashtags, which may not be present in the
-      reference style. However, this is a common practice for social media posts,
-      so it doesn''t detract significantly from the overall style match.\n\nOverall,
-      the generated output maintains the key stylistic elements of the reference and
-      would likely be perceived as a natural continuation of the same writing style."}],"stop_reason":"end_turn","stop_sequence":null,"usage":{"input_tokens":131,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":176,"service_tier":"standard"}}'
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAwAAAP//bFPBbtswDP0Vgmc1SJpuw3zbsA3rdtmK3tbBYCzGJiqLrkTHDYr++yAn
+        6da1JwF85ON7T9IDiscK+9zWy9WH6x+fbfWF3n+7+tTd/rwSP33XNTq0/cCli3OmltFh0lAKlLNk
+        o2josFfPAStsAo2ez9ZnHcnteHa+PL9Yrpfv0GGj0TgaVr8eTozG92V2Pir8SJk9aATrGBJvOXFs
+        GLLtAzvQJK1ECnDkcUDRQ8uRE1mZG20YDYakO/HsHVzCpGPwUOCZciaCrXgOYnugDAQXZQ50C28W
+        N/EmXncMppEdbDX1VPoc7LShzRgo7Q87pyQmsYWBzDjFXMYL/wstmbkHU+jJmu41V3A3ijFMHMIC
+        yu6jN+iKuAgcW2oltq4AO06ZTLRkUDSCdWQgGWgYkg5Jis+tJiDYBG1h0GygCbI2QgF69kJz8bDq
+        r6tnpg66KGR9kk9B2giT2H8enhLTGPbQS9QEXrYnh5cQ1aThInGW+mpGEpswes6QtefiuzNqs4Op
+        k6aDnvaFBTYMQ+JcopFX38cCvurEO05uRnXHiUI4uYn+KdlsUupHaxueY75vOISCzje1wMffDrPp
+        UCemrBEr5OhrG1PEI5D5bizbsYpjCA7H+WdUDyhxGK02veWYsVqtVw4bajqum8Tz7dXPO5YnPDH5
+        l9ghpX/43jrMnHbScG3CCSssP9BT8vj4+AcAAP//AwDJ6TUNzwMAAA==
     headers:
       CF-RAY:
-      - 95879c544d30034b-CWB
+      - 95fb61834ecf02df-CWB
       Connection:
       - keep-alive
       Content-Encoding:
@@ -67,7 +68,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 01 Jul 2025 17:26:52 GMT
+      - Tue, 15 Jul 2025 18:39:14 GMT
       Server:
       - cloudflare
       Transfer-Encoding:
@@ -81,33 +82,34 @@ interactions:
       anthropic-ratelimit-input-tokens-remaining:
       - '50000'
       anthropic-ratelimit-input-tokens-reset:
-      - '2025-07-01T17:26:50Z'
+      - '2025-07-15T18:39:11Z'
       anthropic-ratelimit-output-tokens-limit:
       - '10000'
       anthropic-ratelimit-output-tokens-remaining:
       - '10000'
       anthropic-ratelimit-output-tokens-reset:
-      - '2025-07-01T17:26:53Z'
+      - '2025-07-15T18:39:14Z'
       anthropic-ratelimit-requests-limit:
       - '50'
       anthropic-ratelimit-requests-remaining:
       - '49'
       anthropic-ratelimit-requests-reset:
-      - '2025-07-01T17:26:51Z'
+      - '2025-07-15T18:39:11Z'
       anthropic-ratelimit-tokens-limit:
       - '60000'
       anthropic-ratelimit-tokens-remaining:
       - '60000'
       anthropic-ratelimit-tokens-reset:
-      - '2025-07-01T17:26:50Z'
+      - '2025-07-15T18:39:11Z'
       cf-cache-status:
       - DYNAMIC
       request-id:
-      - req_011CQgh3gj7jVYEgBPK2cL14
+      - req_011CR9HtNBaGTxJPE5JB6Jew
       strict-transport-security:
       - max-age=31536000; includeSubDomains; preload
       via:
       - 1.1 google
-    http_version: HTTP/1.1
-    status_code: 200
+    status:
+      code: 200
+      message: OK
 version: 1

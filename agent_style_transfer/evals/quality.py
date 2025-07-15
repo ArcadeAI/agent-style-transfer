@@ -22,7 +22,7 @@ Score 1-5 where 1=poor, 5=excellent.
 def evaluate_quality(
     request: StyleTransferRequest,
     response: StyleTransferResponse,
-    provider: str = "openai",
+    provider: str = "anthropic",
     model: str = "gpt-4",
 ):
     """Evaluate overall content quality."""

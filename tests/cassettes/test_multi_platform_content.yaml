@@ -1,47 +1,49 @@
 interactions:
 - request:
-    body: '{"max_tokens":1024,"messages":[{"role":"user","content":"\nYou are tasked
-      with creating content that transfers the style from reference\nmaterials to
-      target content.\n\n## Reference Style Information:\n### Reference Style 1: Tech
-      Educator Style\nDescription: Educational content that makes complex topics accessible
-      and engaging\nTone: educational and approachable\nFormality Level: 0.5 (0.0-1.0 scale)\nSentence
-      Structure: clear and structured\nVocabulary Level: moderate\nPersonality Traits:
-      helpful, knowledgeable, encouraging\nWriting Patterns:\n  - use_examples: True\n  -
-      step_by_step: True\n  - include_code_snippets: True\n  - use_analogies: True\n  -
-      encourage_questions: True\n\n### Reference Style 2: Social Media Tech Influencer\nDescription:
-      Engaging social media content with hooks and viral potential\nTone: casual and
-      engaging\nFormality Level: 0.3 (0.0-1.0 scale)\nSentence Structure: short and punchy\nVocabulary
-      Level: simple\nPersonality Traits: enthusiastic, relatable, trendy\nWriting
-      Patterns:\n  - use_emojis: True\n  - hashtag_frequency: high\n  - question_style:
-      engaging\n  - use_hooks: True\n  - call_to_action: True\n\n\n## Target Content
-      Information:\n### Target Document 1\nTitle: REST API Design Best Practices:
-      A Comprehensive Guide\nType: Blog\nCategory: Technical\nAuthor: API Design Team\nDate:
-      2024-01-18 09:00:00+00:00\nMetadata:\n  - word_count: 4500\n  - target_audience:
-      developers\n  - difficulty: intermediate\n  - topics: [''API design'', ''REST'',
-      ''best practices'']\n  - sections: [''naming conventions'', ''status codes'',
-      ''versioning'', ''security'']\n\n### Target Document 2\nTitle: 2024 API Adoption
-      Survey: Developer Preferences and Pain Points\nType: Blog\nCategory: Academic\nAuthor:
-      Developer Research Institute\nDate: 2024-01-15 16:00:00+00:00\nMetadata:\n  -
-      word_count: 2800\n  - target_audience: researchers\n  - difficulty: advanced\n  -
-      topics: [''API adoption'', ''developer experience'', ''survey results'']\n  -
-      sample_size: 2,500 developers\n  - key_findings: [''naming consistency'', ''documentation
-      quality'', ''error handling'']\n\n\n## Intent and Focus:\n- Intent: Create educational
-      content about API design best practices across multiple platforms\n- Focus:
-      Extract key concepts from technical documentation and research, then adapt them
-      for both social media engagement and comprehensive educational content\n\n##
-      Writing Style Guidance:\nCreate engaging, concise content suitable for Twitter.
-      Use hashtags appropriately and make it shareable.\n\n## Instructions:\n1. Analyze
-      the reference style characteristics carefully\n2. Extract key information from
-      the target content\n3. Create content that matches the reference style while
-      conveying the target\n   content''s message\n4. Follow the writing style guidance
-      above\n5. Return the content in the exact format specified by the output schema\n6.
-      Maintain the original intent and focus while adapting to the new style\n\nPlease
-      generate the content now:\n"}],"model":"claude-3-haiku-20240307","system":"You
-      are an expert content creator specializing in style transfer. Return the content
-      in the exact format specified by the output schema.","temperature":0.7,"tool_choice":{"type":"tool","name":"TweetSingle"},"tools":[{"name":"TweetSingle","input_schema":{"properties":{"text":{"description":"Tweet
-      text content","type":"string"},"url_allowed":{"default":true,"description":"Whether
-      URLs are allowed in this tweet","type":"boolean"}},"required":["text"],"type":"object"},"description":"Single
-      tweet schema."}]}'
+    body: '{"max_tokens": 1024, "messages": [{"role": "user", "content": "\nYou are
+      tasked with creating content that transfers the style from reference\nmaterials
+      to target content.\n\n## Reference Style Information:\n### Reference Style 1:
+      Tech Educator Style\nDescription: Educational content that makes complex topics
+      accessible and engaging\nTone: educational and approachable\nFormality Level:
+      0.5 (0.0-1.0 scale)\nSentence Structure: clear and structured\nVocabulary Level:
+      moderate\nPersonality Traits: helpful, knowledgeable, encouraging\nWriting Patterns:\n  -
+      use_examples: True\n  - step_by_step: True\n  - include_code_snippets: True\n  -
+      use_analogies: True\n  - encourage_questions: True\n\n### Reference Style 2:
+      Social Media Tech Influencer\nDescription: Engaging social media content with
+      hooks and viral potential\nTone: casual and engaging\nFormality Level: 0.3 (0.0-1.0
+      scale)\nSentence Structure: short and punchy\nVocabulary Level: simple\nPersonality
+      Traits: enthusiastic, relatable, trendy\nWriting Patterns:\n  - use_emojis:
+      True\n  - hashtag_frequency: high\n  - question_style: engaging\n  - use_hooks:
+      True\n  - call_to_action: True\n\n\n## Target Content Information:\n### Target
+      Document 1\nTitle: REST API Design Best Practices: A Comprehensive Guide\nType:
+      Blog\nCategory: Technical\nAuthor: API Design Team\nDate: 2024-01-18 09:00:00+00:00\nMetadata:\n  -
+      word_count: 4500\n  - target_audience: developers\n  - difficulty: intermediate\n  -
+      topics: [''API design'', ''REST'', ''best practices'']\n  - sections: [''naming
+      conventions'', ''status codes'', ''versioning'', ''security'']\n\n### Target
+      Document 2\nTitle: 2024 API Adoption Survey: Developer Preferences and Pain
+      Points\nType: Blog\nCategory: Academic\nAuthor: Developer Research Institute\nDate:
+      2024-01-15 16:00:00+00:00\nMetadata:\n  - word_count: 2800\n  - target_audience:
+      researchers\n  - difficulty: advanced\n  - topics: [''API adoption'', ''developer
+      experience'', ''survey results'']\n  - sample_size: 2,500 developers\n  - key_findings:
+      [''naming consistency'', ''documentation quality'', ''error handling'']\n\n\n##
+      Intent and Focus:\n- Intent: Create educational content about API design best
+      practices across multiple platforms\n- Focus: Extract key concepts from technical
+      documentation and research, then adapt them for both social media engagement
+      and comprehensive educational content\n\n## Writing Style Guidance:\nCreate
+      engaging, concise content suitable for Twitter. Use hashtags appropriately and
+      make it shareable.\n\n## Instructions:\n1. Analyze the reference style characteristics
+      carefully\n2. Extract key information from the target content\n3. Create content
+      that matches the reference style while conveying the target\n   content''s message\n4.
+      Follow the writing style guidance above\n5. Return the content in the exact
+      format specified by the output schema\n6. Maintain the original intent and focus
+      while adapting to the new style\n\nPlease generate the content now:\n"}], "model":
+      "claude-3-haiku-20240307", "system": "You are an expert content creator specializing
+      in style transfer. Return the content in the exact format specified by the output
+      schema.", "temperature": 0.7, "tool_choice": {"type": "tool", "name": "TweetSingle"},
+      "tools": [{"name": "TweetSingle", "input_schema": {"properties": {"text": {"description":
+      "Tweet text content", "type": "string"}, "url_allowed": {"default": true, "description":
+      "Whether URLs are allowed in this tweet", "type": "boolean"}}, "required": ["text"],
+      "type": "object"}, "description": "Single tweet schema."}]}'
     headers:
       accept:
       - application/json
@@ -52,13 +54,13 @@ interactions:
       connection:
       - keep-alive
       content-length:
-      - '3478'
+      - '3508'
       content-type:
       - application/json
       host:
       - api.anthropic.com
       user-agent:
-      - AsyncAnthropic/Python 0.55.0
+      - AsyncAnthropic/Python 0.56.0
       x-stainless-arch:
       - x64
       x-stainless-async:
@@ -68,9 +70,9 @@ interactions:
       x-stainless-os:
       - Linux
       x-stainless-package-version:
-      - 0.55.0
+      - 0.56.0
       x-stainless-retry-count:
-      - '0'
+      - '1'
       x-stainless-runtime:
       - CPython
       x-stainless-runtime-version:
@@ -80,12 +82,20 @@ interactions:
     method: POST
     uri: https://api.anthropic.com/v1/messages
   response:
-    content: "{\"id\":\"msg_01FPwpR9RyXw5ya6wD8rYFrT\",\"type\":\"message\",\"role\":\"assistant\",\"model\":\"claude-3-haiku-20240307\",\"content\":[{\"type\":\"tool_use\",\"id\":\"toolu_01HcTNrpVYkFme3JyaRSNp27\",\"name\":\"TweetSingle\",\"input\":{\"text\":\"Designing
-      APIs? \U0001F527 Check out these must-know best practices for naming, status
-      codes, versioning, and security! #APIDesign #RESTful #DevTips\",\"url_allowed\":true}}],\"stop_reason\":\"tool_use\",\"stop_sequence\":null,\"usage\":{\"input_tokens\":1188,\"cache_creation_input_tokens\":0,\"cache_read_input_tokens\":0,\"output_tokens\":92,\"service_tier\":\"standard\"}}"
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAwAAAP//ZJFNahtBEIWvUi5BVi0Y/YBhdg4KjkMshKUk4CgMrZ7yqFFP96SrWlIi
+        DL5AFg7eaxXIHXKbnEBHCKNggsiy6tX7qni1Q1tijjVXRdb7MJotX88Wm5d06eX6orq9nZZvt6hQ
+        vjTUThGzrggVxuDahma2LNoLKqxDSQ5zNE6nkrqD7lLbVer2s/4wG2TnqNAEL+QF84+7Z6KE4IrE
+        LfJ4R1unIutNxm/i4vxS081Em6+D99dDHs/6qNDruvXNNkQytb5yR6tvkmC+Q6GtYI6H/dMPeOdd
+        MCuQJQGTiSQM4Q5W1jmKcDG5gpLYVv4MDvunx7kf2TWB9RIgpAh1YulG0iVUyZYEwUPn5tV0djG5
+        Gh1tsCAWaKI2Yg0xHPaPP38/fDvsv/+a+7G2Dryura8UsGhJDCaUxArWFNkGb30FL6AOkeAuRNAg
+        oen6IGYJJa3JhYYi0LahaMkbOoO57/zb3RnRemYbRoUpukI7FzZUYi4x0f39J4UsoSkiaQ7+NOSj
+        wPQ5tVTMfXJOYTo+Nd/9zbGQsCLPmPf6vb5Co82SChNJiw2+OB3JnvU2qv+1kOQUOFTIFNfWUCGW
+        /qhIyUoJlHpSEotSlGprAQAAAP//AwDuPxPWiwIAAA==
     headers:
       CF-RAY:
-      - 954e08ae7d2e5c57-CWB
+      - 95fb6129eb06139f-CWB
       Connection:
       - keep-alive
       Content-Encoding:
@@ -93,7 +103,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 24 Jun 2025 17:44:35 GMT
+      - Tue, 15 Jul 2025 18:38:56 GMT
       Server:
       - cloudflare
       Transfer-Encoding:
@@ -107,82 +117,87 @@ interactions:
       anthropic-ratelimit-input-tokens-remaining:
       - '48000'
       anthropic-ratelimit-input-tokens-reset:
-      - '2025-06-24T17:44:37Z'
+      - '2025-07-15T18:38:57Z'
       anthropic-ratelimit-output-tokens-limit:
       - '10000'
       anthropic-ratelimit-output-tokens-remaining:
       - '10000'
       anthropic-ratelimit-output-tokens-reset:
-      - '2025-06-24T17:44:35Z'
+      - '2025-07-15T18:38:56Z'
       anthropic-ratelimit-requests-limit:
       - '50'
       anthropic-ratelimit-requests-remaining:
-      - '49'
+      - '48'
       anthropic-ratelimit-requests-reset:
-      - '2025-06-24T17:44:35Z'
+      - '2025-07-15T18:38:57Z'
       anthropic-ratelimit-tokens-limit:
       - '60000'
       anthropic-ratelimit-tokens-remaining:
       - '58000'
       anthropic-ratelimit-tokens-reset:
-      - '2025-06-24T17:44:35Z'
+      - '2025-07-15T18:38:56Z'
       cf-cache-status:
       - DYNAMIC
       request-id:
-      - req_011CQTTji7PngKcDqedZ3M4r
+      - req_011CR9HsJT4PU5bWL9CnppUC
       strict-transport-security:
       - max-age=31536000; includeSubDomains; preload
       via:
       - 1.1 google
-    http_version: HTTP/1.1
-    status_code: 200
+    status:
+      code: 200
+      message: OK
 - request:
-    body: '{"max_tokens":1024,"messages":[{"role":"user","content":"\nYou are tasked
-      with creating content that transfers the style from reference\nmaterials to
-      target content.\n\n## Reference Style Information:\n### Reference Style 1: Tech
-      Educator Style\nDescription: Educational content that makes complex topics accessible
-      and engaging\nTone: educational and approachable\nFormality Level: 0.5 (0.0-1.0 scale)\nSentence
-      Structure: clear and structured\nVocabulary Level: moderate\nPersonality Traits:
-      helpful, knowledgeable, encouraging\nWriting Patterns:\n  - use_examples: True\n  -
-      step_by_step: True\n  - include_code_snippets: True\n  - use_analogies: True\n  -
-      encourage_questions: True\n\n### Reference Style 2: Social Media Tech Influencer\nDescription:
-      Engaging social media content with hooks and viral potential\nTone: casual and
-      engaging\nFormality Level: 0.3 (0.0-1.0 scale)\nSentence Structure: short and punchy\nVocabulary
-      Level: simple\nPersonality Traits: enthusiastic, relatable, trendy\nWriting
-      Patterns:\n  - use_emojis: True\n  - hashtag_frequency: high\n  - question_style:
-      engaging\n  - use_hooks: True\n  - call_to_action: True\n\n\n## Target Content
-      Information:\n### Target Document 1\nTitle: REST API Design Best Practices:
-      A Comprehensive Guide\nType: Blog\nCategory: Technical\nAuthor: API Design Team\nDate:
-      2024-01-18 09:00:00+00:00\nMetadata:\n  - word_count: 4500\n  - target_audience:
-      developers\n  - difficulty: intermediate\n  - topics: [''API design'', ''REST'',
-      ''best practices'']\n  - sections: [''naming conventions'', ''status codes'',
-      ''versioning'', ''security'']\n\n### Target Document 2\nTitle: 2024 API Adoption
-      Survey: Developer Preferences and Pain Points\nType: Blog\nCategory: Academic\nAuthor:
-      Developer Research Institute\nDate: 2024-01-15 16:00:00+00:00\nMetadata:\n  -
-      word_count: 2800\n  - target_audience: researchers\n  - difficulty: advanced\n  -
-      topics: [''API adoption'', ''developer experience'', ''survey results'']\n  -
-      sample_size: 2,500 developers\n  - key_findings: [''naming consistency'', ''documentation
-      quality'', ''error handling'']\n\n\n## Intent and Focus:\n- Intent: Create educational
-      content about API design best practices across multiple platforms\n- Focus:
-      Extract key concepts from technical documentation and research, then adapt them
-      for both social media engagement and comprehensive educational content\n\n##
-      Writing Style Guidance:\nCreate comprehensive content with proper structure.
-      Use markdown formatting and include relevant details.\n\n## Instructions:\n1.
-      Analyze the reference style characteristics carefully\n2. Extract key information
-      from the target content\n3. Create content that matches the reference style
-      while conveying the target\n   content''s message\n4. Follow the writing style
-      guidance above\n5. Return the content in the exact format specified by the output
-      schema\n6. Maintain the original intent and focus while adapting to the new
-      style\n\nPlease generate the content now:\n"}],"model":"claude-3-haiku-20240307","system":"You
-      are an expert content creator specializing in style transfer. Return the content
-      in the exact format specified by the output schema.","temperature":0.7,"tool_choice":{"type":"tool","name":"BlogPost"},"tools":[{"name":"BlogPost","input_schema":{"properties":{"title":{"description":"Blog
-      post title","type":"string"},"subtitle":{"anyOf":[{"type":"string"},{"type":"null"}],"default":null,"description":"Blog
-      post subtitle"},"author":{"anyOf":[{"type":"string"},{"type":"null"}],"default":null,"description":"Author
-      name"},"markdown":{"description":"Blog post content in markdown format","type":"string"},"tags":{"description":"Tags
-      for the blog post","items":{"type":"string"},"type":"array"},"categories":{"description":"Categories
-      for the blog post","items":{"type":"string"},"type":"array"},"date":{"anyOf":[{"format":"date-time","type":"string"},{"type":"null"}],"default":null,"description":"Publication
-      date"}},"required":["title","markdown"],"type":"object"},"description":"Blog
-      post schema."}]}'
+    body: '{"max_tokens": 1024, "messages": [{"role": "user", "content": "\nYou are
+      tasked with creating content that transfers the style from reference\nmaterials
+      to target content.\n\n## Reference Style Information:\n### Reference Style 1:
+      Tech Educator Style\nDescription: Educational content that makes complex topics
+      accessible and engaging\nTone: educational and approachable\nFormality Level:
+      0.5 (0.0-1.0 scale)\nSentence Structure: clear and structured\nVocabulary Level:
+      moderate\nPersonality Traits: helpful, knowledgeable, encouraging\nWriting Patterns:\n  -
+      use_examples: True\n  - step_by_step: True\n  - include_code_snippets: True\n  -
+      use_analogies: True\n  - encourage_questions: True\n\n### Reference Style 2:
+      Social Media Tech Influencer\nDescription: Engaging social media content with
+      hooks and viral potential\nTone: casual and engaging\nFormality Level: 0.3 (0.0-1.0
+      scale)\nSentence Structure: short and punchy\nVocabulary Level: simple\nPersonality
+      Traits: enthusiastic, relatable, trendy\nWriting Patterns:\n  - use_emojis:
+      True\n  - hashtag_frequency: high\n  - question_style: engaging\n  - use_hooks:
+      True\n  - call_to_action: True\n\n\n## Target Content Information:\n### Target
+      Document 1\nTitle: REST API Design Best Practices: A Comprehensive Guide\nType:
+      Blog\nCategory: Technical\nAuthor: API Design Team\nDate: 2024-01-18 09:00:00+00:00\nMetadata:\n  -
+      word_count: 4500\n  - target_audience: developers\n  - difficulty: intermediate\n  -
+      topics: [''API design'', ''REST'', ''best practices'']\n  - sections: [''naming
+      conventions'', ''status codes'', ''versioning'', ''security'']\n\n### Target
+      Document 2\nTitle: 2024 API Adoption Survey: Developer Preferences and Pain
+      Points\nType: Blog\nCategory: Academic\nAuthor: Developer Research Institute\nDate:
+      2024-01-15 16:00:00+00:00\nMetadata:\n  - word_count: 2800\n  - target_audience:
+      researchers\n  - difficulty: advanced\n  - topics: [''API adoption'', ''developer
+      experience'', ''survey results'']\n  - sample_size: 2,500 developers\n  - key_findings:
+      [''naming consistency'', ''documentation quality'', ''error handling'']\n\n\n##
+      Intent and Focus:\n- Intent: Create educational content about API design best
+      practices across multiple platforms\n- Focus: Extract key concepts from technical
+      documentation and research, then adapt them for both social media engagement
+      and comprehensive educational content\n\n## Writing Style Guidance:\nCreate
+      comprehensive content with proper structure. Use markdown formatting and include
+      relevant details.\n\n## Instructions:\n1. Analyze the reference style characteristics
+      carefully\n2. Extract key information from the target content\n3. Create content
+      that matches the reference style while conveying the target\n   content''s message\n4.
+      Follow the writing style guidance above\n5. Return the content in the exact
+      format specified by the output schema\n6. Maintain the original intent and focus
+      while adapting to the new style\n\nPlease generate the content now:\n"}], "model":
+      "claude-3-haiku-20240307", "system": "You are an expert content creator specializing
+      in style transfer. Return the content in the exact format specified by the output
+      schema.", "temperature": 0.7, "tool_choice": {"type": "tool", "name": "BlogPost"},
+      "tools": [{"name": "BlogPost", "input_schema": {"properties": {"title": {"description":
+      "Blog post title", "type": "string"}, "subtitle": {"anyOf": [{"type": "string"},
+      {"type": "null"}], "default": null, "description": "Blog post subtitle"}, "markdown":
+      {"description": "Blog post content in markdown format", "type": "string"}, "tags":
+      {"description": "Tags for the blog post", "items": {"type": "string"}, "type":
+      "array"}, "categories": {"description": "Categories for the blog post", "items":
+      {"type": "string"}, "type": "array"}, "date": {"anyOf": [{"format": "date-time",
+      "type": "string"}, {"type": "null"}], "default": null, "description": "Publication
+      date"}}, "required": ["title", "markdown"], "type": "object"}, "description":
+      "Blog post schema."}]}'
     headers:
       accept:
       - application/json
@@ -193,13 +208,13 @@ interactions:
       connection:
       - keep-alive
       content-length:
-      - '3976'
+      - '3908'
       content-type:
       - application/json
       host:
       - api.anthropic.com
       user-agent:
-      - AsyncAnthropic/Python 0.55.0
+      - AsyncAnthropic/Python 0.56.0
       x-stainless-arch:
       - x64
       x-stainless-async:
@@ -209,7 +224,7 @@ interactions:
       x-stainless-os:
       - Linux
       x-stainless-package-version:
-      - 0.55.0
+      - 0.56.0
       x-stainless-retry-count:
       - '0'
       x-stainless-runtime:
@@ -221,57 +236,41 @@ interactions:
     method: POST
     uri: https://api.anthropic.com/v1/messages
   response:
-    content: "{\"id\":\"msg_01SJbrgFqWA4TPUb2ySeKz7U\",\"type\":\"message\",\"role\":\"assistant\",\"model\":\"claude-3-haiku-20240307\",\"content\":[{\"type\":\"tool_use\",\"id\":\"toolu_013noDvfZQ63u1LL7BDqRz1n\",\"name\":\"BlogPost\",\"input\":{\"title\":\"Designing
-      APIs That Developers Love: A Step-by-Step Guide\",\"subtitle\":\"Unlock the
-      secrets to building APIs that are intuitive, consistent, and secure\",\"author\":\"API
-      Design Guru\",\"date\":\"2024-01-18T09:00:00Z\",\"categories\":[\"API design\",\"REST\",\"best
-      practices\"],\"tags\":[\"API\",\"design\",\"developers\",\"best practices\"],\"markdown\":\"##
-      Designing APIs That Developers Love: A Step-by-Step Guide\\n\\nAs an API designer,
-      your goal is to create interfaces that developers will actually *want* to use.
-      After all, a well-designed API can make or break an application's success. \U0001F680\\n\\nIn
-      this comprehensive guide, we'll dive into the key principles of crafting APIs
-      that developers *love* to work with. From naming conventions to versioning strategies,
-      we'll cover all the essential best practices to elevate your API design game.\\n\\n###
-      \U0001F511 Naming Conventions: The Language of Your API\\n\\nOne of the most
-      fundamental aspects of API design is naming. Your naming conventions should
-      be *intuitive* and *consistent* across your entire API. \U0001F914\\n\\nHere
-      are some tips:\\n\\n- **Use Descriptive, Meaningful Names**: Your endpoints
-      and parameters should clearly communicate their purpose. Avoid cryptic abbreviations
-      or acronyms.\\n- **Follow Established Naming Standards**: Stick to common naming
-      patterns like `kebab-case` for endpoints and `camelCase` for parameters.\\n-
-      **Keep It Consistent**: Maintain a consistent naming style throughout your API.
-      This helps developers quickly understand your API's structure.\\n\\n### \U0001F4DF
-      Status Codes: Communicate Clearly with Developers\\n\\nProper use of HTTP status
-      codes is crucial for API usability. Developers need to understand *exactly*
-      what's happening when they interact with your API. \U0001F50D\\n\\nRemember
-      these guidelines:\\n\\n- **Use Standard Status Codes**: Leverage the well-defined
-      set of HTTP status codes like `200 OK`, `404 Not Found`, and `500 Internal Server
-      Error`.\\n- **Provide Detailed Error Messages**: Don't just return a generic
-      error code - include informative error messages that explain the issue.\\n-
-      **Handle Errors Gracefully**: Anticipate potential errors and provide clear,
-      actionable responses to help developers troubleshoot.\\n\\n### \U0001F50D Versioning:
-      Evolve Your API Safely\\n\\nAs your API matures, you'll need to make changes.
-      Versioning is key to managing these updates *without* breaking existing integrations.
-      \U0001F527\\n\\nHere's how to version your API effectively:\\n\\n- **Use Semantic
-      Versioning**: Adopt the widely-accepted `MAJOR.MINOR.PATCH` versioning scheme
-      to communicate the scope of your changes.\\n- **Deprecate Old Versions Gradually**:
-      When introducing a new version, keep the old version available for a reasonable
-      transition period.\\n- **Communicate Changes Clearly**: Provide detailed release
-      notes and migration guides to help developers understand what's changed.\\n\\n###
-      \U0001F512 Security: Protect Your API and Your Users\\n\\nSecurity is a critical
-      concern for any API. You need to ensure your API is *secure* and *trustworthy*
-      for both your users and your own systems. \U0001F6E1\uFE0F\\n\\nConsider these
-      security best practices:\\n\\n- **Implement Authentication and Authorization**:
-      Require developers to authenticate and authorize access to your API resources.\\n-
-      **Validate and Sanitize Inputs**: Thoroughly check all incoming data to prevent
-      common vulnerabilities like SQL injection and cross-site scripting (XSS).\\n-
-      **Encrypt Communication**: Use HTTPS to encrypt all communication between the
-      client and your API.\\n\\nBy following these best practices, you'll be well
-      on your way to designing APIs that developers *love* to use. \U0001F499 Happy
-      coding!\"}}],\"stop_reason\":\"tool_use\",\"stop_sequence\":null,\"usage\":{\"input_tokens\":1347,\"cache_creation_input_tokens\":0,\"cache_read_input_tokens\":0,\"output_tokens\":950,\"service_tier\":\"standard\"}}"
+    body:
+      string: !!binary |
+        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
     headers:
       CF-RAY:
-      - 954e08ae7f265c51-CWB
+      - 95fb61268de802df-CWB
       Connection:
       - keep-alive
       Content-Encoding:
@@ -279,7 +278,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 24 Jun 2025 17:44:42 GMT
+      - Tue, 15 Jul 2025 18:39:00 GMT
       Server:
       - cloudflare
       Transfer-Encoding:
@@ -291,35 +290,36 @@ interactions:
       anthropic-ratelimit-input-tokens-limit:
       - '50000'
       anthropic-ratelimit-input-tokens-remaining:
-      - '49000'
+      - '48000'
       anthropic-ratelimit-input-tokens-reset:
-      - '2025-06-24T17:44:37Z'
+      - '2025-07-15T18:38:57Z'
       anthropic-ratelimit-output-tokens-limit:
       - '10000'
       anthropic-ratelimit-output-tokens-remaining:
       - '9000'
       anthropic-ratelimit-output-tokens-reset:
-      - '2025-06-24T17:44:46Z'
+      - '2025-07-15T18:39:04Z'
       anthropic-ratelimit-requests-limit:
       - '50'
       anthropic-ratelimit-requests-remaining:
-      - '48'
+      - '49'
       anthropic-ratelimit-requests-reset:
-      - '2025-06-24T17:44:36Z'
+      - '2025-07-15T18:38:55Z'
       anthropic-ratelimit-tokens-limit:
       - '60000'
       anthropic-ratelimit-tokens-remaining:
-      - '58000'
+      - '57000'
       anthropic-ratelimit-tokens-reset:
-      - '2025-06-24T17:44:37Z'
+      - '2025-07-15T18:38:57Z'
       cf-cache-status:
       - DYNAMIC
       request-id:
-      - req_011CQTTjiC7JZ2TJYdHEJwvK
+      - req_011CR9HsG6vX7unWi6xnnWZm
       strict-transport-security:
       - max-age=31536000; includeSubDomains; preload
       via:
       - 1.1 google
-    http_version: HTTP/1.1
-    status_code: 200
+    status:
+      code: 200
+      message: OK
 version: 1

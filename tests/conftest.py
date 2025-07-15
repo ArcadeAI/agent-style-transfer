@@ -68,7 +68,9 @@ def vcr_cassette_dir() -> str:
     return "tests/cassettes"
 
 
-def load_fixture(fixture_name: str, model: type = None) -> dict | StyleTransferRequest | StyleTransferResponse:
+def load_fixture(
+    fixture_name: str, model: type = None
+) -> dict | StyleTransferRequest | StyleTransferResponse:
     """Load a fixture, returning raw JSON by default or model instance if specified."""
     with open(f"fixtures/{fixture_name}.json") as f:
         data = json.load(f)
@@ -81,7 +83,11 @@ def load_fixture(fixture_name: str, model: type = None) -> dict | StyleTransferR
         data = data["responses"][0]
 
     # Convert string output_schema to None for StyleTransferResponse
-    if model == StyleTransferResponse and "output_schema" in data and isinstance(data["output_schema"], str):
+    if (
+        model == StyleTransferResponse
+        and "output_schema" in data
+        and isinstance(data["output_schema"], str)
+    ):
         data["output_schema"] = None
 
     return model(**data)

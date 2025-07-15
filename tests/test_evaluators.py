@@ -2,7 +2,6 @@
 """Unit tests for evaluators using VCR for API call recording."""
 
 import pytest
-from pydantic import ValidationError
 
 from agent_style_transfer.evals import (
     evaluate_all,
@@ -17,6 +16,7 @@ from agent_style_transfer.schemas import (
     StyleTransferResponse,
 )
 from tests.conftest import load_fixture
+
 
 @pytest.mark.vcr
 def test_style_fidelity_evaluation():
@@ -33,6 +33,7 @@ def test_style_fidelity_evaluation():
     assert isinstance(result["comment"], str)
     assert len(result["comment"]) > 0
 
+
 @pytest.mark.vcr
 def test_content_preservation_evaluation():
     request = load_fixture("tweet-request", model=StyleTransferRequest)
@@ -44,6 +45,7 @@ def test_content_preservation_evaluation():
     assert isinstance(result["score"], int | float)
     assert 0 <= result["score"] <= 5
     assert isinstance(result["comment"], str)
+
 
 @pytest.mark.vcr
 def test_quality_evaluation():
@@ -57,6 +59,7 @@ def test_quality_evaluation():
     assert 1 <= result["score"] <= 5
     assert isinstance(result["comment"], str)
     assert len(result["comment"]) > 0
+
 
 @pytest.mark.vcr
 def test_platform_appropriateness_evaluation():
@@ -72,6 +75,7 @@ def test_platform_appropriateness_evaluation():
     assert 1 <= result["score"] <= 5
     assert isinstance(result["comment"], str)
     assert len(result["comment"]) > 0
+
 
 @pytest.mark.vcr
 def test_evaluate_all():
@@ -96,6 +100,7 @@ def test_evaluate_all():
         assert "comment" in result
         assert isinstance(result["score"], int | float)
         assert isinstance(result["comment"], str)
+
 
 @pytest.mark.vcr
 def test_evaluate_batch():
@@ -122,16 +127,19 @@ def test_evaluate_batch():
         }
         assert evaluation_keys == expected_keys
 
+
 @pytest.mark.vcr
 def test_linkedin_post_evaluation():
     request = load_fixture("linkedin-request", model=StyleTransferRequest)
     response = load_fixture("linkedin-response", model=StyleTransferResponse)
     response.output_schema = request.target_schemas[0]
     results = evaluate_all(request, response, "anthropic", "claude-3-haiku-20240307")
-    assert len(results) == 4
+    # LinkedIn request has reference documents, so we get 6 evaluations (4 original + 2 style inference)
+    assert len(results) == 6
     for result in results:
         assert isinstance(result["score"], int | float)
         assert result["score"] >= 0
+
 
 @pytest.mark.vcr
 def test_multi_platform_evaluation():
@@ -143,6 +151,7 @@ def test_multi_platform_evaluation():
     for result in results:
         assert isinstance(result["score"], int | float)
         assert result["score"] >= 0
+
 
 @pytest.mark.vcr
 def test_evaluation_without_api_calls():

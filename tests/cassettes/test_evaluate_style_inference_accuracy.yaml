@@ -1,0 +1,611 @@
+interactions:
+- request:
+    body: '{"max_tokens": 1024, "messages": [{"role": "user", "content": "\n    Analyze
+      these documents and extract 3-5 specific writing style rules.\n\n    Documents:\n    Title:
+      JavaScript Framework Tweet\nContent: \ud83d\ude80 Just discovered a game-changing
+      JS framework that''s 50% faster than anything out there!\n\n\ud83d\udd25 What
+      makes it special:\n\u2022 Lightning-fast performance\n\u2022 Zero configuration
+      needed\n\u2022 Works with any existing project\n\nHave you tried it yet? Drop
+      your thoughts below! \ud83d\udc47\n\n#JavaScript #WebDev #Performance...\n\nTitle:
+      AI Tool Tweet\nContent: \ud83d\udca1 This AI coding assistant is a total game-changer
+      for developers!\n\n\u2705 What you get:\n\u2022 Real-time code suggestions\n\u2022
+      Bug detection before you run\n\u2022 30% faster development time\n\nSeriously,
+      why aren''t you using this yet? \ud83e\udd14\n\n#AI #Coding #DeveloperTools...\n\nTitle:
+      Database Optimization Tweet\nContent: \u26a1 Database performance got you down?
+      Here are the secrets the pros use:\n\n\ud83c\udfaf Key techniques:\n\u2022 Index
+      optimization (saves 60% query time)\n\u2022 Query caching (instant results)\n\u2022
+      Connection pooling (handles 10x more users)\n\nWhich technique are you most
+      excited to try? \ud83d\udcaa\n\n#Database #Performance #Optimization...\n\n\n    Identify
+      the key writing style characteristics and create clear, actionable rules.\n    Focus
+      on tone, structure, vocabulary, and writing patterns.\n\n    Format your response
+      as a simple list, one rule per line:\n    - [Rule 1]\n    - [Rule 2]\n    -
+      [Rule 3]\n    "}], "model": "claude-3-haiku-20240307", "temperature": 0.3}'
+    headers:
+      accept:
+      - application/json
+      accept-encoding:
+      - gzip, deflate, zstd
+      anthropic-version:
+      - '2023-06-01'
+      connection:
+      - keep-alive
+      content-length:
+      - '1534'
+      content-type:
+      - application/json
+      host:
+      - api.anthropic.com
+      user-agent:
+      - Anthropic/Python 0.56.0
+      x-stainless-arch:
+      - x64
+      x-stainless-async:
+      - 'false'
+      x-stainless-lang:
+      - python
+      x-stainless-os:
+      - Linux
+      x-stainless-package-version:
+      - 0.56.0
+      x-stainless-retry-count:
+      - '0'
+      x-stainless-runtime:
+      - CPython
+      x-stainless-runtime-version:
+      - 3.12.3
+      x-stainless-timeout:
+      - NOT_GIVEN
+    method: POST
+    uri: https://api.anthropic.com/v1/messages
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAwAAAP//ZFFdaxRBEPwrTT/vhTNncriPgYAQEVTyIEaWuZm63fFme9bpnpj18L/L
+        rgYiPjV0VdcHfeYYuOVR+2776s23z3e3l+8/fezv5PrnO9x8uAqne27Y5gkLC6quBzdccloWTjWq
+        OTFueMwBiVv2ydWAzW4zuHiqm8vt5evtbrvnhn0Wgxi3X87Pioan5XYdLd84RaAsZANoKvkxBgQK
+        2dcRYtrQgAJyBbQjneDjMXr6UaJF6UltTqBSE7R9kAfZ0L2CfBYfFQ1NVfwwU3LSV9eDLC/YI2bC
+        k4+GxYGcBILYUDU6HckdcrU1jOUp+otF9HacUp7J/bku6ixmcamhY4mQkGayLCAbnFGIBd7STJDe
+        9dBVqsAFlFXrbeyHFPvB6ISZjnBWC5RyoQMEx2hKVZduh5oSjKYcxXSJProTKMoxl3ENQHC6OJN6
+        J2uNEHuoXfCvrw2r5akrcJqFW4aEzmoR/gsovleIB7dSU2q4rj9uzxxlqtZZPkGU2931vmHv/IDO
+        F6yu3b+M7TO+VPwfy9VebvZXDetvpRaVZSanxpdkphYpWSmBklJKYlGKUm0tAAAA//8DAA2oeOGY
+        AgAA
+    headers:
+      CF-RAY:
+      - 95fb6362389a02df-CWB
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 15 Jul 2025 18:40:27 GMT
+      Server:
+      - cloudflare
+      Transfer-Encoding:
+      - chunked
+      X-Robots-Tag:
+      - none
+      anthropic-organization-id:
+      - f0936bfa-450b-40f8-99a7-bb701a404061
+      anthropic-ratelimit-input-tokens-limit:
+      - '50000'
+      anthropic-ratelimit-input-tokens-remaining:
+      - '50000'
+      anthropic-ratelimit-input-tokens-reset:
+      - '2025-07-15T18:40:27Z'
+      anthropic-ratelimit-output-tokens-limit:
+      - '10000'
+      anthropic-ratelimit-output-tokens-remaining:
+      - '10000'
+      anthropic-ratelimit-output-tokens-reset:
+      - '2025-07-15T18:40:27Z'
+      anthropic-ratelimit-requests-limit:
+      - '50'
+      anthropic-ratelimit-requests-remaining:
+      - '49'
+      anthropic-ratelimit-requests-reset:
+      - '2025-07-15T18:40:27Z'
+      anthropic-ratelimit-tokens-limit:
+      - '60000'
+      anthropic-ratelimit-tokens-remaining:
+      - '60000'
+      anthropic-ratelimit-tokens-reset:
+      - '2025-07-15T18:40:27Z'
+      cf-cache-status:
+      - DYNAMIC
+      request-id:
+      - req_011CR9Hz1BvqkeDXAQsSgdQd
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains; preload
+      via:
+      - 1.1 google
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"max_tokens": 1024, "messages": [{"role": "user", "content": "\n            Analyze
+      this document and create a few-shot example that demonstrates its writing style.\n\n            Document
+      Title: JavaScript Framework Tweet\nDocument Content: \ud83d\ude80 Just discovered
+      a game-changing JS framework that''s 50% faster than anything out there!\n\n\ud83d\udd25
+      What makes it special:\n\u2022 Lightning-fast performance\n\u2022 Zero configuration
+      needed\n\u2022 Works with any existing project\n\nHave you tried it yet? Drop
+      your thoughts below! \ud83d\udc47\n\n#JavaScript #WebDev #Performance...\n\n\n            Create
+      a simple input-output pair that shows how to write in this style.\n            The
+      input should be a generic topic, and the output should demonstrate the same
+      writing style.\n\n            Format your response as:\n            Input: [generic
+      topic]\n            Output: [content in the same style]\n\n            Keep
+      the output concise (100-200 words) and focus on capturing the writing style.\n            "}],
+      "model": "claude-3-haiku-20240307", "temperature": 0.3}'
+    headers:
+      accept:
+      - application/json
+      accept-encoding:
+      - gzip, deflate, zstd
+      anthropic-version:
+      - '2023-06-01'
+      connection:
+      - keep-alive
+      content-length:
+      - '1046'
+      content-type:
+      - application/json
+      host:
+      - api.anthropic.com
+      user-agent:
+      - Anthropic/Python 0.56.0
+      x-stainless-arch:
+      - x64
+      x-stainless-async:
+      - 'false'
+      x-stainless-lang:
+      - python
+      x-stainless-os:
+      - Linux
+      x-stainless-package-version:
+      - 0.56.0
+      x-stainless-retry-count:
+      - '0'
+      x-stainless-runtime:
+      - CPython
+      x-stainless-runtime-version:
+      - 3.12.3
+      x-stainless-timeout:
+      - NOT_GIVEN
+    method: POST
+    uri: https://api.anthropic.com/v1/messages
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA2SRwWobMRRFf+XleTuGie1QOpsSaCAplLpkkUBdhmfN84wYjaRIT3YHU8iu60JX
+        2QQK/bF+gT+hzLgJDV0J7rlXXOnuUVdYYBfrMj+9TdsFq7OP3i3D8qw/vbs9V5fvMUPpPQ8ujpFq
+        xgyDM4NAMeooZAUz7FzFBgtUhlLF0/m0Id2m6SyfLfJ5/gozVM4KW8Hi0/7pRuEvQ3Y8CryyPkkB
+        y+CqpERvtfRw7v3KfkgyksPjwz28S1Gg0lG5LQeugKDTtpqujdtpW4P/N03egzQksNPGgGrI1gzS
+        MOyoh94l2LnQnqzsyh4ef/yCm8HaUcsRtED0rDSZYmV/3/+Ei83GBTEcIwjFFjqyVHPHVo78mqkb
+        qXLG0NoFEu0sbJgkBY5H05UVNkbXbAUoieuOJnEQactjI9EdD4Uun4WguRr69Cxv4G1wfpADSONS
+        3UiENRu3O4HD4/dvQ3Dy4v8mF5uNVpqt6mFy40J73VEQDvj1c4ZRnC8DU3QWC2RblZKCxb8g8l1i
+        qxgLm4zJMI3jF3vUw06luJZtxGKWLzJUpBouVeDxQeVLR/7EA1P1P3Pjus/K63mGkcNWK/6j+JLM
+        1CIlKyVQGktJLEpRqq0FAAAA//8DANv1GUOxAgAA
+    headers:
+      CF-RAY:
+      - 95fb636c1db802df-CWB
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 15 Jul 2025 18:40:29 GMT
+      Server:
+      - cloudflare
+      Transfer-Encoding:
+      - chunked
+      X-Robots-Tag:
+      - none
+      anthropic-organization-id:
+      - f0936bfa-450b-40f8-99a7-bb701a404061
+      anthropic-ratelimit-input-tokens-limit:
+      - '50000'
+      anthropic-ratelimit-input-tokens-remaining:
+      - '50000'
+      anthropic-ratelimit-input-tokens-reset:
+      - '2025-07-15T18:40:28Z'
+      anthropic-ratelimit-output-tokens-limit:
+      - '10000'
+      anthropic-ratelimit-output-tokens-remaining:
+      - '10000'
+      anthropic-ratelimit-output-tokens-reset:
+      - '2025-07-15T18:40:29Z'
+      anthropic-ratelimit-requests-limit:
+      - '50'
+      anthropic-ratelimit-requests-remaining:
+      - '49'
+      anthropic-ratelimit-requests-reset:
+      - '2025-07-15T18:40:29Z'
+      anthropic-ratelimit-tokens-limit:
+      - '60000'
+      anthropic-ratelimit-tokens-remaining:
+      - '60000'
+      anthropic-ratelimit-tokens-reset:
+      - '2025-07-15T18:40:28Z'
+      cf-cache-status:
+      - DYNAMIC
+      request-id:
+      - req_011CR9Hz7vViFbNfnwu2wecS
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains; preload
+      via:
+      - 1.1 google
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"max_tokens": 1024, "messages": [{"role": "user", "content": "\n            Analyze
+      this document and create a few-shot example that demonstrates its writing style.\n\n            Document
+      Title: AI Tool Tweet\nDocument Content: \ud83d\udca1 This AI coding assistant
+      is a total game-changer for developers!\n\n\u2705 What you get:\n\u2022 Real-time
+      code suggestions\n\u2022 Bug detection before you run\n\u2022 30% faster development
+      time\n\nSeriously, why aren''t you using this yet? \ud83e\udd14\n\n#AI #Coding
+      #DeveloperTools...\n\n\n            Create a simple input-output pair that shows
+      how to write in this style.\n            The input should be a generic topic,
+      and the output should demonstrate the same writing style.\n\n            Format
+      your response as:\n            Input: [generic topic]\n            Output: [content
+      in the same style]\n\n            Keep the output concise (100-200 words) and
+      focus on capturing the writing style.\n            "}], "model": "claude-3-haiku-20240307",
+      "temperature": 0.3}'
+    headers:
+      accept:
+      - application/json
+      accept-encoding:
+      - gzip, deflate, zstd
+      anthropic-version:
+      - '2023-06-01'
+      connection:
+      - keep-alive
+      content-length:
+      - '987'
+      content-type:
+      - application/json
+      host:
+      - api.anthropic.com
+      user-agent:
+      - Anthropic/Python 0.56.0
+      x-stainless-arch:
+      - x64
+      x-stainless-async:
+      - 'false'
+      x-stainless-lang:
+      - python
+      x-stainless-os:
+      - Linux
+      x-stainless-package-version:
+      - 0.56.0
+      x-stainless-retry-count:
+      - '0'
+      x-stainless-runtime:
+      - CPython
+      x-stainless-runtime-version:
+      - 3.12.3
+      x-stainless-timeout:
+      - NOT_GIVEN
+    method: POST
+    uri: https://api.anthropic.com/v1/messages
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAwAAAP//ZJLPahRBEMZfpaxFvMzCuGsMzkVyM+D6hyzk4MpQzlRm2u2pnnRVr45L
+        IJe8gScRAuKT5QnyCDK7Jhg8FdTv+6q6q2qLrsYCO23K/Oni+bktKH2bN59P37yW2XJ5eDB/jxna
+        0POoYlVqGDOMwY8JUnVqJIYZdqFmjwVWnlLN0/m0JbdO01k+e5bP80PMsApiLIbFh+1dReOvo3cX
+        CjyWPlkB72KoU2Vu42yAo75fydtkO3J7/eMSlq1T6P/VUN+DUyCwYOShoY6nVUvScISzEOFT0mF0
+        nLGqC0JeH61kJTc/r+C0JYMhJGjYipXcXP6CE6bOsyoY6Ro6Emq4Y7E9PRZj713DYqBVy3XyTpo9
+        mx08hi5EBnMdg5OxcISahrHbCUcXkvohgy/tABRZnuxbJ3XSgI3fGthewu317++jY/JgEJOl63hx
+        /xqYLJLaK9rwUd/jxccM1UJfRiYNggWy1KWlKPgXKJ8nloqxkOR9hmm3yWKLbhx6aWHNoljM8nmG
+        FVUtl1VkMhekfKjI73hkqv9nYbeq+8yLPEPluHEVl+Y4YoHjwdQUa7y4+AMAAP//AwAKKipkfgIA
+        AA==
+    headers:
+      CF-RAY:
+      - 95fb6377ca8f02df-CWB
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 15 Jul 2025 18:40:30 GMT
+      Server:
+      - cloudflare
+      Transfer-Encoding:
+      - chunked
+      X-Robots-Tag:
+      - none
+      anthropic-organization-id:
+      - f0936bfa-450b-40f8-99a7-bb701a404061
+      anthropic-ratelimit-input-tokens-limit:
+      - '50000'
+      anthropic-ratelimit-input-tokens-remaining:
+      - '50000'
+      anthropic-ratelimit-input-tokens-reset:
+      - '2025-07-15T18:40:29Z'
+      anthropic-ratelimit-output-tokens-limit:
+      - '10000'
+      anthropic-ratelimit-output-tokens-remaining:
+      - '10000'
+      anthropic-ratelimit-output-tokens-reset:
+      - '2025-07-15T18:40:30Z'
+      anthropic-ratelimit-requests-limit:
+      - '50'
+      anthropic-ratelimit-requests-remaining:
+      - '49'
+      anthropic-ratelimit-requests-reset:
+      - '2025-07-15T18:40:30Z'
+      anthropic-ratelimit-tokens-limit:
+      - '60000'
+      anthropic-ratelimit-tokens-remaining:
+      - '60000'
+      anthropic-ratelimit-tokens-reset:
+      - '2025-07-15T18:40:29Z'
+      cf-cache-status:
+      - DYNAMIC
+      request-id:
+      - req_011CR9HzFwT357EgNtPA9cwp
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains; preload
+      via:
+      - 1.1 google
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"max_tokens": 1024, "messages": [{"role": "user", "content": "\n            Analyze
+      this document and create a few-shot example that demonstrates its writing style.\n\n            Document
+      Title: Database Optimization Tweet\nDocument Content: \u26a1 Database performance
+      got you down? Here are the secrets the pros use:\n\n\ud83c\udfaf Key techniques:\n\u2022
+      Index optimization (saves 60% query time)\n\u2022 Query caching (instant results)\n\u2022
+      Connection pooling (handles 10x more users)\n\nWhich technique are you most
+      excited to try? \ud83d\udcaa\n\n#Database #Performance #Optimization...\n\n\n            Create
+      a simple input-output pair that shows how to write in this style.\n            The
+      input should be a generic topic, and the output should demonstrate the same
+      writing style.\n\n            Format your response as:\n            Input: [generic
+      topic]\n            Output: [content in the same style]\n\n            Keep
+      the output concise (100-200 words) and focus on capturing the writing style.\n            "}],
+      "model": "claude-3-haiku-20240307", "temperature": 0.3}'
+    headers:
+      accept:
+      - application/json
+      accept-encoding:
+      - gzip, deflate, zstd
+      anthropic-version:
+      - '2023-06-01'
+      connection:
+      - keep-alive
+      content-length:
+      - '1054'
+      content-type:
+      - application/json
+      host:
+      - api.anthropic.com
+      user-agent:
+      - Anthropic/Python 0.56.0
+      x-stainless-arch:
+      - x64
+      x-stainless-async:
+      - 'false'
+      x-stainless-lang:
+      - python
+      x-stainless-os:
+      - Linux
+      x-stainless-package-version:
+      - 0.56.0
+      x-stainless-retry-count:
+      - '0'
+      x-stainless-runtime:
+      - CPython
+      x-stainless-runtime-version:
+      - 3.12.3
+      x-stainless-timeout:
+      - NOT_GIVEN
+    method: POST
+    uri: https://api.anthropic.com/v1/messages
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAwAAAP//ZJHPihNBEMZfpaxcsjCBmaygzGUR/y6ymMVFD0aGTncl02Sma9JdvZtJ
+        WNgn8ODRS8CjF9/JJ8gjSMeNuHgq+L5ff1X0t0VrsMQ2LKq8mFB9ebF5dvN+8mFlLq9aX2xMuMEM
+        pe8oURSCWhBm6LlJggrBBlFOMMOWDTVYom5UNDQ6HdXKLuNonI8f56f5E8xQsxNyguWn7TFRaJ3e
+        HkaJ566LUsLEs4la7LWVHt4ovQxTN3Xvohzc/e7bHbwiaqxbQHTdEaYzeF6TXgJHAakpEHSer8lB
+        929enfKSn+QAMVCZ0ve7Lz/hLfUgpGtnV5FCOXW/7r7DlW0JZg3rZVo49KQbZVsYQ83RB+jIg1H9
+        o5M/9Lmb8Ro25BmG5AxQq2wDyq0tSQ9z9rBgNvfwhFs27BlakpoNDGfMQWDOOgYo8vVJuuxjbXV9
+        OBuUJ+g5QpsoWmsrZEAYxPdnsN99/ZH4wYPvG7ycz6225HQPg9ckF+zpBTvC288ZBuGu8qQCOyyR
+        nKkkeof3RqBVJKcJSxebJsN46L7cok01VcJLcgHLcVFkqJWuqdKelFh21UMiP/qelPnf40Oxf5Ui
+        f5phIP9bZZnJqfElmalFSlZKoDSWkliUolRbCwAAAP//AwBpM6wLsQIAAA==
+    headers:
+      CF-RAY:
+      - 95fb63809c8002df-CWB
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 15 Jul 2025 18:40:32 GMT
+      Server:
+      - cloudflare
+      Transfer-Encoding:
+      - chunked
+      X-Robots-Tag:
+      - none
+      anthropic-organization-id:
+      - f0936bfa-450b-40f8-99a7-bb701a404061
+      anthropic-ratelimit-input-tokens-limit:
+      - '50000'
+      anthropic-ratelimit-input-tokens-remaining:
+      - '50000'
+      anthropic-ratelimit-input-tokens-reset:
+      - '2025-07-15T18:40:31Z'
+      anthropic-ratelimit-output-tokens-limit:
+      - '10000'
+      anthropic-ratelimit-output-tokens-remaining:
+      - '10000'
+      anthropic-ratelimit-output-tokens-reset:
+      - '2025-07-15T18:40:32Z'
+      anthropic-ratelimit-requests-limit:
+      - '50'
+      anthropic-ratelimit-requests-remaining:
+      - '49'
+      anthropic-ratelimit-requests-reset:
+      - '2025-07-15T18:40:32Z'
+      anthropic-ratelimit-tokens-limit:
+      - '60000'
+      anthropic-ratelimit-tokens-remaining:
+      - '60000'
+      anthropic-ratelimit-tokens-reset:
+      - '2025-07-15T18:40:31Z'
+      cf-cache-status:
+      - DYNAMIC
+      request-id:
+      - req_011CR9HzMusA6Np9BPFes7uA
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains; preload
+      via:
+      - 1.1 google
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"max_tokens": 1024, "messages": [{"role": "user", "content": "\nRate the
+      accuracy of the inferred style rules and examples (1-5 scale):\n\nReference
+      Documents: {reference_documents}\nInferred Style Rules: {inferred_rules}\nInferred
+      Examples: {inferred_examples}\n\nConsider:\n1. How well the rules capture the
+      actual writing patterns\n2. Whether the examples demonstrate the style effectively\n3.
+      If the inferences are specific and actionable\n4. Overall accuracy of style
+      characterization\n\nScore 1-5 where 1=completely inaccurate, 5=highly accurate.\n\n\nOutput:
+      Reference Documents: Title: JavaScript Framework Tweet\nContent: \ud83d\ude80
+      Just discovered a game-changing JS framework that''s 50% faster than anything
+      out there!\n\n\ud83d\udd25 What makes it special:\n\u2022 Lightning-fast performance\n\u2022
+      Zero configuration needed\n\u2022 Works with any existing p...\n\nTitle: AI
+      Tool Tweet\nContent: \ud83d\udca1 This AI coding assistant is a total game-changer
+      for developers!\n\n\u2705 What you get:\n\u2022 Real-time code suggestions\n\u2022
+      Bug detection before you run\n\u2022 30% faster development time\n\nSeriously,
+      why aren''t you...\n\nTitle: Database Optimization Tweet\nContent: \u26a1 Database
+      performance got you down? Here are the secrets the pros use:\n\n\ud83c\udfaf
+      Key techniques:\n\u2022 Index optimization (saves 60% query time)\n\u2022 Query
+      caching (instant results)\n\u2022 Connection pooling (handles 1...\nInferred
+      Rules: - Use concise, punchy language to convey excitement and enthusiasm about
+      the topic.\n- Employ a conversational, friendly tone that directly engages the
+      reader.\n- Highlight key features or benefits using bullet points to make information
+      easy to scan and digest.\nInferred Examples: Input: Productivity App\nOutput:
+      \ud83d\ude80 Just discovered a mind-blowing productivity app that will change
+      the way you work!\n\nInput: Productivity App\nOutput: \ud83d\ude80 This productivity
+      app is a total game-changer for busy professionals!\n\nInput: Productivity Hacks\nOutput:
+      \ud83d\ude80 Feeling unproductive? Check out these proven productivity hacks
+      the pros use:"}], "model": "claude-3-haiku-20240307", "temperature": 0.1}'
+    headers:
+      accept:
+      - application/json
+      accept-encoding:
+      - gzip, deflate, zstd
+      anthropic-version:
+      - '2023-06-01'
+      connection:
+      - keep-alive
+      content-length:
+      - '2079'
+      content-type:
+      - application/json
+      host:
+      - api.anthropic.com
+      user-agent:
+      - Anthropic/Python 0.56.0
+      x-stainless-arch:
+      - x64
+      x-stainless-async:
+      - 'false'
+      x-stainless-lang:
+      - python
+      x-stainless-os:
+      - Linux
+      x-stainless-package-version:
+      - 0.56.0
+      x-stainless-retry-count:
+      - '0'
+      x-stainless-runtime:
+      - CPython
+      x-stainless-runtime-version:
+      - 3.12.3
+      x-stainless-timeout:
+      - NOT_GIVEN
+    method: POST
+    uri: https://api.anthropic.com/v1/messages
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAwAAAP//dJRBj9w2DIX/CqGzN5kkG2zjW4MURYEgp6CHNsWAIz3bwsqUI1IzmSz2
+        vxeyZxabFjkZJp+oj4+EHlwMrnezjvvdq99+/xx+HflT/OA5vv/41+2f7/KHj65zdl7QVFDlEa5z
+        JacWYNWoxmKuc3MOSK53PnENuHlzM3G8rzevd69vd292d65zPotBzPV/P1wrGr61s+und+9ZESgL
+        2QQqGFAgHhSyrzPElFjCmosyoBQEUjsnUKkJWxLfeF7az1LyMQaEjv6gU64pUGHDepi9r4X9mViJ
+        6ZZyNcoDvX3xRb7I559V97xYLVuFe5wJCRtTHtbYqUSLMtLCZiii9LVGA52QEt2siqpoYp/FR0VH
+        EJuqRlaLnhLLWHlEt0p9liOKssUsnMiyoHtqforjlOI4rdflYaUZwI1OXx4gGKIpRaFDTQlGS45i
+        +oJaa0/+cNJMAXMWtaszikvHT71hGOAtHpHOP7rT5qKkwEy6wMch+pWP/Yp8SOguI2iQTD6BCylk
+        82DKJ7JMmGu6TuXq30qwweYjCqdEfuLC3lDi99WRq+UbbIPQzZTzZbaG7jKvVrFJISgjLPoVa87P
+        jG1zCY1Gp3zyrCDBqalC9W28hSznpE/9Z0lnWnLb5MiJuIBpyIXi3BpejSO/btwBNPP9FeGZbzhC
+        aM4FNBaWmri0a6Sy+Laxh2rbFtRSWjXFuqA/33JiUitZRhpylbCZ1JgKlhQ925XBuLnwH6/d4z+d
+        U8vLvoA1i+sdJOytFnGXhOJrbeiul5pS5+r6DPQPLspSbW/5HqKuv/3lXec8+wl7X7Bi7H9U7K75
+        Ag7/z+VqzyOv7u46pyjH6LG3iOJ6156bwCW4x8d/AQAA//8DAB3ryri8BAAA
+    headers:
+      CF-RAY:
+      - 95fb638c185a02df-CWB
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 15 Jul 2025 18:40:35 GMT
+      Server:
+      - cloudflare
+      Transfer-Encoding:
+      - chunked
+      X-Robots-Tag:
+      - none
+      anthropic-organization-id:
+      - f0936bfa-450b-40f8-99a7-bb701a404061
+      anthropic-ratelimit-input-tokens-limit:
+      - '50000'
+      anthropic-ratelimit-input-tokens-remaining:
+      - '50000'
+      anthropic-ratelimit-input-tokens-reset:
+      - '2025-07-15T18:40:33Z'
+      anthropic-ratelimit-output-tokens-limit:
+      - '10000'
+      anthropic-ratelimit-output-tokens-remaining:
+      - '10000'
+      anthropic-ratelimit-output-tokens-reset:
+      - '2025-07-15T18:40:36Z'
+      anthropic-ratelimit-requests-limit:
+      - '50'
+      anthropic-ratelimit-requests-remaining:
+      - '49'
+      anthropic-ratelimit-requests-reset:
+      - '2025-07-15T18:40:34Z'
+      anthropic-ratelimit-tokens-limit:
+      - '60000'
+      anthropic-ratelimit-tokens-remaining:
+      - '60000'
+      anthropic-ratelimit-tokens-reset:
+      - '2025-07-15T18:40:33Z'
+      cf-cache-status:
+      - DYNAMIC
+      request-id:
+      - req_011CR9HzVo8m9rxTMChXmXhn
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains; preload
+      via:
+      - 1.1 google
+    status:
+      code: 200
+      message: OK
+version: 1

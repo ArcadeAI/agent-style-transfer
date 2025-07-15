@@ -44,6 +44,7 @@ async def transfer_style(
             request.intent,
             request.focus,
             request.target_content,
+            llm_provider,
         )
         tasks.append(task)
 
@@ -53,7 +54,7 @@ async def transfer_style(
 
 
 async def process_target_schema(
-    llm, output_schema, reference_style, intent, focus, target_content
+    llm, output_schema, reference_style, intent, focus, target_content, llm_provider
 ) -> StyleTransferResponse:
     """Process a single schema asynchronously."""
 
@@ -62,7 +63,7 @@ async def process_target_schema(
     structured_llm = llm.with_structured_output(schema_class, method="function_calling")
 
     prompt = build_generation_prompt(
-        output_schema, reference_style, intent, focus, target_content
+        output_schema, reference_style, intent, focus, target_content, llm_provider
     )
 
     system_message = (
