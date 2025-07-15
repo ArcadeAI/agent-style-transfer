@@ -56,12 +56,27 @@ def infer_style_rules(
     )
 
     response = llm.invoke(prompt)
-    content = response.content
 
-    # Handle different response formats (string vs list)
+    # Handle different response types
+    if isinstance(response, dict):
+        # If response is a dict, extract content from common keys
+        content = response.get("content", response.get("text", str(response)))
+    elif hasattr(response, "content"):
+        content = response.content
+    else:
+        content = str(response)
+
+    # Ensure content is always a string
     if isinstance(content, list):
         content = content[0] if content else ""
+    elif isinstance(content, dict):
+        # Extract text from common response dict keys
+        content = content.get("text", content.get("content", str(content)))
     elif not isinstance(content, str):
+        content = str(content)
+
+    # Final safety check - ensure we have a string
+    if not isinstance(content, str):
         content = str(content)
 
     # Parse the response to extract rules
@@ -123,12 +138,27 @@ def infer_few_shot_examples(
             )
 
             response = llm.invoke(prompt)
-            content = response.content
 
-            # Handle different response formats (string vs list)
+            # Handle different response types
+            if isinstance(response, dict):
+                # If response is a dict, extract content from common keys
+                content = response.get("content", response.get("text", str(response)))
+            elif hasattr(response, "content"):
+                content = response.content
+            else:
+                content = str(response)
+
+            # Ensure content is always a string
             if isinstance(content, list):
                 content = content[0] if content else ""
+            elif isinstance(content, dict):
+                # Extract text from common response dict keys
+                content = content.get("text", content.get("content", str(content)))
             elif not isinstance(content, str):
+                content = str(content)
+
+            # Final safety check - ensure we have a string
+            if not isinstance(content, str):
                 content = str(content)
 
             # Parse the response to extract input and output
